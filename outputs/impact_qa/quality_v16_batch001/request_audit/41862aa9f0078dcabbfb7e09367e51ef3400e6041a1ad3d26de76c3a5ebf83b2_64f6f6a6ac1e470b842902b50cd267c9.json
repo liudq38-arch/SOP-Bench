@@ -1,0 +1,368 @@
+{
+  "request_key": "41862aa9f0078dcabbfb7e09367e51ef3400e6041a1ad3d26de76c3a5ebf83b2",
+  "started_utc": "2026-09-19T14:25:49.239840+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question_proposition": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+      "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "canonical_answer": "No, I started inserting the bearing plate assembly before attaching the adapter plate.",
+      "options": [
+        "Inserting the bearing plate assembly.",
+        "Both started at the same time.",
+        "Attaching the adapter plate."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "first_action": "insert_bearing_plate_assembly",
+        "second_action": "attach_adapter_plate",
+        "first_onsets": [
+          3030,
+          4523
+        ],
+        "scope": "first observed starts within the clip, not completion or mandatory ordering"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 18,
+            "label": "insert_bearing_plate_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 3030,
+            "f_end": 3179
+          },
+          "pointer": "/segments/18"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 23,
+            "label": "attach_adapter_plate",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 4523,
+            "f_end": 4612
+          },
+          "pointer": "/segments/23"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_3030",
+        "frame_3256",
+        "frame_3482",
+        "frame_3708",
+        "frame_3934",
+        "frame_4160",
+        "frame_4386",
+        "frame_4612"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_3030",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/426be3e37479f2c617e818b3.jpg",
+        "requested_time_s": 101.0,
+        "frame_index": 3030,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "fa0a91fddce305089da81595f8ad851d0563ca6ebbe4f67998893ffe9b9e2d3d"
+      },
+      {
+        "evidence_id": "frame_3256",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c1312d02aedac2dc1da646b6.jpg",
+        "requested_time_s": 108.53333333333333,
+        "frame_index": 3256,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "8e274f5330cd8458554c2c428b47cf55cda30fa8a8a601d57287994d4565b65f"
+      },
+      {
+        "evidence_id": "frame_3482",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa6c809681116f6bd7ec3d18.jpg",
+        "requested_time_s": 116.06666666666666,
+        "frame_index": 3482,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "d7a725113b9c949d73e444669777e9c85f06c03f04585d53a24ed6aef5be5e1b"
+      },
+      {
+        "evidence_id": "frame_3708",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ffe99c442895b7bbeeff1370.jpg",
+        "requested_time_s": 123.6,
+        "frame_index": 3708,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "cf254ca774ff90383a36ddb2b962712f9116c94818f5dc9a9770c5a8e7f73ce9"
+      },
+      {
+        "evidence_id": "frame_3934",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/d304ec8524dbd0b001c50c37.jpg",
+        "requested_time_s": 131.13333333333333,
+        "frame_index": 3934,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "38da31b7d6fd70a19883eca90ca3b8e8555470b13baddac597af6e3dd3e6fa96"
+      },
+      {
+        "evidence_id": "frame_4160",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c8c0c2a46749874d14f8c795.jpg",
+        "requested_time_s": 138.66666666666666,
+        "frame_index": 4160,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "2c764ca75b34de3347f4a711bd1fcc2914e531dfd189c24669b8aee619275d9b"
+      },
+      {
+        "evidence_id": "frame_4386",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f5380b4202d172718e23e2eb.jpg",
+        "requested_time_s": 146.2,
+        "frame_index": 4386,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "e50192813257063178a2ee43742a2dfb4cd7249be3b4f5a5b399323f6261a1ce"
+      },
+      {
+        "evidence_id": "frame_4612",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a186f6515bd51bb181c78200.jpg",
+        "requested_time_s": 153.73333333333332,
+        "frame_index": 4612,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "fedb363d4e6355ec800945cd7af7bc823aa4e8b3014cc5c216f1e81dd7a53ca6"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "0351fcfbd7d068a2f35cfc708ec4324eb92321fba3874b1e903f0943d454ca3a",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 23.261947631835938,
+    "usage": {
+      "prompt_tokens": 8062,
+      "total_tokens": 8294,
+      "completion_tokens": 232,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+      "answer": "No, I started inserting the bearing plate assembly before attaching the adapter plate.",
+      "mcq_question": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "visual_grade": 2,
+      "limitation": "The specific start frames for each action are not visually distinct in the provided sequence, requiring reliance on source timing data.",
+      "claims": [
+        {
+          "claim": "I started inserting the bearing plate assembly first.",
+          "source_ids": [
+            "s0"
+          ],
+          "image_ids": [
+            "frame_3030"
+          ]
+        },
+        {
+          "claim": "I started attaching the adapter plate second.",
+          "source_ids": [
+            "s1"
+          ],
+          "image_ids": [
+            "frame_4612"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-ace5e197e265f170",
+      "object": "chat.completion",
+      "created": 1789827951,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Did I start attaching the adapter plate before inserting the bearing plate assembly?\",\n  \"answer\": \"No, I started inserting the bearing plate assembly before attaching the adapter plate.\",\n  \"mcq_question\": \"Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"The specific start frames for each action are not visually distinct in the provided sequence, requiring reliance on source timing data.\",\n  \"claims\": [\n    {\n      \"claim\": \"I started inserting the bearing plate assembly first.\",\n      \"source_ids\": [\n        \"s0\"\n      ],\n      \"image_ids\": [\n        \"frame_3030\"\n      ]\n    },\n    {\n      \"claim\": \"I started attaching the adapter plate second.\",\n      \"source_ids\": [\n        \"s1\"\n      ],\n      \"image_ids\": [\n        \"frame_4612\"\n      ]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8062,
+        "total_tokens": 8294,
+        "completion_tokens": 232,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question_proposition": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+        "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "canonical_answer": "No, I started inserting the bearing plate assembly before attaching the adapter plate.",
+        "options": [
+          "Inserting the bearing plate assembly.",
+          "Both started at the same time.",
+          "Attaching the adapter plate."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "first_action": "insert_bearing_plate_assembly",
+          "second_action": "attach_adapter_plate",
+          "first_onsets": [
+            3030,
+            4523
+          ],
+          "scope": "first observed starts within the clip, not completion or mandatory ordering"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 18,
+              "label": "insert_bearing_plate_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 3030,
+              "f_end": 3179
+            },
+            "pointer": "/segments/18"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 23,
+              "label": "attach_adapter_plate",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 4523,
+              "f_end": 4612
+            },
+            "pointer": "/segments/23"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_3030",
+          "frame_3256",
+          "frame_3482",
+          "frame_3708",
+          "frame_3934",
+          "frame_4160",
+          "frame_4386",
+          "frame_4612"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_3030",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/426be3e37479f2c617e818b3.jpg",
+          "requested_time_s": 101.0,
+          "frame_index": 3030,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "fa0a91fddce305089da81595f8ad851d0563ca6ebbe4f67998893ffe9b9e2d3d"
+        },
+        {
+          "evidence_id": "frame_3256",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c1312d02aedac2dc1da646b6.jpg",
+          "requested_time_s": 108.53333333333333,
+          "frame_index": 3256,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "8e274f5330cd8458554c2c428b47cf55cda30fa8a8a601d57287994d4565b65f"
+        },
+        {
+          "evidence_id": "frame_3482",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa6c809681116f6bd7ec3d18.jpg",
+          "requested_time_s": 116.06666666666666,
+          "frame_index": 3482,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "d7a725113b9c949d73e444669777e9c85f06c03f04585d53a24ed6aef5be5e1b"
+        },
+        {
+          "evidence_id": "frame_3708",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ffe99c442895b7bbeeff1370.jpg",
+          "requested_time_s": 123.6,
+          "frame_index": 3708,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "cf254ca774ff90383a36ddb2b962712f9116c94818f5dc9a9770c5a8e7f73ce9"
+        },
+        {
+          "evidence_id": "frame_3934",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/d304ec8524dbd0b001c50c37.jpg",
+          "requested_time_s": 131.13333333333333,
+          "frame_index": 3934,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "38da31b7d6fd70a19883eca90ca3b8e8555470b13baddac597af6e3dd3e6fa96"
+        },
+        {
+          "evidence_id": "frame_4160",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c8c0c2a46749874d14f8c795.jpg",
+          "requested_time_s": 138.66666666666666,
+          "frame_index": 4160,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "2c764ca75b34de3347f4a711bd1fcc2914e531dfd189c24669b8aee619275d9b"
+        },
+        {
+          "evidence_id": "frame_4386",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f5380b4202d172718e23e2eb.jpg",
+          "requested_time_s": 146.2,
+          "frame_index": 4386,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "e50192813257063178a2ee43742a2dfb4cd7249be3b4f5a5b399323f6261a1ce"
+        },
+        {
+          "evidence_id": "frame_4612",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a186f6515bd51bb181c78200.jpg",
+          "requested_time_s": 153.73333333333332,
+          "frame_index": 4612,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "fedb363d4e6355ec800945cd7af7bc823aa4e8b3014cc5c216f1e81dd7a53ca6"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "request_key": "a12059fbdb78af4fc5e1c479fbef719b2ccf60aec29e7f132cf99e91268acdc9",
+  "started_utc": "2026-09-19T14:31:05.647464+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "canonical_answer": "I started attaching the adapter plate first.",
+      "options": [
+        "Attaching the adapter plate.",
+        "Inserting the bearing plate assembly.",
+        "Both started at the same time."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "first_action": "attach_adapter_plate",
+        "second_action": "insert_bearing_plate_assembly",
+        "first_onsets": [
+          2052,
+          3371
+        ],
+        "scope": "first observed starts within the clip, not completion or mandatory ordering"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 9,
+            "label": "attach_adapter_plate",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 2052,
+            "f_end": 2196
+          },
+          "pointer": "/segments/9"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 15,
+            "label": "insert_bearing_plate_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 3371,
+            "f_end": 3417
+          },
+          "pointer": "/segments/15"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_2052",
+        "frame_2247",
+        "frame_2442",
+        "frame_2637",
+        "frame_2832",
+        "frame_3027",
+        "frame_3222",
+        "frame_3417"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "Which action did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "answer": "I started attaching the adapter plate first.",
+        "mcq_question": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "visual_grade": 2,
+        "limitation": "The specific start of the adapter plate attachment is not directly visible in the provided frames, though the action is inferred from the sequence.",
+        "claims": [
+          {
+            "claim": "I started attaching the adapter plate first.",
+            "source_ids": [
+              "s0"
+            ],
+            "image_ids": []
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "Attaching the adapter plate",
+        "visual_grade": 2,
+        "tool": "screwdriver",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "frame_2052",
+          "frame_2247",
+          "frame_2442",
+          "frame_2637",
+          "frame_2832",
+          "frame_3027",
+          "frame_3222",
+          "frame_3417"
+        ],
+        "observation": "The person handles the black adapter plate assembly first (frame_2052) before picking up the bearing plate assembly from the red tray (frame_3417).",
+        "limitation": "The specific start of the 'inserting' action for the bearing plate is not fully shown, only the retrieval."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "af32632d1ba3894738e099720d254b8416edc988ffc41ecde93352c4688c863e",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 6.408565282821655,
+    "usage": {
+      "prompt_tokens": 1058,
+      "total_tokens": 1157,
+      "completion_tokens": 99,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": true,
+      "unsupported_claims": [],
+      "reason": "Source timestamps confirm adapter plate start (2052) precedes bearing plate (3371). Blind answer matches GT. No unsupported claims or scope violations found."
+    },
+    "raw_response": {
+      "id": "chatcmpl-adc91c5289680536",
+      "object": "chat.completion",
+      "created": 1789828272,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":true,\"unsupported_claims\":[],\"reason\":\"Source timestamps confirm adapter plate start (2052) precedes bearing plate (3371). Blind answer matches GT. No unsupported claims or scope violations found.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1058,
+        "total_tokens": 1157,
+        "completion_tokens": 99,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "canonical_answer": "I started attaching the adapter plate first.",
+        "options": [
+          "Attaching the adapter plate.",
+          "Inserting the bearing plate assembly.",
+          "Both started at the same time."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "first_action": "attach_adapter_plate",
+          "second_action": "insert_bearing_plate_assembly",
+          "first_onsets": [
+            2052,
+            3371
+          ],
+          "scope": "first observed starts within the clip, not completion or mandatory ordering"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 9,
+              "label": "attach_adapter_plate",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 2052,
+              "f_end": 2196
+            },
+            "pointer": "/segments/9"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 15,
+              "label": "insert_bearing_plate_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 3371,
+              "f_end": 3417
+            },
+            "pointer": "/segments/15"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_2052",
+          "frame_2247",
+          "frame_2442",
+          "frame_2637",
+          "frame_2832",
+          "frame_3027",
+          "frame_3222",
+          "frame_3417"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "Which action did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+          "answer": "I started attaching the adapter plate first.",
+          "mcq_question": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+          "visual_grade": 2,
+          "limitation": "The specific start of the adapter plate attachment is not directly visible in the provided frames, though the action is inferred from the sequence.",
+          "claims": [
+            {
+              "claim": "I started attaching the adapter plate first.",
+              "source_ids": [
+                "s0"
+              ],
+              "image_ids": []
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "Attaching the adapter plate",
+          "visual_grade": 2,
+          "tool": "screwdriver",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "frame_2052",
+            "frame_2247",
+            "frame_2442",
+            "frame_2637",
+            "frame_2832",
+            "frame_3027",
+            "frame_3222",
+            "frame_3417"
+          ],
+          "observation": "The person handles the black adapter plate assembly first (frame_2052) before picking up the bearing plate assembly from the red tray (frame_3417).",
+          "limitation": "The specific start of the 'inserting' action for the bearing plate is not fully shown, only the retrieval."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+Review each Qwen-generated open-ended question and answer against its video, selected topic, GT facts, citations, and evidence frames. Do not rewrite the QA. Return one review for every candidate_id.
+
+Hold a QA for a wrong or vague question, unsupported answer, missing required component/tool, incorrect polarity, chronology error, wrong time value, copied atomic-motion list, unsupported tool-to-part relation, or direct video contradiction. Check that cited fact IDs belong to the candidate and cited frame IDs are valid.
+
+Type-specific checks:
+- Overall: summarizes the whole operation without a time list.
+- Detailed: concise main phases, no exhaustive hand/hold/transfer sequence, and no inferred tool-part relation.
+- Completion: a negative topic begins with No and names what component operation was completed in this clip; a positive topic is supported by the end state.
+- Order: two distinct component operations, answer states the first before the second, and does not judge correctness.
+- Duration: exact duration or clip-relative start/end from the complete GT interval.
+
+Use supports_visible_outcome only for directly visible claims; otherwise use cannot_independently_confirm. Use conflicts_with_gt only for direct contradiction. Mark keep only when question, answer, GT scope, citations, and visual status are consistent. Output schema JSON only.

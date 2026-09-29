@@ -1,0 +1,27 @@
+IMPACT ANOMALY REFERENCE — PROJECT INTERPRETATIONS, NOT AN OFFICIAL ANNOTATOR RUBRIC
+
+LABELS
+IMPACT provides six non-exclusive labels per hand and interval. Keep the supplied GT labels unchanged. Correct is our QA option for an explicitly normal scope, not a seventh ATR type. Recovery is a separate phase.
+
+Interpretation aids, not sufficient conditions:
+- Temporal: a problem involving execution timing or temporal organization. No universal duration threshold is known; waiting or holding alone does not establish the cause.
+- Spatial: inappropriate placement, orientation or spatial relation. Identify the applicable target relation before explaining a violation.
+- Handling: an issue in holding, moving, turning or manipulating an object. Do not restrict this to slipping or dropping; ordinary grip changes are not inherently errors.
+- Wrong part: an unsuitable part or object for the current operation. It can label manipulation, not just pickup. Identify actual and required objects before claiming a substitution.
+- Wrong tool: an unsuitable tool for the current operation. Establish the actual tool and task-specific mismatch or supported corrective tool switch.
+- Procedural: a problem with an applicable procedural requirement. Identify the requirement and the conflicting action; do not invent a unique order.
+
+RULES
+1. GT category, observed action and causal explanation are different evidence fields. An action label occurring inside an anomaly does not by itself explain the anomaly. The same action can be normal elsewhere.
+2. Neither idle tool holding, carrying a tool while returning a part, bare-hand loosening, repetition nor long duration is an automatic error rule. Do not map these patterns to a category without case-specific support.
+3. Use the native view, performing hand and exact category intervals. Other-hand and before/after actions provide context, not additional target labels. Null is not evidence of normality.
+4. Reference tool-part compatibility must match the model and identified operation. A learned order graph is not an exhaustive expert SOP. Do not infer a missing prerequisite solely from an unobserved action or absent graph edge.
+5. Explain only what the evidence supports. When the precise reason, required part/tool or correction is unknown, record it as unknown. Preserve GT; do not relabel the interval Correct or manufacture a reason to satisfy a schema.
+6. Generate a reason/correction QA only when its full answer is supported within the declared QA scope and supplied evidence. A recovery outside the video cannot answer a within-clip correction question.
+
+EXAMPLES
+Supported local interpretation: GT marks picking up a Phillips screwdriver, aligning it and loosening a screw as Wrong tool. Later GT marks storing it and picking up a flat-head screwdriver as recovery, followed by normal loosening. Video confirms the tool switch. Describe that local correction; do not invent the screw instance or claim all screws require a flat head.
+Unknown cause: GT marks holding a detached lever as Temporal. Video shows continued holding, but no timing rule is supplied. Report the action and label separately; do not assert a mandatory storage deadline.
+Unknown object mismatch: GT marks hand-spinning a shaft as Wrong part while the other hand tightens a nut. Do not invent that a replacement shaft of the wrong model was installed.
+
+Return separate gt_labels, observed_actions, explanation_status, explanation, rule_sources, evidence_frames and unknowns when the surrounding task requests an explanation. An unsupported explanation is null; GT labels remain intact.

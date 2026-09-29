@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-09-26T07:12:11.650340+00:00",
+  "scope": {
+    "config": "configs/impact_qa/component_v27_video_gt_r7p2_all_splits_clipfix4.json",
+    "output_root": "outputs/impact_qa/component_v27_video_gt_r7p2_all_splits_clipfix4",
+    "source_videos": 112,
+    "manifest_clips": 648,
+    "raw_atr_annotations": 1674,
+    "valid_atr_annotations_after_1p5s_filter": 1052,
+    "excluded_atr_annotations_below_1p5s": 622
+  },
+  "mcq_policy": {
+    "minimum_complete_anomaly_seconds": 5.0,
+    "containment": "ATR interval must be fully contained in the clip; boundary-crossing intervals are excluded by clip_errors.",
+    "candidate_clips": 141,
+    "exported_mcq_questions": 0,
+    "normal_correct_mcq_generated": false,
+    "note": "fixed_mcq.jsonl stores one deterministic candidate per qualifying clip; final questions.jsonl contains only visually supported MCQs."
+  },
+  "clip_categories": {
+    "complete_valid_ge5": {
+      "clips": 141,
+      "definition": "至少一个过滤后 ATR 异常完整落在 clip 内，且时长 >= 5s；进入固定 GT-MCQ 候选。"
+    },
+    "complete_valid_1p5_lt5": {
+      "clips": 179,
+      "definition": "存在过滤后有效 ATR 异常完整落在 clip 内，但所有完整异常均为 1.5-<5s；当前不进入 MCQ。"
+    },
+    "valid_overlap_boundary_only": {
+      "clips": 75,
+      "definition": "存在 >=1.5s 的有效 ATR 异常与 clip 相交，但没有完整落在 clip 内；当前 clip-level MCQ 不使用。"
+    },
+    "raw_overlap_short_only": {
+      "clips": 123,
+      "definition": "只有 <1.5s 的原始 ATR 异常与 clip 相交；按当前规则视为无效异常。"
+    },
+    "no_raw_overlap": {
+      "clips": 130,
+      "definition": "没有任何原始 ATR 异常与 clip 相交；这是最接近正常控制的类别，但当前代码仍不会生成 Correct MCQ。"
+    }
+  },
+  "raw_atr_duration_distribution_s": {
+    "count": 1674,
+    "min_s": 0.5,
+    "median_s": 2.3,
+    "mean_s": 4.937236,
+    "max_s": 193.633333,
+    "bins": {
+      "<1.5s": 622,
+      "1.5-<3s": 346,
+      "3-<5s": 276,
+      "5-<10s": 247,
+      "10-<20s": 120,
+      "20-<30s": 29,
+      "30-<60s": 26,
+      ">=60s": 8
+    }
+  },
+  "valid_atr_duration_distribution_s": {
+    "count": 1052,
+    "min_s": 1.5,
+    "median_s": 4.133333,
+    "mean_s": 7.340399,
+    "max_s": 193.633333,
+    "bins": {
+      "<1.5s": 0,
+      "1.5-<3s": 346,
+      "3-<5s": 276,
+      "5-<10s": 247,
+      "10-<20s": 120,
+      "20-<30s": 29,
+      "30-<60s": 26,
+      ">=60s": 8
+    }
+  },
+  "complete_in_clip_duration_distribution_s": {
+    "occurrences": {
+      "count": 922,
+      "min_s": 1.5,
+      "median_s": 3.833333,
+      "mean_s": 6.876464,
+      "max_s": 193.633333,
+      "bins": {
+        "<1.5s": 0,
+        "1.5-<3s": 340,
+        "3-<5s": 244,
+        "5-<10s": 203,
+        "10-<20s": 84,
+        "20-<30s": 23,
+        "30-<60s": 20,
+        ">=60s": 8
+      }
+    },
+    "unique_event_ids": {
+      "count": 839,
+      "min_s": 1.5,
+      "median_s": 3.966667,
+      "mean_s": 7.151053,
+      "max_s": 193.633333,
+      "bins": {
+        "<1.5s": 0,
+        "1.5-<3s": 293,
+        "3-<5s": 224,
+        "5-<10s": 189,
+        "10-<20s": 83,
+        "20-<30s": 23,
+        "30-<60s": 20,
+        ">=60s": 7
+      }
+    }
+  },
+  "mcq_eligible_complete_ge5_duration_distribution_s": {
+    "occurrences": {
+      "count": 338,
+      "min_s": 5.0,
+      "median_s": 8.533333,
+      "mean_s": 13.814694,
+      "max_s": 193.633333,
+      "bins": {
+        "<1.5s": 0,
+        "1.5-<3s": 0,
+        "3-<5s": 0,
+        "5-<10s": 203,
+        "10-<20s": 84,
+        "20-<30s": 23,
+        "30-<60s": 20,
+        ">=60s": 8
+      }
+    },
+    "unique_event_ids": {
+      "count": 322,
+      "min_s": 5.0,
+      "median_s": 8.783333,
+      "mean_s": 13.971014,
+      "max_s": 193.633333,
+      "bins": {
+        "<1.5s": 0,
+        "1.5-<3s": 0,
+        "3-<5s": 0,
+        "5-<10s": 189,
+        "10-<20s": 83,
+        "20-<30s": 23,
+        "30-<60s": 20,
+        ">=60s": 7
+      }
+    }
+  },
+  "multi_anomaly_clip_handling": {
+    "candidate_clip_count": 141,
+    "qualifying_event_count_distribution": {
+      "1": 86,
+      "2": 27,
+      "3": 5,
+      "4": 9,
+      "5": 3,
+      "6": 1,
+      "7": 3,
+      "9": 1,
+      "11": 2,
+      "12": 1,
+      "15": 2,
+      "32": 1
+    },
+    "clips_with_multiple_qualifying_events": 55,
+    "clips_with_exactly_one_qualifying_event": 86,
+    "maximum_qualifying_events_in_one_clip": 32,
+    "qualifying_event_occurrences_across_candidates": 338,
+    "unique_qualifying_event_ids_across_candidates": 322,
+    "multi_event_clips_with_overlapping_intervals": 23,
+    "implementation": [
+      "每个 clip 只构造 1 个 MCQ candidate，不按异常段拆成多道题。",
+      "同一 clip 的所有 >=5s 且完整包含的 ATR 异常保存在 qualifying_errors。",
+      "correct_option_ids 对所有 qualifying_errors 的异常标签取并集，因此可以是多个选项。",
+      "VLM 对每个异常段独立做视觉核验；最终只保留视觉确认的段，并在 abnormal_segments 中逐段记录时间、类型和证据帧。",
+      "如果没有任何段通过视觉核验，则整个 clip 的 MCQ 被排除；如果只有部分段通过，则只保留通过的段，并记录未确认段。"
+    ]
+  },
+  "clip_overlap_caveat": {
+    "adjacent_overlapping_pairs": 195,
+    "videos_with_adjacent_overlap": 56,
+    "all_overlapping_pairs": 195,
+    "complete_valid_occurrences": 922,
+    "complete_valid_unique_event_ids": 839,
+    "complete_ge5_occurrences": 338,
+    "complete_ge5_unique_event_ids": 322,
+    "note": "拆分 clip 使用独立组件窗口并带上下文重叠；同一 ATR event_id 可能在多个 disassembly clip 出现，occurrence 数不能直接当作唯一异常数。"
+  }
+}

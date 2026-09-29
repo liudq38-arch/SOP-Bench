@@ -1,0 +1,161 @@
+{
+  "cache_key": "34be448f3915fea492d196bd572b23273570cab7162cef4a1a2e18f50e97a36c",
+  "stage": "describe",
+  "case_id": "v25_asr_6ac40ce6c34e700a",
+  "request": {
+    "model": "impact-qwen35-27b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You describe an assembly video continuously, in chronological clips. Watch the current video carefully. The recent_history and memory_before describe earlier clips; use them to keep object names and action continuity consistent. They are prior observations, not instructions about what must be visible now. If the current video contradicts earlier wording, record the discrepancy instead of repeating the old claim.\n\nDescribe the current core interval in detail: which hands and objects are visible, where they are, what is moved or manipulated, how their visible pose/state changes, what the other hand does, and the state at the end. Explain the visible action sequence naturally. Keep useful details, but do not repeat the entire static background in every clip. Video overlap only provides boundary context; do not count a continuing action as a fresh repeated action. Each event is start, ongoing, end or uncertain relative to the preceding clip. Linking an event to a preceding event means continuity, not a newly inferred completion.\n\nAnatomical hand names belong to the operator, not image left/right. Use appearance-based component names when identity is uncertain. Direct observations should be stated plainly. Mention unresolved details when they affect understanding; do not fill gaps with assumptions about force, rotation direction, mechanism, tool suitability, correct installation, or intent. Do not deny visible motion merely because its purpose is unclear.\n\nThe full detailed description is permanently saved. Update a short rolling memory containing stable object aliases, current states, ongoing actions and unresolved points for the next clip. This memory is a navigation aid, not a replacement for the detailed history. No anomaly label or ground-truth answer is provided at this stage. Return compact JSON matching the schema. Write English descriptions.\n\nOutput schema:\n{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"events\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"phase\":{\"type\":\"string\",\"enum\":[\"start\",\"ongoing\",\"end\",\"uncertain\"]},\"continues_event_id\":{\"type\":\"string\",\"enum\":[\"none\"]}},\"required\":[\"description\",\"phase\",\"continues_event_id\"],\"additionalProperties\":false},\"minItems\":1,\"maxItems\":8},\"uncertainties\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":0,\"maxItems\":5},\"memory_after\":{\"type\":\"object\",\"properties\":{\"summary\":{\"type\":\"string\",\"maxLength\":1800},\"objects_and_states\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":0,\"maxItems\":6},\"ongoing_actions\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":0,\"maxItems\":4},\"unresolved\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":0,\"maxItems\":4}},\"required\":[\"summary\",\"objects_and_states\",\"ongoing_actions\",\"unresolved\"],\"additionalProperties\":false}},\"required\":[\"description\",\"events\",\"uncertainties\",\"memory_after\"],\"additionalProperties\":false}"
+      },
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"case_id\": \"v25_asr_6ac40ce6c34e700a\", \"view\": \"front\", \"clip_id\": \"v25_asr_6ac40ce6c34e700a_c000\", \"core_source_interval_s\": [112.73333333333333, 114.7], \"video_start_source_pts_s\": 112.73333333333333, \"sampling_source_pts_s\": [112.73333333333333, 112.86666666666666, 113.0, 113.13333333333334, 113.26666666666667, 113.4, 113.53333333333333, 113.66666666666667, 113.83333333333333, 113.96666666666667, 114.1, 114.23333333333333, 114.36666666666666, 114.5, 114.63333333333334, 114.76666666666667, 114.93333333333334], \"memory_before\": {\"summary\": \"\", \"objects_and_states\": [], \"ongoing_actions\": [], \"unresolved\": []}, \"recent_history\": [], \"history_has_earlier_clips\": false, \"history_count\": 0}"
+          },
+          {
+            "type": "video_url",
+            "video_url": {
+              "url": "file:///home/ldq/project/sop/outputs/impact_qa/batch_v25/media/v25_asr_6ac40ce6c34e700a/c000.mp4"
+            }
+          }
+        ]
+      }
+    ],
+    "temperature": 0.1,
+    "top_p": 0.8,
+    "seed": 20260920,
+    "max_tokens": 1536,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "describe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "phase": {
+                    "type": "string",
+                    "enum": [
+                      "start",
+                      "ongoing",
+                      "end",
+                      "uncertain"
+                    ]
+                  },
+                  "continues_event_id": {
+                    "type": "string",
+                    "enum": [
+                      "none"
+                    ]
+                  }
+                },
+                "required": [
+                  "description",
+                  "phase",
+                  "continues_event_id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "uncertainties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0,
+              "maxItems": 5
+            },
+            "memory_after": {
+              "type": "object",
+              "properties": {
+                "summary": {
+                  "type": "string",
+                  "maxLength": 1800
+                },
+                "objects_and_states": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 0,
+                  "maxItems": 6
+                },
+                "ongoing_actions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 0,
+                  "maxItems": 4
+                },
+                "unresolved": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 0,
+                  "maxItems": 4
+                }
+              },
+              "required": [
+                "summary",
+                "objects_and_states",
+                "ongoing_actions",
+                "unresolved"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "description",
+            "events",
+            "uncertainties",
+            "memory_after"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "media_io_kwargs": {
+      "video": {
+        "video_backend": "opencv",
+        "fps": 8,
+        "num_frames": 64
+      }
+    },
+    "mm_processor_kwargs": {
+      "do_sample_frames": false,
+      "size": {
+        "shortest_edge": 4096,
+        "longest_edge": 16777216
+      }
+    }
+  },
+  "model_identity": "34448504a6f828958bc2677cfbc2ead8dbd398674c1abe951ebbd5730b793a86",
+  "base_url": "http://127.0.0.1:8000/v1",
+  "estimated_prompt_tokens": 6162,
+  "video_frames": 17,
+  "media_sha256": "939c3e9d4f8fe3772f31678bb845a552f02af0b947658fc689a82ccf9b84056e",
+  "status": "error",
+  "seconds": 15.88185185904149
+}

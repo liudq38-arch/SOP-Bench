@@ -1,0 +1,365 @@
+{
+  "request_key": "917cd6a867b5f5326062b6578c0626d51dbce72c88cace2fd0db6d3228e61eca",
+  "started_utc": "2026-09-19T14:26:21.827038+00:00",
+  "stage": "quality_v16_visual_audit",
+  "request": {
+    "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+      "clip_start_s": 8.733333333333333,
+      "clip_end_s_exclusive": 153.76666666666668,
+      "allowed_image_ids": [
+        "frame_262",
+        "frame_883",
+        "frame_1505",
+        "frame_2126",
+        "frame_2748",
+        "frame_3369",
+        "frame_3991",
+        "frame_4612"
+      ],
+      "proposed_qa": {
+        "open_question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+        "answer": "Yes, I started installing the rotor assembly first.",
+        "mcq_question": "Which did I start first: attaching the adapter plate or installing the rotor assembly?"
+      },
+      "claims": [
+        {
+          "claim": "I started installing the rotor assembly first.",
+          "image_ids": [
+            "frame_262",
+            "frame_883",
+            "frame_1505"
+          ]
+        }
+      ],
+      "options": [
+        "Attaching the adapter plate.",
+        "Installing the rotor assembly.",
+        "Both started at the same time."
+      ],
+      "blind_answer": {
+        "answer": "No, the rotor assembly is being installed after the adapter plate is already attached.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "frame_262",
+          "frame_883",
+          "frame_1505",
+          "frame_2126",
+          "frame_2748",
+          "frame_3369",
+          "frame_3991",
+          "frame_4612"
+        ],
+        "observation": "In frame_262, the adapter plate is already on the shaft. The rotor assembly is then manipulated and attached in subsequent frames.",
+        "limitation": "The exact moment the adapter plate was attached is not visible, only that it is present before rotor installation begins."
+      }
+    },
+    "images": [
+      {
+        "evidence_id": "frame_262",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/0ce45e3d75154dbed5af8887.jpg",
+        "requested_time_s": 8.733333333333333,
+        "frame_index": 262,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "f0dbeb5957798a0ae75f1b7a74ece09ea306bd24264bbb205ef454337448f8f0"
+      },
+      {
+        "evidence_id": "frame_883",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f51cd95d68ccf85d356b14f9.jpg",
+        "requested_time_s": 29.433333333333334,
+        "frame_index": 883,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "bda8b6c44dae6dfa12066dbb14f8d9b32aec25371a5dd5fc9e37f55941b1b3b5"
+      },
+      {
+        "evidence_id": "frame_1505",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/99ec947aeeba42783be8012e.jpg",
+        "requested_time_s": 50.166666666666664,
+        "frame_index": 1505,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "016203bf49dbdb375c16a3d99dffdf031b40559e08b0913ef2ef68680b5a0b79"
+      },
+      {
+        "evidence_id": "frame_2126",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e63294899c53aa3fd0ea9c0d.jpg",
+        "requested_time_s": 70.86666666666666,
+        "frame_index": 2126,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "9f8bc2d5590d040ae37d9010a8e2a89cf53c848c9ead68b9322fa5eaea07205d"
+      },
+      {
+        "evidence_id": "frame_2748",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e59baf67c78078e8c19f8030.jpg",
+        "requested_time_s": 91.6,
+        "frame_index": 2748,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "12f5d678c263bb7f07aeeee8a7e285ce2d7ae3f1347e0bb28d68056dfaa5349f"
+      },
+      {
+        "evidence_id": "frame_3369",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/d0070caa826636ad48de59bb.jpg",
+        "requested_time_s": 112.3,
+        "frame_index": 3369,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "ebfd4cc8ab3bf55294ecaecf5ce46e4cba44e8669be449b511344fb153ac5a45"
+      },
+      {
+        "evidence_id": "frame_3991",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/6320b6673dc29c1ece55d79f.jpg",
+        "requested_time_s": 133.03333333333333,
+        "frame_index": 3991,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "dd3ee6d3cd378ff2b54614b5213d8aa92817d24b7ff5ec218df28d74619ca140"
+      },
+      {
+        "evidence_id": "frame_4612",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a186f6515bd51bb181c78200.jpg",
+        "requested_time_s": 153.73333333333332,
+        "frame_index": 4612,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "fedb363d4e6355ec800945cd7af7bc823aa4e8b3014cc5c216f1e81dd7a53ca6"
+      }
+    ],
+    "max_tokens": 1100
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "60266ebf7fe9532c8890568db5eb6d39535072717a907b0aee01b2d776030992",
+    "status": "ok",
+    "stage": "quality_v16_visual_audit",
+    "seconds": 22.35005235671997,
+    "usage": {
+      "prompt_tokens": 8098,
+      "total_tokens": 8408,
+      "completion_tokens": 310,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "visual_grade": 2,
+      "answer_supported": false,
+      "blind_agrees": false,
+      "question_unambiguous": true,
+      "evidence_valid": false,
+      "claim_checks": [
+        {
+          "claim_index": 0,
+          "supported": false,
+          "image_ids": [
+            "frame_262"
+          ],
+          "observation": "In frame_262, the adapter plate is already attached to the shaft. The rotor assembly is being handled separately, indicating the adapter plate was attached first."
+        }
+      ],
+      "supported_option_indices": [
+        0
+      ],
+      "option_checks": [
+        {
+          "index": 0,
+          "verdict": "supported",
+          "reason": "The adapter plate is visible on the shaft in frame_262, before the rotor assembly is attached."
+        },
+        {
+          "index": 1,
+          "verdict": "contradicted",
+          "reason": "The rotor assembly is handled after the adapter plate is already in place."
+        },
+        {
+          "index": 2,
+          "verdict": "contradicted",
+          "reason": "The adapter plate is clearly attached before the rotor assembly is handled."
+        }
+      ],
+      "counterevidence": "In frame_262, the adapter plate is already attached to the shaft, contradicting the claim that the rotor assembly was installed first.",
+      "before_id": null,
+      "after_id": null
+    },
+    "raw_response": {
+      "id": "chatcmpl-b30455fc6cc7e401",
+      "object": "chat.completion",
+      "created": 1789827982,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n\"visual_grade\": 2,\n\"answer_supported\": false,\n\"blind_agrees\": false,\n\"question_unambiguous\": true,\n\"evidence_valid\": false,\n\"claim_checks\": [\n{\n\"claim_index\": 0,\n\"supported\": false,\n\"image_ids\": [\"frame_262\"],\n\"observation\": \"In frame_262, the adapter plate is already attached to the shaft. The rotor assembly is being handled separately, indicating the adapter plate was attached first.\"\n}\n],\n\"supported_option_indices\": [0],\n\"option_checks\": [\n{\n\"index\": 0,\n\"verdict\": \"supported\",\n\"reason\": \"The adapter plate is visible on the shaft in frame_262, before the rotor assembly is attached.\"\n},\n{\n\"index\": 1,\n\"verdict\": \"contradicted\",\n\"reason\": \"The rotor assembly is handled after the adapter plate is already in place.\"\n},\n{\n\"index\": 2,\n\"verdict\": \"contradicted\",\n\"reason\": \"The adapter plate is clearly attached before the rotor assembly is handled.\"\n}\n],\n\"counterevidence\": \"In frame_262, the adapter plate is already attached to the shaft, contradicting the claim that the rotor assembly was installed first.\",\n\"before_id\": null,\n\"after_id\": null\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8098,
+        "total_tokens": 8408,
+        "completion_tokens": 310,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+        "clip_start_s": 8.733333333333333,
+        "clip_end_s_exclusive": 153.76666666666668,
+        "allowed_image_ids": [
+          "frame_262",
+          "frame_883",
+          "frame_1505",
+          "frame_2126",
+          "frame_2748",
+          "frame_3369",
+          "frame_3991",
+          "frame_4612"
+        ],
+        "proposed_qa": {
+          "open_question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+          "answer": "Yes, I started installing the rotor assembly first.",
+          "mcq_question": "Which did I start first: attaching the adapter plate or installing the rotor assembly?"
+        },
+        "claims": [
+          {
+            "claim": "I started installing the rotor assembly first.",
+            "image_ids": [
+              "frame_262",
+              "frame_883",
+              "frame_1505"
+            ]
+          }
+        ],
+        "options": [
+          "Attaching the adapter plate.",
+          "Installing the rotor assembly.",
+          "Both started at the same time."
+        ],
+        "blind_answer": {
+          "answer": "No, the rotor assembly is being installed after the adapter plate is already attached.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "frame_262",
+            "frame_883",
+            "frame_1505",
+            "frame_2126",
+            "frame_2748",
+            "frame_3369",
+            "frame_3991",
+            "frame_4612"
+          ],
+          "observation": "In frame_262, the adapter plate is already on the shaft. The rotor assembly is then manipulated and attached in subsequent frames.",
+          "limitation": "The exact moment the adapter plate was attached is not visible, only that it is present before rotor installation begins."
+        }
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_262",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/0ce45e3d75154dbed5af8887.jpg",
+          "requested_time_s": 8.733333333333333,
+          "frame_index": 262,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "f0dbeb5957798a0ae75f1b7a74ece09ea306bd24264bbb205ef454337448f8f0"
+        },
+        {
+          "evidence_id": "frame_883",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f51cd95d68ccf85d356b14f9.jpg",
+          "requested_time_s": 29.433333333333334,
+          "frame_index": 883,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "bda8b6c44dae6dfa12066dbb14f8d9b32aec25371a5dd5fc9e37f55941b1b3b5"
+        },
+        {
+          "evidence_id": "frame_1505",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/99ec947aeeba42783be8012e.jpg",
+          "requested_time_s": 50.166666666666664,
+          "frame_index": 1505,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "016203bf49dbdb375c16a3d99dffdf031b40559e08b0913ef2ef68680b5a0b79"
+        },
+        {
+          "evidence_id": "frame_2126",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e63294899c53aa3fd0ea9c0d.jpg",
+          "requested_time_s": 70.86666666666666,
+          "frame_index": 2126,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "9f8bc2d5590d040ae37d9010a8e2a89cf53c848c9ead68b9322fa5eaea07205d"
+        },
+        {
+          "evidence_id": "frame_2748",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e59baf67c78078e8c19f8030.jpg",
+          "requested_time_s": 91.6,
+          "frame_index": 2748,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "12f5d678c263bb7f07aeeee8a7e285ce2d7ae3f1347e0bb28d68056dfaa5349f"
+        },
+        {
+          "evidence_id": "frame_3369",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/d0070caa826636ad48de59bb.jpg",
+          "requested_time_s": 112.3,
+          "frame_index": 3369,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "ebfd4cc8ab3bf55294ecaecf5ce46e4cba44e8669be449b511344fb153ac5a45"
+        },
+        {
+          "evidence_id": "frame_3991",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/6320b6673dc29c1ece55d79f.jpg",
+          "requested_time_s": 133.03333333333333,
+          "frame_index": 3991,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "dd3ee6d3cd378ff2b54614b5213d8aa92817d24b7ff5ec218df28d74619ca140"
+        },
+        {
+          "evidence_id": "frame_4612",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a186f6515bd51bb181c78200.jpg",
+          "requested_time_s": 153.73333333333332,
+          "frame_index": 4612,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "fedb363d4e6355ec800945cd7af7bc823aa4e8b3014cc5c216f1e81dd7a53ca6"
+        }
+      ],
+      "max_tokens": 1100,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

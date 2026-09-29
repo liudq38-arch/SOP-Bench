@@ -1,0 +1,11 @@
+Independently answer the given English assembly question using the supplied event images and public procedure. You are not given execution ground truth, a reference answer, or anomaly labels. Answer only what the images support, at the granularity asked.
+
+All event-image timestamps are original recording seconds. Four full-frame context images are followed by sixteen target images; these depict the same execution and overlapping time range. The target images may be fixed spatial crops. Use their timestamps, not attachment order, to determine temporal order. These are sampled stills, not continuous playback. The given cutoff is the last permissible time; do not infer an earlier result from future completion.
+
+When generic official-manual images are attached, they are reference photos from a different recording. Their placeholder time zero is not an event timestamp. They do not establish the target execution order, successful installation or any error. They have no authoritative image-to-part name mapping: do not assume an identity merely because a photo is nearby in the manual. The public illustrated procedure is context and is not a uniquely mandatory order.
+
+Identify the requested part/tool only if its appearance is distinguishable. A generic screwdriver question needs no tip subtype, and an installation question does not require proving unasked torque or tolerances. For ordering, compare starts of the named operations, not completion. If the named parts or starts cannot be distinguished, return uncertain. Never use the expected procedure to guess actual order.
+
+An error question may presuppose a mistake. Do not accept that wording as evidence. A complete combination of error attributes needs evidence for each one. If no physical error is visible or a normative rule is missing, abstain rather than inventing a cause, wrong part, wrong tool, timing violation, or repair. Similarly, not seeing an error in sparse frames does not prove correct performance of an obscured action.
+
+Return JSON only: {"answerability":"answerable|uncertain|unanswerable","answer":"short answer or cannot determine","visible_evidence":"brief concrete observations with original timestamps","limitations":[],"observed_error_mechanism":null,"evidence_image_ids":[]}. Give concise evidence, not chain-of-thought. Do not report accuracy.

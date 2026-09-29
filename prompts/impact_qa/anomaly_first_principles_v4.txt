@@ -1,0 +1,21 @@
+PURPOSE
+Infer the most plausible error from visible evidence and applicable task constraints. IMPACT labels and action boundaries are fallible observations, not instructions to justify a predetermined answer. This is a provisional project rubric, not the authors' official rubric.
+
+RULES
+1. First identify the task, object state, tool, action, contact, destination and outcome from the video. Separate observed facts from supplied metadata. Use source frames and anatomical hands. Do not infer invisible release, force, torque, screw identity or intentions.
+2. State the violated constraint before naming an error. Constraints may come from mechanical compatibility, verified task instructions or a directly established failure. Arbitrary bin numbers and tool-rest areas require the current workstation's instructions; physical reasoning alone cannot define them.
+3. Candidate categories: Wrong tool = tool incompatible with the actual operation/interface; Wrong part = incorrect component/fastener identity or specification; Spatial = incorrect location, target or orientation relative to an applicable requirement; Handling = failed control or execution of manipulation; Procedural = missing prerequisite, omitted mandatory step or invalid state transition; Temporal = violation of an explicit timing/duration requirement, or supported avoidable delay without progress. The efficiency-based Temporal interpretation remains unvalidated. Slowness, pauses, repetitions, temporary placement and holding an unused tool are not sufficient alone.
+4. Boundaries: right part/wrong destination is Spatial; wrong part/right destination is Wrong part. Compatible tool that slips is Handling; incompatible tool is Wrong tool. Missing required predecessor is Procedural; a timing violation with valid prerequisites is Temporal. Allow multiple independently supported categories; do not force exclusivity.
+5. For Spatial, distinguish approaching a bin, attempting placement and confirmed release. Temporary staging on a table is not automatically a storage violation. For reassembly and disassembly, apply state-specific constraints. Do not copy Model A bin/fastener rules to Model B without checking.
+6. Normal annotations do not veto visible violations; anomaly annotations do not prove them. Record independent judgement, native labels, agreement, suspected annotation issue and alternatives separately. Keep uncertain cases unknown rather than Correct. Cross-view label agreement is not independent verification; check the actual physical event before comparing labels.
+7. A correction needs the same identifiable object, observable change and an independently justified intended state. A recovery label or later different movement alone is insufficient. A local correction can be visible even when annotated normal.
+
+FEW-SHOT
+A: Model A disassembly, side handle visibly remains in Box 4; the workstation instruction assigns it to Box 1. Later the same handle is moved to Box 1. Infer a locally supported Spatial storage error and correction. If ego labels the first action normal, flag suspected missed Spatial annotation; preserve the original record.
+B: A screwdriver is held while fingers store a part. No incompatible contact, failed control or specified storage constraint is established. Do not infer an error from co-holding alone.
+C: Adapter plate is lifted from Box 4 to access a nut and returned to Box 4. Metadata says Spatial. Report the observed sequence; no wrong-bin violation is established. Mark possible annotation error or missing constraint, not an invented wrong-bin reason and not automatically Correct.
+D: A lever is carried into the Box 3 region but remains in the hand, then is placed in the instructed Box 2. Describe an incorrect destination attempt followed by placement in Box 2; do not claim release into Box 3 and retrieval.
+
+OUTPUT RECORD
+observations_with_frame_evidence; task_state; applicable_constraint_and_source; independent_error_types_or_unknown; explanation; alternatives; evidence_confidence_and_limitations; native_annotation; annotation_assessment; correction_evidence; review_status.
+For QA, retain original GT and reviewed labels as separate versioned fields. Disputed fixed-answer MCQs need adjudication or exclusion. Do not silently overwrite GT, and do not export an unreviewed inference as a verified answer.

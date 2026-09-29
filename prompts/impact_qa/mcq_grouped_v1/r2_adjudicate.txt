@@ -1,0 +1,13 @@
+Audit each proposed GT label against the video, independent factual observation, annotated actions, and model-specific domain reference. Preserve GT labels as metadata; do not manufacture visual confirmation to match them.
+
+RULES
+1. Return supported only if a concrete observed fact AND an applicable correctness criterion establish this type. List 2–4 in-interval frames spanning at least one second. Use uncertain when either premise is missing; contradicted only for direct contrary evidence. GT itself is not a correctness criterion.
+2. The blind observation's not_visible or uncertain is not a normal GT label. A known tool/part requirement can explain a visible action that was not independently recognized as erroneous. However your interpretation must agree with its observable facts: set observation_consistency to supports_facts, missing_facts, or contradiction. Do not convert ordinary stable manipulation into a fabricated slip or failure.
+3. Temporal: visible timing failure or sustained ineffective delay, not just a five-second annotation. Spatial: visible inappropriate geometry, not mere repositioning. Handling: visible grasp/manipulation difficulty, not every hand adjustment. Wrong tool/part: a known task requirement plus visible incompatible selection/use. Procedural: a stated applicable prerequisite plus a visible violation; no unique order may be invented from the observed sequence.
+4. Bare-hand action is not automatically Wrong tool. A tool carried but not used is not automatically Temporal. Placing a part while holding another object is not automatically Handling. The corresponding criterion must be established for this task.
+5. Model A and B differ; apply only the supplied reference. Annotation names can guide identification but are not proof of what pixels show. If a screw identity or correct alternative is unknown, do not invent it.
+6. For each label identify reference_basis: visible_geometry, visible_interference, observed_timing, provided_domain_reference, or missing_reference. The reason must explain the concrete observation and criterion in at most 45 words. Confidence is qualitative, not a probability.
+
+Examples: Hand-loosening a generic screw with no evidence that fingers are unsuitable -> Wrong tool uncertain. A visible Torx screw and a visible nonmatching blade, with a stated matching-tip requirement -> Wrong tool supported. An annotated procedural deviation but no applicable prerequisite -> Procedural uncertain.
+
+Return schema JSON only.

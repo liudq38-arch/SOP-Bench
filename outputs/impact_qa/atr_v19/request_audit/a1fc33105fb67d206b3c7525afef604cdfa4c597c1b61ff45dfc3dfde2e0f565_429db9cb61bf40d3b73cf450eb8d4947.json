@@ -1,0 +1,1860 @@
+{
+  "request_key": "a1fc33105fb67d206b3c7525afef604cdfa4c597c1b61ff45dfc3dfde2e0f565",
+  "started_utc": "2026-09-20T03:14:23.777846+00:00",
+  "stage": "atr_v19_generate",
+  "request": {
+    "prompt": "You construct evidence-grounded first-person open and three-option MCQ pairs from IMPACT ATR anomaly intervals. The supplied ATR labels and atomic GT are authoritative annotation facts; pictures show only this view. Both view conditions receive identical private GT, so GT agreement alone is NOT evidence that this view is better. Inspect pictures, including the bounded before/after context. Do not output chain-of-thought: cite short observable facts.\nReturn JSON with exactly {\"items\":[...]}, exactly one item for each kind: actual_action, actual_tool, tool_error, anomaly_type, observed_correction, expected_tool, timely_correction. Each item has exactly: kind, answerable (boolean), question, answer, options (three strings when answerable, [] otherwise), correct_option (0/1/2 when answerable, null otherwise), source_ids (list), image_ids (list), evidence (short factual sentence), grade (integer 0..3), limitation (short string).\nanswerable means a defensible QA draft can be supported by source and/or direct visual facts, not independent visual validation. Annotation-only facts may be answerable with grade 0 or 1; do NOT pretend the label is visually proven. Grades: 0 not visually established; 1 weak/ambiguous; 2 partial; 3 directly visible with no key ambiguity. Keep the same neutral question wording for each kind across views by using the supplied question_templates exactly. Open and MCQ share this question; options must be mutually exclusive and exactly one must match the answer. Use supplied correct_option_positions for answerable items. Answers <=65 words, questions <=55 words. Use only source IDs and f00..f27 IDs present in inputs.\nactual_action: describe target hand's action(s) in the target interval, not all later behavior. Respect view-dependent null labels: null is unavailable identity, not inactivity. Prefer concrete supported verbs.\nactual_tool: identify tools actually handled by target hand in the target interval. An object like screw or tool is not a named tool. Preserve ambiguity when GT and pixels cannot distinguish which tool belongs to which action; do not infer a screwdriver tip from handle color. Do not substitute the correct tool for the actual tool.\ntool_error: only create a Yes draft if ATR explicitly includes error_wrong_tool, citing its source ID. Absence of this attribute in another anomaly does not establish a comprehensive No. If the tool looks recognizable but appropriateness is not visible, the visual grade must remain low.\nanomaly_type: include every active ATR attribute, no invented causes. These are multi-label; make each option a complete set rather than separately marking several choices correct. An attribute label alone does not prove a specific mechanism, receiver, direction, or deadline.\nobserved_correction: describe a directly observed subsequent change in tool/action with BEFORE and AFTER citations, bounded to the supplied follow-up. A normal phase, recovery label, or switch to another tool is not proof that the original error was successfully corrected. Do not claim no correction occurred just because sparse frames omit it. Report inability when you cannot establish the sequence. Never call a later tool the required tool solely because it appears later.\nexpected_tool and timely_correction: normative_correct_tool and correction_deadline are null in this pilot. Always mark these two items answerable=false, options=[], correct_option=null. Explain the exact missing evidence. Do not guess correct tools from engineering intuition or use an arbitrary time threshold to claim timeliness.\nFor any unanswerable item, keep the template question, answer=\"\", explain why in limitation, and use only valid IDs if you cite any. Any answerable item must cite at least one relevant source and picture; a picture may localize an annotation fact without proving it, which must be stated in evidence/limitation. This is a draft for human review, not gold.\n",
+    "payload": {
+      "target_hand": "right",
+      "view": "front",
+      "target_interval_original_s": [
+        93.83333333333333,
+        122.03333333333333
+      ],
+      "images": [
+        {
+          "evidence_id": "f00",
+          "relative_time_s": -3.0,
+          "role": "before"
+        },
+        {
+          "evidence_id": "f01",
+          "relative_time_s": -2.0,
+          "role": "before"
+        },
+        {
+          "evidence_id": "f02",
+          "relative_time_s": -1.033,
+          "role": "before"
+        },
+        {
+          "evidence_id": "f03",
+          "relative_time_s": -0.033,
+          "role": "before"
+        },
+        {
+          "evidence_id": "f04",
+          "relative_time_s": 0.0,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f05",
+          "relative_time_s": 1.867,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f06",
+          "relative_time_s": 3.767,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f07",
+          "relative_time_s": 5.633,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f08",
+          "relative_time_s": 7.5,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f09",
+          "relative_time_s": 9.4,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f10",
+          "relative_time_s": 11.267,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f11",
+          "relative_time_s": 13.133,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f12",
+          "relative_time_s": 15.033,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f13",
+          "relative_time_s": 16.9,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f14",
+          "relative_time_s": 18.767,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f15",
+          "relative_time_s": 20.667,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f16",
+          "relative_time_s": 22.533,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f17",
+          "relative_time_s": 24.4,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f18",
+          "relative_time_s": 26.3,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f19",
+          "relative_time_s": 28.167,
+          "role": "target"
+        },
+        {
+          "evidence_id": "f20",
+          "relative_time_s": 28.2,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f21",
+          "relative_time_s": 31.067,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f22",
+          "relative_time_s": 33.9,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f23",
+          "relative_time_s": 36.767,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f24",
+          "relative_time_s": 39.633,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f25",
+          "relative_time_s": 42.5,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f26",
+          "relative_time_s": 45.333,
+          "role": "after"
+        },
+        {
+          "evidence_id": "f27",
+          "relative_time_s": 48.2,
+          "role": "after"
+        }
+      ],
+      "followup_limit_s": 20,
+      "shared_gt": {
+        "atr_labels": [
+          "error_temporal",
+          "error_procedural"
+        ],
+        "target_hand": "right",
+        "atomic_context": [
+          {
+            "source_id": "ego_s28",
+            "role": "target",
+            "hand": "left",
+            "action": "null",
+            "noun": "null",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": -26.087,
+            "relative_end_s": 10.274
+          },
+          {
+            "source_id": "ego_s29",
+            "role": "target",
+            "hand": "left",
+            "action": "hand_spin_drive_shaft",
+            "noun": "drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_handling"
+            ],
+            "relative_start_s": 10.274,
+            "relative_end_s": 11.639
+          },
+          {
+            "source_id": "ego_s30",
+            "role": "target",
+            "hand": "left",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 11.639,
+            "relative_end_s": 13.003
+          },
+          {
+            "source_id": "ego_s31",
+            "role": "target",
+            "hand": "left",
+            "action": "null",
+            "noun": "null",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 13.003,
+            "relative_end_s": 20.067
+          },
+          {
+            "source_id": "ego_s87",
+            "role": "before",
+            "hand": "right",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_temporal",
+              "error_procedural"
+            ],
+            "relative_start_s": -4.495,
+            "relative_end_s": -2.89
+          },
+          {
+            "source_id": "ego_s88",
+            "role": "before",
+            "hand": "right",
+            "action": "null",
+            "noun": "null",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": -2.89,
+            "relative_end_s": 0.0
+          },
+          {
+            "source_id": "ego_s89",
+            "role": "target",
+            "hand": "right",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_temporal",
+              "error_procedural"
+            ],
+            "relative_start_s": 0.0,
+            "relative_end_s": 13.164
+          },
+          {
+            "source_id": "ego_s90",
+            "role": "after",
+            "hand": "right",
+            "action": "pick_up_phillips_screwdriver",
+            "noun": "phillips_screwdriver",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 13.164,
+            "relative_end_s": 15.491
+          },
+          {
+            "source_id": "ego_s91",
+            "role": "after",
+            "hand": "right",
+            "action": "align_screw",
+            "noun": "screw",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 15.491,
+            "relative_end_s": 17.057
+          },
+          {
+            "source_id": "ego_s92",
+            "role": "after",
+            "hand": "right",
+            "action": "hold_phillips_screwdriver",
+            "noun": "phillips_screwdriver",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 17.057,
+            "relative_end_s": 23.157
+          },
+          {
+            "source_id": "ego_s93",
+            "role": "after",
+            "hand": "right",
+            "action": "hand_tighten_screw",
+            "noun": "screw",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 23.157,
+            "relative_end_s": 26.97
+          },
+          {
+            "source_id": "ego_s94",
+            "role": "after",
+            "hand": "right",
+            "action": "hold_phillips_screwdriver",
+            "noun": "phillips_screwdriver",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 26.97,
+            "relative_end_s": 30.301
+          },
+          {
+            "source_id": "ego_s95",
+            "role": "after",
+            "hand": "right",
+            "action": "align_screw",
+            "noun": "screw",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 30.301,
+            "relative_end_s": 32.388
+          },
+          {
+            "source_id": "ego_s96",
+            "role": "after",
+            "hand": "right",
+            "action": "loosen_screw",
+            "noun": "screw",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 32.388,
+            "relative_end_s": 41.056
+          },
+          {
+            "source_id": "front_s22",
+            "role": "target",
+            "hand": "left",
+            "action": "hand_spin_drive_shaft",
+            "noun": "drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_handling"
+            ],
+            "relative_start_s": -4.867,
+            "relative_end_s": 6.7
+          },
+          {
+            "source_id": "front_s23",
+            "role": "target",
+            "hand": "left",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 6.7,
+            "relative_end_s": 23.7
+          },
+          {
+            "source_id": "front_s24",
+            "role": "target",
+            "hand": "left",
+            "action": "hand_spin_drive_shaft",
+            "noun": "drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_handling"
+            ],
+            "relative_start_s": 23.7,
+            "relative_end_s": 25.433
+          },
+          {
+            "source_id": "front_s25",
+            "role": "target",
+            "hand": "left",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 25.433,
+            "relative_end_s": 31.7
+          },
+          {
+            "source_id": "front_s61",
+            "role": "before",
+            "hand": "right",
+            "action": "remove_M6_nut",
+            "noun": "M6_nut",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": -7.267,
+            "relative_end_s": -0.833
+          },
+          {
+            "source_id": "front_s62",
+            "role": "before",
+            "hand": "right",
+            "action": "store_combination_wrench",
+            "noun": "combination_wrench",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": -0.833,
+            "relative_end_s": 0.0
+          },
+          {
+            "source_id": "front_s63",
+            "role": "target",
+            "hand": "right",
+            "action": "hold_gearbox_housing_drive_shaft",
+            "noun": "gearbox_housing_drive_shaft",
+            "phase": "anomaly",
+            "anomaly_labels": [
+              "error_temporal",
+              "error_procedural"
+            ],
+            "relative_start_s": 0.0,
+            "relative_end_s": 28.2
+          },
+          {
+            "source_id": "front_s64",
+            "role": "after",
+            "hand": "right",
+            "action": "pick_up_phillips_screwdriver",
+            "noun": "phillips_screwdriver",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 28.2,
+            "relative_end_s": 29.333
+          },
+          {
+            "source_id": "front_s65",
+            "role": "after",
+            "hand": "right",
+            "action": "loosen_screw",
+            "noun": "screw",
+            "phase": "normal",
+            "anomaly_labels": [],
+            "relative_start_s": 29.333,
+            "relative_end_s": 55.067
+          }
+        ],
+        "allowed_source_ids": [
+          "atr_ego",
+          "atr_front",
+          "ego_s28",
+          "ego_s29",
+          "ego_s30",
+          "ego_s31",
+          "ego_s87",
+          "ego_s88",
+          "ego_s89",
+          "ego_s90",
+          "ego_s91",
+          "ego_s92",
+          "ego_s93",
+          "ego_s94",
+          "ego_s95",
+          "ego_s96",
+          "front_s22",
+          "front_s23",
+          "front_s24",
+          "front_s25",
+          "front_s61",
+          "front_s62",
+          "front_s63",
+          "front_s64",
+          "front_s65"
+        ],
+        "normative_correct_tool": null,
+        "correction_deadline": null,
+        "recovery_event_link": null,
+        "rules": [
+          "TAS-S has_anomaly is unavailable as normality evidence.",
+          "null means action identity unavailable in that view, not proof of inactivity.",
+          "Later normal action or different tool is not proof of successful recovery.",
+          "This dataset marks wrong-tool usage but does not always state the correct replacement."
+        ]
+      },
+      "question_templates": {
+        "actual_action": "What did I do with my right hand during the highlighted interval?",
+        "actual_tool": "Which tool or tools did I handle with my right hand during the highlighted interval?",
+        "tool_error": "Did I use an inappropriate tool with my right hand during the highlighted interval?",
+        "anomaly_type": "Which types of error occurred in my right-hand operation during the highlighted interval?",
+        "observed_correction": "What change in tool use or manipulation is visible for my right hand after the highlighted interval?",
+        "expected_tool": "Which tool should I have used instead during the highlighted interval?",
+        "timely_correction": "Did I correct the error in time?"
+      },
+      "correct_option_positions": {
+        "actual_action": 2,
+        "actual_tool": 0,
+        "tool_error": 1,
+        "anomaly_type": 1,
+        "observed_correction": 0,
+        "expected_tool": 1,
+        "timely_correction": 2
+      }
+    },
+    "images": [
+      {
+        "evidence_id": "f00",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/6a6e07bb62350c0eed14a266.jpg",
+        "sha256": "f0ebc752c2a1e4e0e2fe0e2985dc3fa41b28db1c1ca55473ebc6df911c965ba3",
+        "requested_time_s": 90.83333333333333,
+        "decoded_pts_s": 90.83333333333333,
+        "relative_time_s": -3.0,
+        "role": "before",
+        "view": "front",
+        "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f01",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/60ff951e74bce19c1fd17cdd.jpg",
+        "sha256": "76cb925028a4cd2fbae284955c773be66ebdc41e5c93aabca657b23f69cd9e18",
+        "requested_time_s": 91.82222222222222,
+        "decoded_pts_s": 91.83333333333333,
+        "relative_time_s": -2.0,
+        "role": "before",
+        "view": "front",
+        "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f02",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/e1b5b867187d9cfd25e6481e.jpg",
+        "sha256": "f6207c0b7e6593206a89f5e581f4fff0f188d7b1a98860d4306125ff1c462607",
+        "requested_time_s": 92.8111111111111,
+        "decoded_pts_s": 92.8,
+        "relative_time_s": -1.033,
+        "role": "before",
+        "view": "front",
+        "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f03",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/115ccc8eb2e1b9c5bf9c3562.jpg",
+        "sha256": "a00512b0faf7ef132b5bc2272881f4565ae55468f37d23588b17e85a44295c3c",
+        "requested_time_s": 93.8,
+        "decoded_pts_s": 93.8,
+        "relative_time_s": -0.033,
+        "role": "before",
+        "view": "front",
+        "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f04",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/cd7ddefd60f87330a0615300.jpg",
+        "sha256": "1ed343295a6b95bde1be190ea0e28dd29cf52eb7ad650ef5ca9e21d935de397e",
+        "requested_time_s": 93.83333333333333,
+        "decoded_pts_s": 93.83333333333333,
+        "relative_time_s": 0.0,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f05",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/2cf3c199e285806733b9bab2.jpg",
+        "sha256": "cd07bfea5ab547fe2d07a2a50ae901e57da2b50662b4486e228bc9c85820c9f1",
+        "requested_time_s": 95.71111111111111,
+        "decoded_pts_s": 95.7,
+        "relative_time_s": 1.867,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f06",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/222170d447a641831d641871.jpg",
+        "sha256": "1ae596392385c7d3ae3a5e825742dd1b6bd8b63cd7d44ae661941181d76f531e",
+        "requested_time_s": 97.58888888888889,
+        "decoded_pts_s": 97.6,
+        "relative_time_s": 3.767,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f07",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/c82210970cd2ceaab7ee91d9.jpg",
+        "sha256": "5a1fabc88c0494084080b567c93a0897fe9168f6dd888c557a7f1deec4039e81",
+        "requested_time_s": 99.46666666666667,
+        "decoded_pts_s": 99.46666666666667,
+        "relative_time_s": 5.633,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f08",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ba6f1417900c7498069be28e.jpg",
+        "sha256": "de0e71416356d11bb64174dc9ecb737ab6c078482105b996e2ed6c1c6cfeb4bf",
+        "requested_time_s": 101.34444444444443,
+        "decoded_pts_s": 101.33333333333333,
+        "relative_time_s": 7.5,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f09",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/92f5a53f15de8b9774c5ff8e.jpg",
+        "sha256": "44d95026219afe36f33d4662a1b5d8d6952f251783f3a5e0c83c4d8892afb0b0",
+        "requested_time_s": 103.22222222222221,
+        "decoded_pts_s": 103.23333333333333,
+        "relative_time_s": 9.4,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f10",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/f5011354fce81a8ae7cd4bb8.jpg",
+        "sha256": "66f0437d5db1d01d091159989718db65a9bb69092c38452b3d62d5528f1a3eae",
+        "requested_time_s": 105.1,
+        "decoded_pts_s": 105.1,
+        "relative_time_s": 11.267,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f11",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/5ee7249f4ccc4d321eaf10f8.jpg",
+        "sha256": "c2f51975d4dae8015d2b0802175db6d0ece5ee879291efc1f86ef6c8fa8182b2",
+        "requested_time_s": 106.97777777777777,
+        "decoded_pts_s": 106.96666666666667,
+        "relative_time_s": 13.133,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f12",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/3224880b626ab4e6931d2a90.jpg",
+        "sha256": "769f10b6e6660e54cddd51eb812348087123c1099ea162d3c5fe844bcba687d1",
+        "requested_time_s": 108.85555555555555,
+        "decoded_pts_s": 108.86666666666666,
+        "relative_time_s": 15.033,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f13",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/9ea0c3d3888c124116196789.jpg",
+        "sha256": "70c95f8245b8c878f7d3af3f70298cc43c6537bc3983fd27be3882b3c8e2725d",
+        "requested_time_s": 110.73333333333333,
+        "decoded_pts_s": 110.73333333333333,
+        "relative_time_s": 16.9,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f14",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/961ccc7e0ebc79f81d3be6ea.jpg",
+        "sha256": "7bde484be50684490cb3e5e92c372058b2b3ba27a0955637f09c7d1a646741ad",
+        "requested_time_s": 112.61111111111111,
+        "decoded_pts_s": 112.6,
+        "relative_time_s": 18.767,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f15",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/8e45eec88647d1eef0cc249a.jpg",
+        "sha256": "6c5f01977509ba6336e7885dd33650c525c37e993d81aead46f7af0699cd495b",
+        "requested_time_s": 114.48888888888888,
+        "decoded_pts_s": 114.5,
+        "relative_time_s": 20.667,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f16",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/927f7e8bf12498bceda48fa4.jpg",
+        "sha256": "a7c6e4c7bb876619f0bf1148b92baabe3f51148d1047dff3b0109b3fbb3a28e9",
+        "requested_time_s": 116.36666666666666,
+        "decoded_pts_s": 116.36666666666666,
+        "relative_time_s": 22.533,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f17",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/6fe3119c6ae720b025a15801.jpg",
+        "sha256": "289fdfc36b8231eb1011fde639a373cddd86061dc66512f8364cdec4d741d58f",
+        "requested_time_s": 118.24444444444444,
+        "decoded_pts_s": 118.23333333333333,
+        "relative_time_s": 24.4,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f18",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/b1dce9e805e705a82c3887b4.jpg",
+        "sha256": "1c280bbfbc575e040bc6b17d8b657ab3259cb185fec0cc827ed0409351ba28bd",
+        "requested_time_s": 120.12222222222222,
+        "decoded_pts_s": 120.13333333333334,
+        "relative_time_s": 26.3,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f19",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/3bb3267d62a2a92c05bdc297.jpg",
+        "sha256": "62f5c3986b3641718e923ef76249cd33538c2d975487b94cb3151c221b79d330",
+        "requested_time_s": 122.0,
+        "decoded_pts_s": 122.0,
+        "relative_time_s": 28.167,
+        "role": "target",
+        "view": "front",
+        "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f20",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/9ac59ec101933925554b7185.jpg",
+        "sha256": "475c54f666c9d8b5a221261335f07e3f576c72518c98b18802f78e879a73576e",
+        "requested_time_s": 122.03333333333333,
+        "decoded_pts_s": 122.03333333333333,
+        "relative_time_s": 28.2,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f21",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ac59a76f54c438b2b5923450.jpg",
+        "sha256": "ce6da770dd2344777fe0750227cca4b9418d38b17124e4f246977b5b5354b8d4",
+        "requested_time_s": 124.89047619047619,
+        "decoded_pts_s": 124.9,
+        "relative_time_s": 31.067,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f22",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/4c4752c57f2e6cc293c730d8.jpg",
+        "sha256": "078675248acad1ea290952795dde4901b7e4d76de522ebc1158bfb715afd2fab",
+        "requested_time_s": 127.74761904761904,
+        "decoded_pts_s": 127.73333333333333,
+        "relative_time_s": 33.9,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f23",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ca4d5b77e1ec5e86e0c94eec.jpg",
+        "sha256": "addd50254da1cb1015a295606348b62923015ba19006e3b213adb98f7019f5e3",
+        "requested_time_s": 130.60476190476192,
+        "decoded_pts_s": 130.6,
+        "relative_time_s": 36.767,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f24",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/302ca82118a2dc76ee9643a8.jpg",
+        "sha256": "12731fdb83e9a61f03419f40ce7e30881941e1c86b72c68e268e22a6cd359223",
+        "requested_time_s": 133.46190476190475,
+        "decoded_pts_s": 133.46666666666667,
+        "relative_time_s": 39.633,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f25",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/172ad3b25847d044fe9d133c.jpg",
+        "sha256": "2717341fe9860a6b94b6dd9e708c5287c7cecb042fc19fa981dfe3a2387bef9c",
+        "requested_time_s": 136.3190476190476,
+        "decoded_pts_s": 136.33333333333334,
+        "relative_time_s": 42.5,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f26",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/dad19ccf1aa153747a8da23f.jpg",
+        "sha256": "63d1ca739937006f761a0dc9b1e8b88bf56dcbd418fedaea16cef7529ed8c0db",
+        "requested_time_s": 139.17619047619047,
+        "decoded_pts_s": 139.16666666666666,
+        "relative_time_s": 45.333,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      },
+      {
+        "evidence_id": "f27",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/f1463c8d4e85347701309b4b.jpg",
+        "sha256": "9087f2c7aa4aab8660a8532fd84d07815d66e9c7f49715972265d5daf2bc95bb",
+        "requested_time_s": 142.03333333333333,
+        "decoded_pts_s": 142.03333333333333,
+        "relative_time_s": 48.2,
+        "role": "after",
+        "view": "front",
+        "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+      }
+    ],
+    "max_tokens": 4200
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "ac3018eec50e6def0d20d9dd3022069722c89e3a85b9bae3a99f1846d6444c10",
+    "status": "ok",
+    "stage": "atr_v19_generate",
+    "seconds": 66.69278192520142,
+    "usage": {
+      "prompt_tokens": 19919,
+      "total_tokens": 21601,
+      "completion_tokens": 1682,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "items": [
+        {
+          "kind": "actual_action",
+          "answerable": true,
+          "question": "What did I do with my right hand during the highlighted interval?",
+          "answer": "I held the gearbox housing with the drive shaft inserted.",
+          "options": [
+            "I picked up a screwdriver and tightened a screw.",
+            "I removed a nut using a wrench.",
+            "I held the gearbox housing with the drive shaft inserted."
+          ],
+          "correct_option": 2,
+          "source_ids": [
+            "front_s63",
+            "ego_s89"
+          ],
+          "image_ids": [
+            "f04",
+            "f05",
+            "f06",
+            "f07",
+            "f08",
+            "f09",
+            "f10",
+            "f11",
+            "f12",
+            "f13",
+            "f14",
+            "f15",
+            "f16",
+            "f17",
+            "f18",
+            "f19"
+          ],
+          "evidence": "Frames f04-f19 show the right hand gripping the black gearbox housing; annotations front_s63 and ego_s89 label this action as holding the gearbox housing.",
+          "grade": 3,
+          "limitation": "Visual confirmation is clear; no ambiguity in the holding action."
+        },
+        {
+          "kind": "actual_tool",
+          "answerable": true,
+          "question": "Which tool or tools did I handle with my right hand during the highlighted interval?",
+          "answer": "No tool was handled; only the gearbox housing was held.",
+          "options": [
+            "No tool was handled; only the gearbox housing was held.",
+            "A Phillips screwdriver was used to tighten a screw.",
+            "A combination wrench was used to remove a nut."
+          ],
+          "correct_option": 0,
+          "source_ids": [
+            "front_s63",
+            "ego_s89"
+          ],
+          "image_ids": [
+            "f04",
+            "f05",
+            "f06",
+            "f07",
+            "f08",
+            "f09",
+            "f10",
+            "f11",
+            "f12",
+            "f13",
+            "f14",
+            "f15",
+            "f16",
+            "f17",
+            "f18",
+            "f19"
+          ],
+          "evidence": "Frames f04-f19 show the right hand holding the gearbox housing without any tool; annotations confirm no tool interaction during this interval.",
+          "grade": 3,
+          "limitation": "Visual evidence clearly shows no tool in hand during the target interval."
+        },
+        {
+          "kind": "tool_error",
+          "answerable": true,
+          "question": "Did I use an inappropriate tool with my right hand during the highlighted interval?",
+          "answer": "No, no tool was used during the highlighted interval.",
+          "options": [
+            "Yes, a screwdriver was used instead of a wrench.",
+            "No, no tool was used during the highlighted interval.",
+            "Yes, a wrench was used instead of a screwdriver."
+          ],
+          "correct_option": 1,
+          "source_ids": [
+            "front_s63",
+            "ego_s89"
+          ],
+          "image_ids": [
+            "f04",
+            "f05",
+            "f06",
+            "f07",
+            "f08",
+            "f09",
+            "f10",
+            "f11",
+            "f12",
+            "f13",
+            "f14",
+            "f15",
+            "f16",
+            "f17",
+            "f18",
+            "f19"
+          ],
+          "evidence": "Frames f04-f19 show no tool in the right hand; annotations do not include error_wrong_tool.",
+          "grade": 2,
+          "limitation": "Absence of tool usage is visually confirmed, but appropriateness cannot be assessed without tool interaction."
+        },
+        {
+          "kind": "anomaly_type",
+          "answerable": true,
+          "question": "Which types of error occurred in my right-hand operation during the highlighted interval?",
+          "answer": "Temporal and procedural errors occurred.",
+          "options": [
+            "Only a handling error occurred.",
+            "Temporal and procedural errors occurred.",
+            "No errors occurred."
+          ],
+          "correct_option": 1,
+          "source_ids": [
+            "front_s63",
+            "ego_s89"
+          ],
+          "image_ids": [
+            "f04",
+            "f05",
+            "f06",
+            "f07",
+            "f08",
+            "f09",
+            "f10",
+            "f11",
+            "f12",
+            "f13",
+            "f14",
+            "f15",
+            "f16",
+            "f17",
+            "f18",
+            "f19"
+          ],
+          "evidence": "Annotations front_s63 and ego_s89 explicitly label the interval with error_temporal and error_procedural.",
+          "grade": 1,
+          "limitation": "Labels are authoritative but visual evidence does not clarify the specific nature of temporal or procedural errors."
+        },
+        {
+          "kind": "observed_correction",
+          "answerable": true,
+          "question": "What change in tool use or manipulation is visible for my right hand after the highlighted interval?",
+          "answer": "The right hand picked up a Phillips screwdriver and began loosening a screw.",
+          "options": [
+            "The right hand picked up a Phillips screwdriver and began loosening a screw.",
+            "The right hand continued holding the gearbox housing without change.",
+            "The right hand switched to using a combination wrench."
+          ],
+          "correct_option": 0,
+          "source_ids": [
+            "front_s64",
+            "front_s65",
+            "ego_s90",
+            "ego_s96"
+          ],
+          "image_ids": [
+            "f20",
+            "f21",
+            "f22",
+            "f23",
+            "f24",
+            "f25",
+            "f26",
+            "f27"
+          ],
+          "evidence": "Frames f20-f27 show the right hand picking up a red-handled screwdriver and using it on the gearbox; annotations confirm pick_up_phillips_screwdriver and loosen_screw.",
+          "grade": 3,
+          "limitation": "Visual sequence clearly shows tool switch and action change; bounded follow-up does not prove successful correction of prior error."
+        },
+        {
+          "kind": "expected_tool",
+          "answerable": false,
+          "question": "Which tool should I have used instead during the highlighted interval?",
+          "answer": "",
+          "options": [],
+          "correct_option": null,
+          "source_ids": [],
+          "image_ids": [],
+          "evidence": "",
+          "grade": 0,
+          "limitation": "Normative_correct_tool is null in GT; no visual or annotation evidence specifies the correct tool for the interval."
+        },
+        {
+          "kind": "timely_correction",
+          "answerable": false,
+          "question": "Did I correct the error in time?",
+          "answer": "",
+          "options": [],
+          "correct_option": null,
+          "source_ids": [],
+          "image_ids": [],
+          "evidence": "",
+          "grade": 0,
+          "limitation": "Correction_deadline is null in GT; no temporal threshold or success criterion is provided to assess timeliness."
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-85722bfff0ff661c",
+      "object": "chat.completion",
+      "created": 1789874064,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"items\": [\n    {\n      \"kind\": \"actual_action\",\n      \"answerable\": true,\n      \"question\": \"What did I do with my right hand during the highlighted interval?\",\n      \"answer\": \"I held the gearbox housing with the drive shaft inserted.\",\n      \"options\": [\n        \"I picked up a screwdriver and tightened a screw.\",\n        \"I removed a nut using a wrench.\",\n        \"I held the gearbox housing with the drive shaft inserted.\"\n      ],\n      \"correct_option\": 2,\n      \"source_ids\": [\"front_s63\", \"ego_s89\"],\n      \"image_ids\": [\"f04\", \"f05\", \"f06\", \"f07\", \"f08\", \"f09\", \"f10\", \"f11\", \"f12\", \"f13\", \"f14\", \"f15\", \"f16\", \"f17\", \"f18\", \"f19\"],\n      \"evidence\": \"Frames f04-f19 show the right hand gripping the black gearbox housing; annotations front_s63 and ego_s89 label this action as holding the gearbox housing.\",\n      \"grade\": 3,\n      \"limitation\": \"Visual confirmation is clear; no ambiguity in the holding action.\"\n    },\n    {\n      \"kind\": \"actual_tool\",\n      \"answerable\": true,\n      \"question\": \"Which tool or tools did I handle with my right hand during the highlighted interval?\",\n      \"answer\": \"No tool was handled; only the gearbox housing was held.\",\n      \"options\": [\n        \"No tool was handled; only the gearbox housing was held.\",\n        \"A Phillips screwdriver was used to tighten a screw.\",\n        \"A combination wrench was used to remove a nut.\"\n      ],\n      \"correct_option\": 0,\n      \"source_ids\": [\"front_s63\", \"ego_s89\"],\n      \"image_ids\": [\"f04\", \"f05\", \"f06\", \"f07\", \"f08\", \"f09\", \"f10\", \"f11\", \"f12\", \"f13\", \"f14\", \"f15\", \"f16\", \"f17\", \"f18\", \"f19\"],\n      \"evidence\": \"Frames f04-f19 show the right hand holding the gearbox housing without any tool; annotations confirm no tool interaction during this interval.\",\n      \"grade\": 3,\n      \"limitation\": \"Visual evidence clearly shows no tool in hand during the target interval.\"\n    },\n    {\n      \"kind\": \"tool_error\",\n      \"answerable\": true,\n      \"question\": \"Did I use an inappropriate tool with my right hand during the highlighted interval?\",\n      \"answer\": \"No, no tool was used during the highlighted interval.\",\n      \"options\": [\n        \"Yes, a screwdriver was used instead of a wrench.\",\n        \"No, no tool was used during the highlighted interval.\",\n        \"Yes, a wrench was used instead of a screwdriver.\"\n      ],\n      \"correct_option\": 1,\n      \"source_ids\": [\"front_s63\", \"ego_s89\"],\n      \"image_ids\": [\"f04\", \"f05\", \"f06\", \"f07\", \"f08\", \"f09\", \"f10\", \"f11\", \"f12\", \"f13\", \"f14\", \"f15\", \"f16\", \"f17\", \"f18\", \"f19\"],\n      \"evidence\": \"Frames f04-f19 show no tool in the right hand; annotations do not include error_wrong_tool.\",\n      \"grade\": 2,\n      \"limitation\": \"Absence of tool usage is visually confirmed, but appropriateness cannot be assessed without tool interaction.\"\n    },\n    {\n      \"kind\": \"anomaly_type\",\n      \"answerable\": true,\n      \"question\": \"Which types of error occurred in my right-hand operation during the highlighted interval?\",\n      \"answer\": \"Temporal and procedural errors occurred.\",\n      \"options\": [\n        \"Only a handling error occurred.\",\n        \"Temporal and procedural errors occurred.\",\n        \"No errors occurred.\"\n      ],\n      \"correct_option\": 1,\n      \"source_ids\": [\"front_s63\", \"ego_s89\"],\n      \"image_ids\": [\"f04\", \"f05\", \"f06\", \"f07\", \"f08\", \"f09\", \"f10\", \"f11\", \"f12\", \"f13\", \"f14\", \"f15\", \"f16\", \"f17\", \"f18\", \"f19\"],\n      \"evidence\": \"Annotations front_s63 and ego_s89 explicitly label the interval with error_temporal and error_procedural.\",\n      \"grade\": 1,\n      \"limitation\": \"Labels are authoritative but visual evidence does not clarify the specific nature of temporal or procedural errors.\"\n    },\n    {\n      \"kind\": \"observed_correction\",\n      \"answerable\": true,\n      \"question\": \"What change in tool use or manipulation is visible for my right hand after the highlighted interval?\",\n      \"answer\": \"The right hand picked up a Phillips screwdriver and began loosening a screw.\",\n      \"options\": [\n        \"The right hand picked up a Phillips screwdriver and began loosening a screw.\",\n        \"The right hand continued holding the gearbox housing without change.\",\n        \"The right hand switched to using a combination wrench.\"\n      ],\n      \"correct_option\": 0,\n      \"source_ids\": [\"front_s64\", \"front_s65\", \"ego_s90\", \"ego_s96\"],\n      \"image_ids\": [\"f20\", \"f21\", \"f22\", \"f23\", \"f24\", \"f25\", \"f26\", \"f27\"],\n      \"evidence\": \"Frames f20-f27 show the right hand picking up a red-handled screwdriver and using it on the gearbox; annotations confirm pick_up_phillips_screwdriver and loosen_screw.\",\n      \"grade\": 3,\n      \"limitation\": \"Visual sequence clearly shows tool switch and action change; bounded follow-up does not prove successful correction of prior error.\"\n    },\n    {\n      \"kind\": \"expected_tool\",\n      \"answerable\": false,\n      \"question\": \"Which tool should I have used instead during the highlighted interval?\",\n      \"answer\": \"\",\n      \"options\": [],\n      \"correct_option\": null,\n      \"source_ids\": [],\n      \"image_ids\": [],\n      \"evidence\": \"\",\n      \"grade\": 0,\n      \"limitation\": \"Normative_correct_tool is null in GT; no visual or annotation evidence specifies the correct tool for the interval.\"\n    },\n    {\n      \"kind\": \"timely_correction\",\n      \"answerable\": false,\n      \"question\": \"Did I correct the error in time?\",\n      \"answer\": \"\",\n      \"options\": [],\n      \"correct_option\": null,\n      \"source_ids\": [],\n      \"image_ids\": [],\n      \"evidence\": \"\",\n      \"grade\": 0,\n      \"limitation\": \"Correction_deadline is null in GT; no temporal threshold or success criterion is provided to assess timeliness.\"\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 19919,
+        "total_tokens": 21601,
+        "completion_tokens": 1682,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You construct evidence-grounded first-person open and three-option MCQ pairs from IMPACT ATR anomaly intervals. The supplied ATR labels and atomic GT are authoritative annotation facts; pictures show only this view. Both view conditions receive identical private GT, so GT agreement alone is NOT evidence that this view is better. Inspect pictures, including the bounded before/after context. Do not output chain-of-thought: cite short observable facts.\nReturn JSON with exactly {\"items\":[...]}, exactly one item for each kind: actual_action, actual_tool, tool_error, anomaly_type, observed_correction, expected_tool, timely_correction. Each item has exactly: kind, answerable (boolean), question, answer, options (three strings when answerable, [] otherwise), correct_option (0/1/2 when answerable, null otherwise), source_ids (list), image_ids (list), evidence (short factual sentence), grade (integer 0..3), limitation (short string).\nanswerable means a defensible QA draft can be supported by source and/or direct visual facts, not independent visual validation. Annotation-only facts may be answerable with grade 0 or 1; do NOT pretend the label is visually proven. Grades: 0 not visually established; 1 weak/ambiguous; 2 partial; 3 directly visible with no key ambiguity. Keep the same neutral question wording for each kind across views by using the supplied question_templates exactly. Open and MCQ share this question; options must be mutually exclusive and exactly one must match the answer. Use supplied correct_option_positions for answerable items. Answers <=65 words, questions <=55 words. Use only source IDs and f00..f27 IDs present in inputs.\nactual_action: describe target hand's action(s) in the target interval, not all later behavior. Respect view-dependent null labels: null is unavailable identity, not inactivity. Prefer concrete supported verbs.\nactual_tool: identify tools actually handled by target hand in the target interval. An object like screw or tool is not a named tool. Preserve ambiguity when GT and pixels cannot distinguish which tool belongs to which action; do not infer a screwdriver tip from handle color. Do not substitute the correct tool for the actual tool.\ntool_error: only create a Yes draft if ATR explicitly includes error_wrong_tool, citing its source ID. Absence of this attribute in another anomaly does not establish a comprehensive No. If the tool looks recognizable but appropriateness is not visible, the visual grade must remain low.\nanomaly_type: include every active ATR attribute, no invented causes. These are multi-label; make each option a complete set rather than separately marking several choices correct. An attribute label alone does not prove a specific mechanism, receiver, direction, or deadline.\nobserved_correction: describe a directly observed subsequent change in tool/action with BEFORE and AFTER citations, bounded to the supplied follow-up. A normal phase, recovery label, or switch to another tool is not proof that the original error was successfully corrected. Do not claim no correction occurred just because sparse frames omit it. Report inability when you cannot establish the sequence. Never call a later tool the required tool solely because it appears later.\nexpected_tool and timely_correction: normative_correct_tool and correction_deadline are null in this pilot. Always mark these two items answerable=false, options=[], correct_option=null. Explain the exact missing evidence. Do not guess correct tools from engineering intuition or use an arbitrary time threshold to claim timeliness.\nFor any unanswerable item, keep the template question, answer=\"\", explain why in limitation, and use only valid IDs if you cite any. Any answerable item must cite at least one relevant source and picture; a picture may localize an annotation fact without proving it, which must be stated in evidence/limitation. This is a draft for human review, not gold.\n",
+      "payload": {
+        "target_hand": "right",
+        "view": "front",
+        "target_interval_original_s": [
+          93.83333333333333,
+          122.03333333333333
+        ],
+        "images": [
+          {
+            "evidence_id": "f00",
+            "relative_time_s": -3.0,
+            "role": "before"
+          },
+          {
+            "evidence_id": "f01",
+            "relative_time_s": -2.0,
+            "role": "before"
+          },
+          {
+            "evidence_id": "f02",
+            "relative_time_s": -1.033,
+            "role": "before"
+          },
+          {
+            "evidence_id": "f03",
+            "relative_time_s": -0.033,
+            "role": "before"
+          },
+          {
+            "evidence_id": "f04",
+            "relative_time_s": 0.0,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f05",
+            "relative_time_s": 1.867,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f06",
+            "relative_time_s": 3.767,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f07",
+            "relative_time_s": 5.633,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f08",
+            "relative_time_s": 7.5,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f09",
+            "relative_time_s": 9.4,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f10",
+            "relative_time_s": 11.267,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f11",
+            "relative_time_s": 13.133,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f12",
+            "relative_time_s": 15.033,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f13",
+            "relative_time_s": 16.9,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f14",
+            "relative_time_s": 18.767,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f15",
+            "relative_time_s": 20.667,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f16",
+            "relative_time_s": 22.533,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f17",
+            "relative_time_s": 24.4,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f18",
+            "relative_time_s": 26.3,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f19",
+            "relative_time_s": 28.167,
+            "role": "target"
+          },
+          {
+            "evidence_id": "f20",
+            "relative_time_s": 28.2,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f21",
+            "relative_time_s": 31.067,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f22",
+            "relative_time_s": 33.9,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f23",
+            "relative_time_s": 36.767,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f24",
+            "relative_time_s": 39.633,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f25",
+            "relative_time_s": 42.5,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f26",
+            "relative_time_s": 45.333,
+            "role": "after"
+          },
+          {
+            "evidence_id": "f27",
+            "relative_time_s": 48.2,
+            "role": "after"
+          }
+        ],
+        "followup_limit_s": 20,
+        "shared_gt": {
+          "atr_labels": [
+            "error_temporal",
+            "error_procedural"
+          ],
+          "target_hand": "right",
+          "atomic_context": [
+            {
+              "source_id": "ego_s28",
+              "role": "target",
+              "hand": "left",
+              "action": "null",
+              "noun": "null",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": -26.087,
+              "relative_end_s": 10.274
+            },
+            {
+              "source_id": "ego_s29",
+              "role": "target",
+              "hand": "left",
+              "action": "hand_spin_drive_shaft",
+              "noun": "drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_handling"
+              ],
+              "relative_start_s": 10.274,
+              "relative_end_s": 11.639
+            },
+            {
+              "source_id": "ego_s30",
+              "role": "target",
+              "hand": "left",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 11.639,
+              "relative_end_s": 13.003
+            },
+            {
+              "source_id": "ego_s31",
+              "role": "target",
+              "hand": "left",
+              "action": "null",
+              "noun": "null",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 13.003,
+              "relative_end_s": 20.067
+            },
+            {
+              "source_id": "ego_s87",
+              "role": "before",
+              "hand": "right",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_temporal",
+                "error_procedural"
+              ],
+              "relative_start_s": -4.495,
+              "relative_end_s": -2.89
+            },
+            {
+              "source_id": "ego_s88",
+              "role": "before",
+              "hand": "right",
+              "action": "null",
+              "noun": "null",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": -2.89,
+              "relative_end_s": 0.0
+            },
+            {
+              "source_id": "ego_s89",
+              "role": "target",
+              "hand": "right",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_temporal",
+                "error_procedural"
+              ],
+              "relative_start_s": 0.0,
+              "relative_end_s": 13.164
+            },
+            {
+              "source_id": "ego_s90",
+              "role": "after",
+              "hand": "right",
+              "action": "pick_up_phillips_screwdriver",
+              "noun": "phillips_screwdriver",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 13.164,
+              "relative_end_s": 15.491
+            },
+            {
+              "source_id": "ego_s91",
+              "role": "after",
+              "hand": "right",
+              "action": "align_screw",
+              "noun": "screw",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 15.491,
+              "relative_end_s": 17.057
+            },
+            {
+              "source_id": "ego_s92",
+              "role": "after",
+              "hand": "right",
+              "action": "hold_phillips_screwdriver",
+              "noun": "phillips_screwdriver",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 17.057,
+              "relative_end_s": 23.157
+            },
+            {
+              "source_id": "ego_s93",
+              "role": "after",
+              "hand": "right",
+              "action": "hand_tighten_screw",
+              "noun": "screw",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 23.157,
+              "relative_end_s": 26.97
+            },
+            {
+              "source_id": "ego_s94",
+              "role": "after",
+              "hand": "right",
+              "action": "hold_phillips_screwdriver",
+              "noun": "phillips_screwdriver",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 26.97,
+              "relative_end_s": 30.301
+            },
+            {
+              "source_id": "ego_s95",
+              "role": "after",
+              "hand": "right",
+              "action": "align_screw",
+              "noun": "screw",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 30.301,
+              "relative_end_s": 32.388
+            },
+            {
+              "source_id": "ego_s96",
+              "role": "after",
+              "hand": "right",
+              "action": "loosen_screw",
+              "noun": "screw",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 32.388,
+              "relative_end_s": 41.056
+            },
+            {
+              "source_id": "front_s22",
+              "role": "target",
+              "hand": "left",
+              "action": "hand_spin_drive_shaft",
+              "noun": "drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_handling"
+              ],
+              "relative_start_s": -4.867,
+              "relative_end_s": 6.7
+            },
+            {
+              "source_id": "front_s23",
+              "role": "target",
+              "hand": "left",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 6.7,
+              "relative_end_s": 23.7
+            },
+            {
+              "source_id": "front_s24",
+              "role": "target",
+              "hand": "left",
+              "action": "hand_spin_drive_shaft",
+              "noun": "drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_handling"
+              ],
+              "relative_start_s": 23.7,
+              "relative_end_s": 25.433
+            },
+            {
+              "source_id": "front_s25",
+              "role": "target",
+              "hand": "left",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 25.433,
+              "relative_end_s": 31.7
+            },
+            {
+              "source_id": "front_s61",
+              "role": "before",
+              "hand": "right",
+              "action": "remove_M6_nut",
+              "noun": "M6_nut",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": -7.267,
+              "relative_end_s": -0.833
+            },
+            {
+              "source_id": "front_s62",
+              "role": "before",
+              "hand": "right",
+              "action": "store_combination_wrench",
+              "noun": "combination_wrench",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": -0.833,
+              "relative_end_s": 0.0
+            },
+            {
+              "source_id": "front_s63",
+              "role": "target",
+              "hand": "right",
+              "action": "hold_gearbox_housing_drive_shaft",
+              "noun": "gearbox_housing_drive_shaft",
+              "phase": "anomaly",
+              "anomaly_labels": [
+                "error_temporal",
+                "error_procedural"
+              ],
+              "relative_start_s": 0.0,
+              "relative_end_s": 28.2
+            },
+            {
+              "source_id": "front_s64",
+              "role": "after",
+              "hand": "right",
+              "action": "pick_up_phillips_screwdriver",
+              "noun": "phillips_screwdriver",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 28.2,
+              "relative_end_s": 29.333
+            },
+            {
+              "source_id": "front_s65",
+              "role": "after",
+              "hand": "right",
+              "action": "loosen_screw",
+              "noun": "screw",
+              "phase": "normal",
+              "anomaly_labels": [],
+              "relative_start_s": 29.333,
+              "relative_end_s": 55.067
+            }
+          ],
+          "allowed_source_ids": [
+            "atr_ego",
+            "atr_front",
+            "ego_s28",
+            "ego_s29",
+            "ego_s30",
+            "ego_s31",
+            "ego_s87",
+            "ego_s88",
+            "ego_s89",
+            "ego_s90",
+            "ego_s91",
+            "ego_s92",
+            "ego_s93",
+            "ego_s94",
+            "ego_s95",
+            "ego_s96",
+            "front_s22",
+            "front_s23",
+            "front_s24",
+            "front_s25",
+            "front_s61",
+            "front_s62",
+            "front_s63",
+            "front_s64",
+            "front_s65"
+          ],
+          "normative_correct_tool": null,
+          "correction_deadline": null,
+          "recovery_event_link": null,
+          "rules": [
+            "TAS-S has_anomaly is unavailable as normality evidence.",
+            "null means action identity unavailable in that view, not proof of inactivity.",
+            "Later normal action or different tool is not proof of successful recovery.",
+            "This dataset marks wrong-tool usage but does not always state the correct replacement."
+          ]
+        },
+        "question_templates": {
+          "actual_action": "What did I do with my right hand during the highlighted interval?",
+          "actual_tool": "Which tool or tools did I handle with my right hand during the highlighted interval?",
+          "tool_error": "Did I use an inappropriate tool with my right hand during the highlighted interval?",
+          "anomaly_type": "Which types of error occurred in my right-hand operation during the highlighted interval?",
+          "observed_correction": "What change in tool use or manipulation is visible for my right hand after the highlighted interval?",
+          "expected_tool": "Which tool should I have used instead during the highlighted interval?",
+          "timely_correction": "Did I correct the error in time?"
+        },
+        "correct_option_positions": {
+          "actual_action": 2,
+          "actual_tool": 0,
+          "tool_error": 1,
+          "anomaly_type": 1,
+          "observed_correction": 0,
+          "expected_tool": 1,
+          "timely_correction": 2
+        }
+      },
+      "image_refs": [
+        {
+          "evidence_id": "f00",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/6a6e07bb62350c0eed14a266.jpg",
+          "sha256": "f0ebc752c2a1e4e0e2fe0e2985dc3fa41b28db1c1ca55473ebc6df911c965ba3",
+          "requested_time_s": 90.83333333333333,
+          "decoded_pts_s": 90.83333333333333,
+          "relative_time_s": -3.0,
+          "role": "before",
+          "view": "front",
+          "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f01",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/60ff951e74bce19c1fd17cdd.jpg",
+          "sha256": "76cb925028a4cd2fbae284955c773be66ebdc41e5c93aabca657b23f69cd9e18",
+          "requested_time_s": 91.82222222222222,
+          "decoded_pts_s": 91.83333333333333,
+          "relative_time_s": -2.0,
+          "role": "before",
+          "view": "front",
+          "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f02",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/e1b5b867187d9cfd25e6481e.jpg",
+          "sha256": "f6207c0b7e6593206a89f5e581f4fff0f188d7b1a98860d4306125ff1c462607",
+          "requested_time_s": 92.8111111111111,
+          "decoded_pts_s": 92.8,
+          "relative_time_s": -1.033,
+          "role": "before",
+          "view": "front",
+          "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f03",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/115ccc8eb2e1b9c5bf9c3562.jpg",
+          "sha256": "a00512b0faf7ef132b5bc2272881f4565ae55468f37d23588b17e85a44295c3c",
+          "requested_time_s": 93.8,
+          "decoded_pts_s": 93.8,
+          "relative_time_s": -0.033,
+          "role": "before",
+          "view": "front",
+          "time_scope": "BEFORE; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f04",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/cd7ddefd60f87330a0615300.jpg",
+          "sha256": "1ed343295a6b95bde1be190ea0e28dd29cf52eb7ad650ef5ca9e21d935de397e",
+          "requested_time_s": 93.83333333333333,
+          "decoded_pts_s": 93.83333333333333,
+          "relative_time_s": 0.0,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f05",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/2cf3c199e285806733b9bab2.jpg",
+          "sha256": "cd07bfea5ab547fe2d07a2a50ae901e57da2b50662b4486e228bc9c85820c9f1",
+          "requested_time_s": 95.71111111111111,
+          "decoded_pts_s": 95.7,
+          "relative_time_s": 1.867,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f06",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/222170d447a641831d641871.jpg",
+          "sha256": "1ae596392385c7d3ae3a5e825742dd1b6bd8b63cd7d44ae661941181d76f531e",
+          "requested_time_s": 97.58888888888889,
+          "decoded_pts_s": 97.6,
+          "relative_time_s": 3.767,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f07",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/c82210970cd2ceaab7ee91d9.jpg",
+          "sha256": "5a1fabc88c0494084080b567c93a0897fe9168f6dd888c557a7f1deec4039e81",
+          "requested_time_s": 99.46666666666667,
+          "decoded_pts_s": 99.46666666666667,
+          "relative_time_s": 5.633,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f08",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ba6f1417900c7498069be28e.jpg",
+          "sha256": "de0e71416356d11bb64174dc9ecb737ab6c078482105b996e2ed6c1c6cfeb4bf",
+          "requested_time_s": 101.34444444444443,
+          "decoded_pts_s": 101.33333333333333,
+          "relative_time_s": 7.5,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f09",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/92f5a53f15de8b9774c5ff8e.jpg",
+          "sha256": "44d95026219afe36f33d4662a1b5d8d6952f251783f3a5e0c83c4d8892afb0b0",
+          "requested_time_s": 103.22222222222221,
+          "decoded_pts_s": 103.23333333333333,
+          "relative_time_s": 9.4,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f10",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/f5011354fce81a8ae7cd4bb8.jpg",
+          "sha256": "66f0437d5db1d01d091159989718db65a9bb69092c38452b3d62d5528f1a3eae",
+          "requested_time_s": 105.1,
+          "decoded_pts_s": 105.1,
+          "relative_time_s": 11.267,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f11",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/5ee7249f4ccc4d321eaf10f8.jpg",
+          "sha256": "c2f51975d4dae8015d2b0802175db6d0ece5ee879291efc1f86ef6c8fa8182b2",
+          "requested_time_s": 106.97777777777777,
+          "decoded_pts_s": 106.96666666666667,
+          "relative_time_s": 13.133,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f12",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/3224880b626ab4e6931d2a90.jpg",
+          "sha256": "769f10b6e6660e54cddd51eb812348087123c1099ea162d3c5fe844bcba687d1",
+          "requested_time_s": 108.85555555555555,
+          "decoded_pts_s": 108.86666666666666,
+          "relative_time_s": 15.033,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f13",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/9ea0c3d3888c124116196789.jpg",
+          "sha256": "70c95f8245b8c878f7d3af3f70298cc43c6537bc3983fd27be3882b3c8e2725d",
+          "requested_time_s": 110.73333333333333,
+          "decoded_pts_s": 110.73333333333333,
+          "relative_time_s": 16.9,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f14",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/961ccc7e0ebc79f81d3be6ea.jpg",
+          "sha256": "7bde484be50684490cb3e5e92c372058b2b3ba27a0955637f09c7d1a646741ad",
+          "requested_time_s": 112.61111111111111,
+          "decoded_pts_s": 112.6,
+          "relative_time_s": 18.767,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f15",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/8e45eec88647d1eef0cc249a.jpg",
+          "sha256": "6c5f01977509ba6336e7885dd33650c525c37e993d81aead46f7af0699cd495b",
+          "requested_time_s": 114.48888888888888,
+          "decoded_pts_s": 114.5,
+          "relative_time_s": 20.667,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f16",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/927f7e8bf12498bceda48fa4.jpg",
+          "sha256": "a7c6e4c7bb876619f0bf1148b92baabe3f51148d1047dff3b0109b3fbb3a28e9",
+          "requested_time_s": 116.36666666666666,
+          "decoded_pts_s": 116.36666666666666,
+          "relative_time_s": 22.533,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f17",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/6fe3119c6ae720b025a15801.jpg",
+          "sha256": "289fdfc36b8231eb1011fde639a373cddd86061dc66512f8364cdec4d741d58f",
+          "requested_time_s": 118.24444444444444,
+          "decoded_pts_s": 118.23333333333333,
+          "relative_time_s": 24.4,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f18",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/b1dce9e805e705a82c3887b4.jpg",
+          "sha256": "1c280bbfbc575e040bc6b17d8b657ab3259cb185fec0cc827ed0409351ba28bd",
+          "requested_time_s": 120.12222222222222,
+          "decoded_pts_s": 120.13333333333334,
+          "relative_time_s": 26.3,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f19",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/3bb3267d62a2a92c05bdc297.jpg",
+          "sha256": "62f5c3986b3641718e923ef76249cd33538c2d975487b94cb3151c221b79d330",
+          "requested_time_s": 122.0,
+          "decoded_pts_s": 122.0,
+          "relative_time_s": 28.167,
+          "role": "target",
+          "view": "front",
+          "time_scope": "TARGET; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f20",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/9ac59ec101933925554b7185.jpg",
+          "sha256": "475c54f666c9d8b5a221261335f07e3f576c72518c98b18802f78e879a73576e",
+          "requested_time_s": 122.03333333333333,
+          "decoded_pts_s": 122.03333333333333,
+          "relative_time_s": 28.2,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f21",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ac59a76f54c438b2b5923450.jpg",
+          "sha256": "ce6da770dd2344777fe0750227cca4b9418d38b17124e4f246977b5b5354b8d4",
+          "requested_time_s": 124.89047619047619,
+          "decoded_pts_s": 124.9,
+          "relative_time_s": 31.067,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f22",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/4c4752c57f2e6cc293c730d8.jpg",
+          "sha256": "078675248acad1ea290952795dde4901b7e4d76de522ebc1158bfb715afd2fab",
+          "requested_time_s": 127.74761904761904,
+          "decoded_pts_s": 127.73333333333333,
+          "relative_time_s": 33.9,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f23",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/ca4d5b77e1ec5e86e0c94eec.jpg",
+          "sha256": "addd50254da1cb1015a295606348b62923015ba19006e3b213adb98f7019f5e3",
+          "requested_time_s": 130.60476190476192,
+          "decoded_pts_s": 130.6,
+          "relative_time_s": 36.767,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f24",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/302ca82118a2dc76ee9643a8.jpg",
+          "sha256": "12731fdb83e9a61f03419f40ce7e30881941e1c86b72c68e268e22a6cd359223",
+          "requested_time_s": 133.46190476190475,
+          "decoded_pts_s": 133.46666666666667,
+          "relative_time_s": 39.633,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f25",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/172ad3b25847d044fe9d133c.jpg",
+          "sha256": "2717341fe9860a6b94b6dd9e708c5287c7cecb042fc19fa981dfe3a2387bef9c",
+          "requested_time_s": 136.3190476190476,
+          "decoded_pts_s": 136.33333333333334,
+          "relative_time_s": 42.5,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f26",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/dad19ccf1aa153747a8da23f.jpg",
+          "sha256": "63d1ca739937006f761a0dc9b1e8b88bf56dcbd418fedaea16cef7529ed8c0db",
+          "requested_time_s": 139.17619047619047,
+          "decoded_pts_s": 139.16666666666666,
+          "relative_time_s": 45.333,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        },
+        {
+          "evidence_id": "f27",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/atr_v19/frames/f1463c8d4e85347701309b4b.jpg",
+          "sha256": "9087f2c7aa4aab8660a8532fd84d07815d66e9c7f49715972265d5daf2bc95bb",
+          "requested_time_s": 142.03333333333333,
+          "decoded_pts_s": 142.03333333333333,
+          "relative_time_s": 48.2,
+          "role": "after",
+          "view": "front",
+          "time_scope": "AFTER; target interval 93.833-122.033s. After frames are only a bounded follow-up, not proof of successful or timely correction."
+        }
+      ],
+      "max_tokens": 4200,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

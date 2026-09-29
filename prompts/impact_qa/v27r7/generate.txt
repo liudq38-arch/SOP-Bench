@@ -1,0 +1,47 @@
+For each selected open_qa_topic, Qwen must generate BOTH a natural question and its answer from this clip and its supplied GT facts. The code has supplied only a topic and evidence basis, not a finished question or answer. Return one QA for every selected candidate_id, with its supporting fact IDs and visual evidence.
+
+Rules:
+- Write a clear, specific question that a viewer could answer from this clip. Do not copy the topic sentence as the question.
+- Ground every answer claim in the candidate's GT facts. Use the video to check that the question fits the visible operation; do not invent tool-to-part contact, completion, causes, corrections, or actions.
+- Keep the question types separate. Overall asks what the clip does as a whole. Detailed asks for the main operational stages. Completion asks about one named component. Order compares two distinct component operations. Duration asks elapsed time or clip-relative start/end.
+- Preserve the supplied names of components, tools, and positional variants exactly; do not shorten a location-specific name or merge distinct parts.
+- Never mention GT, annotations, labels, IDs, selection, or the dataset in the public question or answer.
+- Cite only supplied fact IDs. Evidence frame IDs must come from the selected candidate's evidence frames and must support the answer. If detail is not independently visible, say so in evidence_note and use cannot_independently_confirm.
+
+Answer style by type:
+- Overall operation: one or two sentences naming the main assembly/disassembly work and the key supplied tools/components. Do not list atomic actions or include times.
+- Detailed operation: at most 4 sentences and 95 words. Summarize the operation phases in order and mention the main tools/components. Do not enumerate every TAS-B event, repeated fastener motion, hold, transfer, or hand change. Connect a tool to a part only when directly visible.
+- Completion: answer with the GT-supported yes/no polarity. For a negative topic, begin with "No", state that the queried component did not reach the complete state, then name the component installation/removal that did complete in this clip. Do not turn every completion answer into "Yes".
+- Order: ask which of the two different operations happened first. Answer in chronological order, naming the first operation before the second. Report observed order only; do not claim it was correct or required.
+- Duration: use the exact GT duration or exact clip-relative start and end values supplied for the complete operation. Do not substitute source-video times or round to a different value.
+
+Few-shot examples (fictional style examples only; current-clip facts always take priority):
+
+Overall
+Topic: ask what the clip does as a whole; GT names an adapter plate, locking lever, and Torx screwdriver.
+Good question: What is the main operation in this clip?
+Good answer: I attach the adapter plate and install the locking lever assembly, using the Torx screwdriver during the assembly work.
+
+Detailed operation
+Topic: summarize the main phases; GT shows unscrewing the anti-vibration handle, then removing the locking lever assembly. The screwdriver is visibly used on the handle fastener.
+Good question: What are the main steps I take to remove these components?
+Good answer: I use the screwdriver to loosen the handle fastener, then remove the anti-vibration handle and locking lever assembly. This summarizes the main removal stages without listing repeated hand movements.
+Bad answer: I pick up the tool with my left hand, transfer it to my right hand, hold the housing, transfer the tool back, loosen the screw three times, and store the tool.
+
+Completion
+Topic: the adapter plate is uninstalled at clip end; the bearing plate and anti-vibration handle were completed in this clip.
+Good question: Did I finish installing the adapter plate? If not, what installation did I complete?
+Good answer: No. The adapter plate was still uninstalled at the end of the clip. I completed installation of the bearing plate and anti-vibration handle.
+
+Observed order
+Topic: the M6 nut is loosened before the adapter plate is removed.
+Good question: Which came first, loosening the M6 nut or removing the adapter plate?
+Good answer: I loosened the M6 nut before removing the adapter plate.
+Bad question: What came first, loosening the screw or hand-loosening the screw with the other hand? (same target and near-duplicate operation)
+
+Duration
+Topic: ask for the complete rotor-removal operation's clip-relative start and end; GT interval is 12.4–28.5 seconds.
+Good question: From what time to what time does the clip show the complete rotor removal?
+Good answer: The rotor removal starts at 12.4 seconds and ends at 28.5 seconds in the clip.
+
+Examples define concise wording only. Never copy their objects or facts into the current QA. Output schema JSON only.

@@ -1,0 +1,591 @@
+{
+  "request_key": "936777b7f19cad426790621683fca64eb796cf011d2894362e87116a7bb11ac2",
+  "started_utc": "2026-09-19T14:17:53.375006+00:00",
+  "stage": "quality_v16_visual_audit",
+  "request": {
+    "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+    "payload": {
+      "kind": "tool_identity",
+      "question": "Which tool did I pick up with my right hand in this clip?",
+      "clip_start_s": 26.5,
+      "clip_end_s_exclusive": 28.366666666666667,
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "context_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "target_10",
+        "target_11",
+        "target_12",
+        "context_2",
+        "target_13",
+        "target_14",
+        "target_15",
+        "context_3"
+      ],
+      "proposed_qa": {
+        "open_question": "Which tool did I pick up with my right hand in this clip?",
+        "answer": "I picked up a wrench with my right hand.",
+        "mcq_question": "Which tool did I pick up with my right hand in this clip?"
+      },
+      "claims": [
+        {
+          "claim": "I picked up a wrench with my right hand.",
+          "image_ids": []
+        }
+      ],
+      "options": [
+        "A wrench.",
+        "A pair of pliers.",
+        "A screwdriver."
+      ],
+      "blind_answer": {
+        "answer": "You picked up a screwdriver with your right hand.",
+        "visual_grade": 2,
+        "tool": "screwdriver",
+        "before_id": "target_12",
+        "after_id": "target_13",
+        "image_ids": [
+          "target_12",
+          "target_13",
+          "target_14",
+          "target_15"
+        ],
+        "observation": "In target_12, the right hand is near the tools. In target_13, the hand is grasping a screwdriver. In target_14 and target_15, the screwdriver is lifted.",
+        "limitation": "The exact moment of lift-off is ambiguous due to motion blur and frame rate; the tool is clearly a screwdriver but the pickup start is inferred."
+      }
+    },
+    "images": [
+      {
+        "evidence_id": "context_0",
+        "frame_index": 795,
+        "requested_time_s": 26.5,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/d230efd8ed852e2ea178a7a4.jpg",
+        "sha256": "2e1d7a0aa2c8dc46c42d922ef92226d399a86c5ef7ac49192e5a713d2c54246a"
+      },
+      {
+        "evidence_id": "target_0",
+        "frame_index": 810,
+        "requested_time_s": 27.0,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/d345285dc307f902f1a18eac.jpg",
+        "sha256": "6114be1143e136daa6fd711c324d1d4b5ef2c35f78e92c0de2efc579bd414570"
+      },
+      {
+        "evidence_id": "target_1",
+        "frame_index": 812,
+        "requested_time_s": 27.066666666666666,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/658de4c47e195d7ace242cd4.jpg",
+        "sha256": "07c8ddd4cd53b0130e931ffa946ceb9668ae0a390c1cfaaeb031ed124fb29daa"
+      },
+      {
+        "evidence_id": "context_1",
+        "frame_index": 813,
+        "requested_time_s": 27.1,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/c1506a0913adaefb5c283cc8.jpg",
+        "sha256": "998003bbf5d6392768f1c03b05d5176cad676bb9c8cf5e33c0e0c642dea90d5d"
+      },
+      {
+        "evidence_id": "target_2",
+        "frame_index": 813,
+        "requested_time_s": 27.1,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/570d2dac3c3394092e1585b9.jpg",
+        "sha256": "93e9040f506f6743e046d340b3d5bd54cebd4a0c072c0ee8419ca093f22a6a3c"
+      },
+      {
+        "evidence_id": "target_3",
+        "frame_index": 815,
+        "requested_time_s": 27.166666666666668,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/30a966425bfcd733687da99d.jpg",
+        "sha256": "923b6a9ad95f8de2905561a1a949ea80e9c3935cac67403e569647d60624d51b"
+      },
+      {
+        "evidence_id": "target_4",
+        "frame_index": 817,
+        "requested_time_s": 27.233333333333334,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/2769a1945d68bf6d651e0f1f.jpg",
+        "sha256": "53fd8a3e8b85d72c784f66b36e3dd239369953681c5dc46e12c507a688808608"
+      },
+      {
+        "evidence_id": "target_5",
+        "frame_index": 818,
+        "requested_time_s": 27.266666666666666,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/637881561da5fab3d3cc579c.jpg",
+        "sha256": "7fb98de43498d64fe9c2e14bf93eb08afff28c09a4fd4c3f034ddf9abf92ed2f"
+      },
+      {
+        "evidence_id": "target_6",
+        "frame_index": 820,
+        "requested_time_s": 27.333333333333332,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/55e56887e3ce92aa9076135e.jpg",
+        "sha256": "6e03bffdaf59d3d8454ea866fd1e7e4497227de770af63691c37b22201603944"
+      },
+      {
+        "evidence_id": "target_7",
+        "frame_index": 822,
+        "requested_time_s": 27.4,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/1b4328fe4fe3a54b59f3d2b1.jpg",
+        "sha256": "3dc74a5f7a27b89ad3759f84db4eb5a0de5ce825109daa9e9e1a6ddcfe9825be"
+      },
+      {
+        "evidence_id": "target_8",
+        "frame_index": 823,
+        "requested_time_s": 27.433333333333334,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/7f275172e8148c67b8da52ba.jpg",
+        "sha256": "362d7aef7ec7a1c6000ff7d21b60e6f6aa18e153c02049dfd541d14eb5dab387"
+      },
+      {
+        "evidence_id": "target_9",
+        "frame_index": 825,
+        "requested_time_s": 27.5,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/5197296a7bda7baacd187def.jpg",
+        "sha256": "c54eed5f8be45ec6157877950b364b56405b34a8cc6ae3701c1a3c912bcea626"
+      },
+      {
+        "evidence_id": "target_10",
+        "frame_index": 827,
+        "requested_time_s": 27.566666666666666,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/08357a700db11792eecb7fe8.jpg",
+        "sha256": "e916085561dc3f3ac3dfa5b16fdec17a6c5f8a941f641e31e14d99ee87e43e06"
+      },
+      {
+        "evidence_id": "target_11",
+        "frame_index": 828,
+        "requested_time_s": 27.6,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/f03d38836db4b08265f36db3.jpg",
+        "sha256": "60c5849c58105a5671053c30514607abde5f7d0c5e865627db2d2d480496d643"
+      },
+      {
+        "evidence_id": "target_12",
+        "frame_index": 830,
+        "requested_time_s": 27.666666666666668,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/68f0ff7b8c00f8e7d658a929.jpg",
+        "sha256": "30ca8a3ed83a77d4d080e17461ba752217dae3cfaee4547d4ce728d8fe95bb59"
+      },
+      {
+        "evidence_id": "context_2",
+        "frame_index": 832,
+        "requested_time_s": 27.733333333333334,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/226b576729dfddb6f8e6b164.jpg",
+        "sha256": "6c91d5add1de034964d332b97130b890b965841b4c62b2c2b256dfca36a995ea"
+      },
+      {
+        "evidence_id": "target_13",
+        "frame_index": 832,
+        "requested_time_s": 27.733333333333334,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/29b6fb0ce47a4620040b6620.jpg",
+        "sha256": "38a16986b2b420fa9451122dad9b0346fc8f115ba0b780b8c2045c182af95d9a"
+      },
+      {
+        "evidence_id": "target_14",
+        "frame_index": 833,
+        "requested_time_s": 27.766666666666666,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/0d5e03a76e2074cac9d1e4e4.jpg",
+        "sha256": "8830181c049b045002ed7104a519e11fec4adab8d19d2aee5c8f5fb120efb050"
+      },
+      {
+        "evidence_id": "target_15",
+        "frame_index": 835,
+        "requested_time_s": 27.833333333333332,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/151cc08c0947fcda12e97521.jpg",
+        "sha256": "c9bb3532742d5f61023c1c251e19e074226005e9498b9bb03776e679275f0042"
+      },
+      {
+        "evidence_id": "context_3",
+        "frame_index": 850,
+        "requested_time_s": 28.333333333333332,
+        "view": "front",
+        "time_scope": "Original recording seconds. Same target execution, no action labels.",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/969634f655571f672d1f345f.jpg",
+        "sha256": "d9888f97de1c2b91281fc1b8b0f6d1788228a4f5873e44cf4a4a7ec993c86cf2"
+      }
+    ],
+    "max_tokens": 1100
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "2590cee1851e7d2cf12d31dc8e3036454c43ab1cd420dceb071db6ea58e81ec6",
+    "status": "ok",
+    "stage": "quality_v16_visual_audit",
+    "seconds": 17.831953048706055,
+    "usage": {
+      "prompt_tokens": 10721,
+      "total_tokens": 11007,
+      "completion_tokens": 286,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "visual_grade": 2,
+      "answer_supported": false,
+      "blind_agrees": false,
+      "question_unambiguous": true,
+      "evidence_valid": true,
+      "claim_checks": [
+        {
+          "claim_index": 0,
+          "supported": false,
+          "image_ids": [
+            "target_12",
+            "target_13",
+            "target_14"
+          ],
+          "observation": "The object picked up is a screwdriver with a green handle, not a wrench."
+        }
+      ],
+      "supported_option_indices": [
+        2
+      ],
+      "option_checks": [
+        {
+          "index": 0,
+          "verdict": "contradicted",
+          "reason": "The tool picked up is a screwdriver, not a wrench."
+        },
+        {
+          "index": 1,
+          "verdict": "contradicted",
+          "reason": "The tool picked up is a screwdriver, not pliers."
+        },
+        {
+          "index": 2,
+          "verdict": "supported",
+          "reason": "The right hand grasps and lifts a screwdriver with a green handle."
+        }
+      ],
+      "counterevidence": "The tool is clearly a screwdriver with a green handle, visible in target_13 and target_14. No wrench is picked up.",
+      "before_id": "target_12",
+      "after_id": "target_14"
+    },
+    "raw_response": {
+      "id": "chatcmpl-891243b98733fdd8",
+      "object": "chat.completion",
+      "created": 1789827473,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n\"visual_grade\": 2,\n\"answer_supported\": false,\n\"blind_agrees\": false,\n\"question_unambiguous\": true,\n\"evidence_valid\": true,\n\"claim_checks\": [\n{\"claim_index\": 0, \"supported\": false, \"image_ids\": [\"target_12\", \"target_13\", \"target_14\"], \"observation\": \"The object picked up is a screwdriver with a green handle, not a wrench.\"}\n],\n\"supported_option_indices\": [2],\n\"option_checks\": [\n{\"index\": 0, \"verdict\": \"contradicted\", \"reason\": \"The tool picked up is a screwdriver, not a wrench.\"},\n{\"index\": 1, \"verdict\": \"contradicted\", \"reason\": \"The tool picked up is a screwdriver, not pliers.\"},\n{\"index\": 2, \"verdict\": \"supported\", \"reason\": \"The right hand grasps and lifts a screwdriver with a green handle.\"}\n],\n\"counterevidence\": \"The tool is clearly a screwdriver with a green handle, visible in target_13 and target_14. No wrench is picked up.\",\n\"before_id\": \"target_12\",\n\"after_id\": \"target_14\"\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 10721,
+        "total_tokens": 11007,
+        "completion_tokens": 286,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+      "payload": {
+        "kind": "tool_identity",
+        "question": "Which tool did I pick up with my right hand in this clip?",
+        "clip_start_s": 26.5,
+        "clip_end_s_exclusive": 28.366666666666667,
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "context_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "context_2",
+          "target_13",
+          "target_14",
+          "target_15",
+          "context_3"
+        ],
+        "proposed_qa": {
+          "open_question": "Which tool did I pick up with my right hand in this clip?",
+          "answer": "I picked up a wrench with my right hand.",
+          "mcq_question": "Which tool did I pick up with my right hand in this clip?"
+        },
+        "claims": [
+          {
+            "claim": "I picked up a wrench with my right hand.",
+            "image_ids": []
+          }
+        ],
+        "options": [
+          "A wrench.",
+          "A pair of pliers.",
+          "A screwdriver."
+        ],
+        "blind_answer": {
+          "answer": "You picked up a screwdriver with your right hand.",
+          "visual_grade": 2,
+          "tool": "screwdriver",
+          "before_id": "target_12",
+          "after_id": "target_13",
+          "image_ids": [
+            "target_12",
+            "target_13",
+            "target_14",
+            "target_15"
+          ],
+          "observation": "In target_12, the right hand is near the tools. In target_13, the hand is grasping a screwdriver. In target_14 and target_15, the screwdriver is lifted.",
+          "limitation": "The exact moment of lift-off is ambiguous due to motion blur and frame rate; the tool is clearly a screwdriver but the pickup start is inferred."
+        }
+      },
+      "image_refs": [
+        {
+          "evidence_id": "context_0",
+          "frame_index": 795,
+          "requested_time_s": 26.5,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/d230efd8ed852e2ea178a7a4.jpg",
+          "sha256": "2e1d7a0aa2c8dc46c42d922ef92226d399a86c5ef7ac49192e5a713d2c54246a"
+        },
+        {
+          "evidence_id": "target_0",
+          "frame_index": 810,
+          "requested_time_s": 27.0,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/d345285dc307f902f1a18eac.jpg",
+          "sha256": "6114be1143e136daa6fd711c324d1d4b5ef2c35f78e92c0de2efc579bd414570"
+        },
+        {
+          "evidence_id": "target_1",
+          "frame_index": 812,
+          "requested_time_s": 27.066666666666666,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/658de4c47e195d7ace242cd4.jpg",
+          "sha256": "07c8ddd4cd53b0130e931ffa946ceb9668ae0a390c1cfaaeb031ed124fb29daa"
+        },
+        {
+          "evidence_id": "context_1",
+          "frame_index": 813,
+          "requested_time_s": 27.1,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/c1506a0913adaefb5c283cc8.jpg",
+          "sha256": "998003bbf5d6392768f1c03b05d5176cad676bb9c8cf5e33c0e0c642dea90d5d"
+        },
+        {
+          "evidence_id": "target_2",
+          "frame_index": 813,
+          "requested_time_s": 27.1,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/570d2dac3c3394092e1585b9.jpg",
+          "sha256": "93e9040f506f6743e046d340b3d5bd54cebd4a0c072c0ee8419ca093f22a6a3c"
+        },
+        {
+          "evidence_id": "target_3",
+          "frame_index": 815,
+          "requested_time_s": 27.166666666666668,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/30a966425bfcd733687da99d.jpg",
+          "sha256": "923b6a9ad95f8de2905561a1a949ea80e9c3935cac67403e569647d60624d51b"
+        },
+        {
+          "evidence_id": "target_4",
+          "frame_index": 817,
+          "requested_time_s": 27.233333333333334,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/2769a1945d68bf6d651e0f1f.jpg",
+          "sha256": "53fd8a3e8b85d72c784f66b36e3dd239369953681c5dc46e12c507a688808608"
+        },
+        {
+          "evidence_id": "target_5",
+          "frame_index": 818,
+          "requested_time_s": 27.266666666666666,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/637881561da5fab3d3cc579c.jpg",
+          "sha256": "7fb98de43498d64fe9c2e14bf93eb08afff28c09a4fd4c3f034ddf9abf92ed2f"
+        },
+        {
+          "evidence_id": "target_6",
+          "frame_index": 820,
+          "requested_time_s": 27.333333333333332,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/55e56887e3ce92aa9076135e.jpg",
+          "sha256": "6e03bffdaf59d3d8454ea866fd1e7e4497227de770af63691c37b22201603944"
+        },
+        {
+          "evidence_id": "target_7",
+          "frame_index": 822,
+          "requested_time_s": 27.4,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/1b4328fe4fe3a54b59f3d2b1.jpg",
+          "sha256": "3dc74a5f7a27b89ad3759f84db4eb5a0de5ce825109daa9e9e1a6ddcfe9825be"
+        },
+        {
+          "evidence_id": "target_8",
+          "frame_index": 823,
+          "requested_time_s": 27.433333333333334,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/7f275172e8148c67b8da52ba.jpg",
+          "sha256": "362d7aef7ec7a1c6000ff7d21b60e6f6aa18e153c02049dfd541d14eb5dab387"
+        },
+        {
+          "evidence_id": "target_9",
+          "frame_index": 825,
+          "requested_time_s": 27.5,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/5197296a7bda7baacd187def.jpg",
+          "sha256": "c54eed5f8be45ec6157877950b364b56405b34a8cc6ae3701c1a3c912bcea626"
+        },
+        {
+          "evidence_id": "target_10",
+          "frame_index": 827,
+          "requested_time_s": 27.566666666666666,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/08357a700db11792eecb7fe8.jpg",
+          "sha256": "e916085561dc3f3ac3dfa5b16fdec17a6c5f8a941f641e31e14d99ee87e43e06"
+        },
+        {
+          "evidence_id": "target_11",
+          "frame_index": 828,
+          "requested_time_s": 27.6,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/f03d38836db4b08265f36db3.jpg",
+          "sha256": "60c5849c58105a5671053c30514607abde5f7d0c5e865627db2d2d480496d643"
+        },
+        {
+          "evidence_id": "target_12",
+          "frame_index": 830,
+          "requested_time_s": 27.666666666666668,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/68f0ff7b8c00f8e7d658a929.jpg",
+          "sha256": "30ca8a3ed83a77d4d080e17461ba752217dae3cfaee4547d4ce728d8fe95bb59"
+        },
+        {
+          "evidence_id": "context_2",
+          "frame_index": 832,
+          "requested_time_s": 27.733333333333334,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/226b576729dfddb6f8e6b164.jpg",
+          "sha256": "6c91d5add1de034964d332b97130b890b965841b4c62b2c2b256dfca36a995ea"
+        },
+        {
+          "evidence_id": "target_13",
+          "frame_index": 832,
+          "requested_time_s": 27.733333333333334,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/29b6fb0ce47a4620040b6620.jpg",
+          "sha256": "38a16986b2b420fa9451122dad9b0346fc8f115ba0b780b8c2045c182af95d9a"
+        },
+        {
+          "evidence_id": "target_14",
+          "frame_index": 833,
+          "requested_time_s": 27.766666666666666,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/0d5e03a76e2074cac9d1e4e4.jpg",
+          "sha256": "8830181c049b045002ed7104a519e11fec4adab8d19d2aee5c8f5fb120efb050"
+        },
+        {
+          "evidence_id": "target_15",
+          "frame_index": 835,
+          "requested_time_s": 27.833333333333332,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_inputs/frames/151cc08c0947fcda12e97521.jpg",
+          "sha256": "c9bb3532742d5f61023c1c251e19e074226005e9498b9bb03776e679275f0042"
+        },
+        {
+          "evidence_id": "context_3",
+          "frame_index": 850,
+          "requested_time_s": 28.333333333333332,
+          "view": "front",
+          "time_scope": "Original recording seconds. Same target execution, no action labels.",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v14_acceptance_base/frames/969634f655571f672d1f345f.jpg",
+          "sha256": "d9888f97de1c2b91281fc1b8b0f6d1788228a4f5873e44cf4a4a7ec993c86cf2"
+        }
+      ],
+      "max_tokens": 1100,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

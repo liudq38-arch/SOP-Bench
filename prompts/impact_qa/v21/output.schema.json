@@ -1,0 +1,1011 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Validate each stage using its $defs reference. Cross-record coverage, IDs, taxonomy and factual support require semantic checks.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/frame_batch"
+    },
+    {
+      "$ref": "#/$defs/video_observation"
+    },
+    {
+      "$ref": "#/$defs/reconciliation"
+    },
+    {
+      "$ref": "#/$defs/description"
+    },
+    {
+      "$ref": "#/$defs/open_qa_bundle"
+    },
+    {
+      "$ref": "#/$defs/audit"
+    },
+    {
+      "$ref": "#/$defs/fixed_mcq"
+    }
+  ],
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "certainty": {
+          "enum": [
+            "visible",
+            "uncertain"
+          ]
+        }
+      },
+      "required": [
+        "claim_id",
+        "text",
+        "frame_ids",
+        "event_ids",
+        "certainty"
+      ],
+      "additionalProperties": false
+    },
+    "frame_card": {
+      "type": "object",
+      "properties": {
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_pts_s": {
+          "type": "number"
+        },
+        "scene_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "left_hand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "right_hand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "local_entity_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "appearance": {
+                "type": "string",
+                "minLength": 1
+              },
+              "image_location": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pose_or_state": {
+                "type": "string",
+                "minLength": 1
+              },
+              "visibility": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "local_entity_id",
+              "appearance",
+              "image_location",
+              "pose_or_state",
+              "visibility"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entities": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "observation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "certainty": {
+                "enum": [
+                  "visible",
+                  "uncertain"
+                ]
+              }
+            },
+            "required": [
+              "entities",
+              "observation",
+              "certainty"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "changes_from_previous": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "previous_frame_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "previous_frame_id",
+              "description"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "visibility": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "frame_id",
+        "source_pts_s",
+        "scene_description",
+        "left_hand",
+        "right_hand",
+        "entities",
+        "contacts",
+        "changes_from_previous",
+        "unknowns",
+        "visibility"
+      ],
+      "additionalProperties": false
+    },
+    "frame_batch": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/frame_card"
+          },
+          "minItems": 0
+        },
+        "missing_frame_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "identity_matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "local_entity_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "observation": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "local_entity_ids",
+              "frame_ids",
+              "observation"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "cards",
+        "missing_frame_ids",
+        "identity_matches"
+      ],
+      "additionalProperties": false
+    },
+    "video_observation": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "window_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scene_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "source_interval_s": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "temporal_precision": {
+                "enum": [
+                  "sampled_bounds",
+                  "unresolved"
+                ]
+              },
+              "unknowns": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "event_id",
+              "description",
+              "frame_ids",
+              "source_interval_s",
+              "temporal_precision",
+              "unknowns"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "window_id",
+        "scene_description",
+        "events",
+        "gaps"
+      ],
+      "additionalProperties": false
+    },
+    "reconciliation": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "entity_matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "observation": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "entity_ids",
+              "frame_ids",
+              "observation"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "annotation_facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "fact_id",
+              "text",
+              "source_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "comparisons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "supported",
+                  "not_visually_resolved",
+                  "conflict"
+                ]
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "event_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "fact_id",
+              "status",
+              "frame_ids",
+              "event_ids",
+              "source_ids",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "entity_matches",
+        "annotation_facts",
+        "comparisons",
+        "conflicts"
+      ],
+      "additionalProperties": false
+    },
+    "description": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "section_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "enum": [
+                  "before",
+                  "target",
+                  "after"
+                ]
+              },
+              "source_interval_s": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "claims": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claim"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "section_id",
+              "scope",
+              "source_interval_s",
+              "text",
+              "claims"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "unresolved_details": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "sections",
+        "unresolved_details"
+      ],
+      "additionalProperties": false
+    },
+    "open_qa_bundle": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "qa_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "event_description",
+                  "tool_or_object",
+                  "hand_coordination",
+                  "position_or_state_change",
+                  "observed_sequence",
+                  "end_state"
+                ]
+              },
+              "question": {
+                "type": "string",
+                "minLength": 1
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope_interval_s": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "claims": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claim"
+                },
+                "minItems": 1
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "qa_id",
+              "kind",
+              "question",
+              "answer",
+              "scope_interval_s",
+              "claims",
+              "limitations"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "held_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "qa_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "qa_id",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "items",
+        "held_items"
+      ],
+      "additionalProperties": false
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "claim_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verdict": {
+                "enum": [
+                  "supported",
+                  "unsupported",
+                  "contradicted",
+                  "unverifiable"
+                ]
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "event_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "claim_id",
+              "verdict",
+              "frame_ids",
+              "event_ids",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "omissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "event_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "description",
+              "frame_ids",
+              "event_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "item_decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "qa_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "revise_or_hold"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "qa_id",
+              "decision",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "followup_requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_interval_s": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "frame_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "missing_fact": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "source_interval_s",
+              "frame_ids",
+              "missing_fact"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "claim_checks",
+        "omissions",
+        "item_decisions",
+        "followup_requests"
+      ],
+      "additionalProperties": false
+    },
+    "fixed_mcq": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "ego",
+            "front"
+          ]
+        },
+        "qa_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "correctness",
+            "anomaly_types"
+          ]
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "text"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2
+        },
+        "correct_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "selection": {
+          "enum": [
+            "single",
+            "multiple"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "target_hand": {
+          "enum": [
+            "left",
+            "right"
+          ]
+        },
+        "scope_interval_s": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "visual_answerability": {
+          "enum": [
+            "supported",
+            "unresolved",
+            "conflict"
+          ]
+        },
+        "status": {
+          "enum": [
+            "gt_labeled_unvalidated",
+            "visual_candidate",
+            "held"
+          ]
+        }
+      },
+      "required": [
+        "case_id",
+        "view",
+        "qa_id",
+        "kind",
+        "question",
+        "options",
+        "correct_option_ids",
+        "selection",
+        "source_ids",
+        "target_hand",
+        "scope_interval_s",
+        "visual_answerability",
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

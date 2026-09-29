@@ -1,0 +1,28 @@
+Select useful open-ended QA topics for this clip using the video and supplied GT facts. Do not write questions or answers yet. Return each candidate ID once.
+
+Choose only topics that are useful, non-redundant, and supported by both the facts and the clip. The next stage will generate the question and answer.
+
+Topic rules:
+- Overall operation: one short summary of what the clip does as a whole. Keep separate from detailed steps.
+- Detailed operation: include only when several clear operation phases can be summarized in order.
+- Completion: prefer a useful negative status question when another named component is completed in the same clip. The answer must say what was completed. A positive question needs evidence that the named component reaches its completed state.
+- Order: compare two distinct, non-overlapping operations on different components. Exclude repeated motions, hand changes, same-part aliases, and near-duplicates.
+- Duration: include only a distinct TAS-B operation episode of at least 5 seconds with clear start/end bounds. Use its single named target. Do not use an aggregated multi-component state interval or claim completion unless GT explicitly supports completion.
+- Anomaly MCQ: include only when a GT anomaly of at least 5 seconds has direct visual evidence inside its ATR interval. The MCQ and correct answer remain fixed by GT.
+
+ERROR RULES (only inside the supplied ATR interval):
+- Empty holding: an operation is underway, and a hand holds a tool away from the workpiece without using it.
+- Conflicted placement/return: a hand places or returns a component while still holding another part or tool, visibly disrupting placement or transfer.
+- Repeated ineffective manipulation or a clearly wrong object/action counts only when the behavior itself is directly visible.
+- A normal pickup, brief transition or pause, ordinary tool holding, occlusion, or ambiguous motion is not an error by itself. Do not guess intent or infer an anomaly category from appearance; the category remains fixed by GT.
+- MCQ evidence must cite supplied frame IDs inside the ATR interval. If no in-interval frame shows concrete error behavior, exclude the MCQ.
+
+Few-shot selection examples (topics only):
+- A visible overall gearbox assembly plus several clear operation phases: include overall and detailed topics separately.
+- One component remains incomplete while a different named component is completed: a negative completion topic may be useful.
+- Loosening and hand-loosening the same screw: exclude order.
+- Loosening an M6 nut, then removing a different adapter plate in non-overlapping intervals: order may be useful.
+- A 1.3-second action: exclude duration. A distinct, bounded 12-second operation on one named component: duration or start/end may be useful.
+- A long ATR label with no concrete in-interval visual evidence: exclude the anomaly MCQ.
+
+Use only supplied candidate IDs and frame IDs. For an included candidate marked supports_visible_outcome, cite a frame showing its evidence. Use cannot_independently_confirm when GT supports the topic but sampled frames do not establish it independently. Exclude direct conflicts. Keep reasons short. Output schema JSON only.

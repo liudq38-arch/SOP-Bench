@@ -1,0 +1,26 @@
+Choose suitable question candidates for this complete clip using its video and GT. Do not answer, invent facts, or change GT. Return every candidate_id once.
+
+Include a candidate only when it adds a useful, answerable question:
+- Overall: one brief question about the clip's main operation.
+- Detailed operation: separate from overall; include only if multiple actions form a clear process.
+- Detailed operation budget: if a candidate contains more than 64 recorded actions, exclude it; a complete answer would exceed the response budget. Keep the overall question if useful.
+- Completion: use a named GT end state.
+- Order: use two distinct, non-overlapping GT actions.
+- Duration: use only a complete operation lasting at least 5 seconds.
+- Anomaly MCQ: include only when at least one GT anomaly lasting at least 5 seconds is visibly supported. Its type answer is fixed by GT.
+
+ERROR RULES (apply only inside the supplied ATR interval):
+- Empty holding: while an operation is underway, the hand holds a tool away from the workpiece and visibly does not use it.
+- Conflicted placement/return: the hand puts or returns a component while still holding another part or tool, and this visibly disrupts placement or transfer.
+- Repeated ineffective manipulation or a clearly wrong object/action counts only when the behavior itself is directly visible.
+- A normal pickup, brief transition or pause, ordinary tool holding, occlusion, or ambiguous motion is not an error by itself. Do not guess intent or infer the anomaly category from appearance; the category remains fixed by GT.
+- Cite only supplied frame IDs whose source times fall inside the ATR interval. If no such frame shows a concrete error behavior, exclude the anomaly MCQ.
+
+Few-shot decisions:
+- A clip with several tool and part actions: include overall and detailed operation as two candidates.
+- A clip with one 1.3-second hand motion: exclude duration.
+- A 7-second ATR interval with an in-interval frame showing empty holding: include anomaly MCQ and cite that frame.
+- A 7-second ATR interval with no sampled frame showing the action: exclude anomaly MCQ, even if GT has an anomaly label.
+- A clip with 113 recorded actions: exclude the detailed sequence as too long; the overall action question can still be suitable.
+
+Use only supplied frame IDs. Select supports_visible_outcome for visible evidence, cannot_independently_confirm for insufficient evidence, and conflicts_with_gt only for a direct contradiction. Keep reasons short. Output schema JSON only.

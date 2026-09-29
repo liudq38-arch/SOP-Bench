@@ -1,0 +1,15 @@
+Blindly inspect each supplied time window. No anomaly labels or GT are provided. For each event, say whether abnormal operation is visible, cite at most two sampled frame IDs from that interval, and describe the visible evidence in one concise sentence of at most 20 words. Do not assume a window is erroneous just because it is listed.
+
+ERROR RULES (apply only to the supplied interval and its listed in-interval frames):
+- Empty holding: an operation is underway, but the hand holds a tool away from the workpiece and visibly does not use it.
+- Conflicted placement/return: a hand puts or returns a component while still holding another part or tool, visibly disrupting placement or transfer.
+- Repeated ineffective manipulation or a clearly wrong object/action counts only when directly visible.
+- Ordinary pickup, transition, pause, or tool holding is not an error by itself. Occluded or ambiguous behavior is insufficient. Do not infer intent or name an anomaly type.
+- Mark true only with a listed frame ID from that interval and a concrete description of what is visible. Otherwise return false and no evidence frames.
+
+Few-shot evidence:
+- "The hand holds the screwdriver away from the screw; no tool-part contact is visible." This is a concrete observation.
+- "The hand still holds a fastener while placing another component down." This is a concrete observation.
+- If the relevant action is unclear or no listed frame shows it, return false with no evidence frames.
+
+True requires a relevant frame and a concrete description, not just "an error occurred." Output schema JSON only.

@@ -1,0 +1,13 @@
+Independently audit the factual evidence of this proposed QA. No anomaly answer labels are supplied. Watch ONLY the target anatomical hand in the target interval; the frames marked CONTEXT ONLY are not answer evidence. The upper-right inset is the same full frame, not another view or time.
+
+RULES
+1. Compare the blind observation, grounded description, and annotated action. They must agree on the actual tool contact, hand, object interaction, and outcome. Do not automatically reconcile contradictions to preserve a candidate.
+2. Holding a screwdriver while turning a screw with fingers is NOT using that screwdriver to turn the screw. Distinguish used_for_action, held_not_used, no_tool, and unclear. Tool use outside the target interval does not establish use inside it.
+3. Turning the whole assembly is not spinning its shaft relative to the housing. Stabilizing is not manipulating. An inserted part does not establish successful seating or tightening. Reject unobserved outcomes or identity detail.
+4. Use matches_annotation_action only if the named interaction is visible in the specified hand. If it is hidden, unclear, or performed by the opposite hand, return false. Annotation text does not prove visibility.
+5. claims_consistent must be false for materially conflicting descriptions even if one version matches the video. Flag the candidate for regeneration rather than silently repairing it.
+6. Cite 2–4 target-interval frames spanning at least one second. Write a restrained factual_description without an abnormality judgment. confidence refers to visibility, not label certainty.
+
+Examples: blind says screwdriver turns screw, grounded says fingers turn screw without using tool -> claims_consistent=false. Both say a part is held but the annotation says shaft rotation and no relative rotation is visible -> matches_annotation_action=false.
+
+Return schema JSON only.

@@ -1,0 +1,13 @@
+Check the native-view GT action against the specified anatomical hand in the video, then assess the reason for each GT anomaly label. GT supplies the fixed MCQ answer; it does not supply a visible explanation.
+
+RULES
+1. Match the actual actor, action and object. hand_loosen_screw means fingers act on the fastener; it is not screwdriver-driven rotation. hand_spin_drive_shaft is not merely stabilizing the housing while the other hand spins. hold is not turning a screw. supported requires this agreement; otherwise use partial, unclear or conflicts.
+2. Blind observations can be wrong. If you disagree, state claim_consistency=conflicts or unclear and describe the discrepancy; do not quietly call contradictory accounts consistent. Be conservative with hand identity and hidden contact.
+3. Distinguish tool use, unused co-holding, no tool, unclear. Inspect its tip. A housing/shaft is a workpiece, not a screwdriver. Use 2–4 source-frame IDs, all inside this video. Describe only what is visible, <=40 words. Label-based names may contextualize an object but must not manufacture visible tip shape or engagement.
+4. For each GT type, explained requires a concrete visible fact AND an applicable criterion: tool-task mismatch; unsuitable part; inappropriate orientation/place; manipulation problem; timing deviation; violated prerequisite. Otherwise observed_only, occluded or conflicts. Keep the GT answer unchanged.
+5. A tool held away from the workpiece is a visible fact, not automatically an error. It may support a handling/tool explanation only if a specific inappropriate/unproductive action is established. No inferred tool requirement, intent, torque, hidden engagement or completion.
+6. Neighboring GT and model-specific reference are context, not frames seen in this segment. A prerequisite outside the video does not prove its visual omission. Correct applies only to the specified hand and interval; return no anomaly entries for Correct.
+
+Example: GT hand_loosen_screw, visible right fingers turning a screw, screwdriver pointing upward in that palm -> visible_action supported; describe fingers plus unused tool. Wrong tool reason remains observed_only unless a tool-task criterion is supported. If the observation instead claims screwdriver tip use, flag that disagreement.
+
+Return schema JSON only.

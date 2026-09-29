@@ -1,0 +1,412 @@
+{
+  "request_key": "5c2bcae7fcdbaa2fda23ed5d991383ff7af9d9edeb00e97bd220a59233332b1a",
+  "started_utc": "2026-09-19T14:25:45.145004+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "ongoing_step",
+      "question_proposition": "Had I finished installing the bearing plate by the end of this clip?",
+      "mcq_question_proposition": "How far had I got with installing the bearing plate when this clip ended?",
+      "canonical_answer": "No, I was still working on installing the bearing plate when the clip ended.",
+      "options": [
+        "Installation was still in progress.",
+        "Installation was complete.",
+        "Installation had not started."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "component_state": {
+          "component": "bearing_plate",
+          "frame": 13511,
+          "state": -1
+        },
+        "action": "insert_bearing_plate_assembly",
+        "endpoint_inside_action_interval": true,
+        "scope": "ongoing step; no operator-error inference"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 5,
+            "name": "bearing_plate"
+          },
+          "pointer": "/components/5"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "frame": 13496,
+            "state": [
+              0,
+              1,
+              1,
+              1,
+              -1,
+              -1,
+              0,
+              0,
+              1,
+              0,
+              -1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "pointer": "/state_sequence/5"
+        },
+        {
+          "source_id": "s2",
+          "value": {
+            "id": 70,
+            "label": "insert_bearing_plate_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 13289,
+            "f_end": 13891
+          },
+          "pointer": "/segments/70"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_13331",
+        "frame_13357",
+        "frame_13382",
+        "frame_13408",
+        "frame_13434",
+        "frame_13460",
+        "frame_13485",
+        "frame_13511"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_13331",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aca95f941e7de25b3f5d8e6d.jpg",
+        "requested_time_s": 444.3666666666667,
+        "frame_index": 13331,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "b5f770b6c0d83192b762915b0aa8ba76c2baf081c4289c818a2b4a5e54a768ca"
+      },
+      {
+        "evidence_id": "frame_13357",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/60a3dff6d652b6e0ec27cb3b.jpg",
+        "requested_time_s": 445.23333333333335,
+        "frame_index": 13357,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "7155c4ef9fbed116e3ba8898055361f2dface619541e65ea02c3da22b3b3d7d4"
+      },
+      {
+        "evidence_id": "frame_13382",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/df556589057a060c0e06d421.jpg",
+        "requested_time_s": 446.06666666666666,
+        "frame_index": 13382,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "0d2a3923023e910f6ea3b6d505219e10eb6423df10fd708c44bc8a3787b99e8e"
+      },
+      {
+        "evidence_id": "frame_13408",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa1032b7b88d28939741f7c3.jpg",
+        "requested_time_s": 446.93333333333334,
+        "frame_index": 13408,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "b4bf98f45cb09a6c7974b40893346b5b4d4840f019b478172e2d3c92b7879ab5"
+      },
+      {
+        "evidence_id": "frame_13434",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/7eb2909cde2736aaa98a36fd.jpg",
+        "requested_time_s": 447.8,
+        "frame_index": 13434,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "945a5b5f8551158da4a4f037c244feac1123a57df68e38f542639a03430e7069"
+      },
+      {
+        "evidence_id": "frame_13460",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/90ad48fd46143a4d4f24c330.jpg",
+        "requested_time_s": 448.6666666666667,
+        "frame_index": 13460,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "95585a0bb552434b05c64c4d31c74b9be82f4beda45ac69af949281abc951238"
+      },
+      {
+        "evidence_id": "frame_13485",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f794b090a2ffc3e9d232330d.jpg",
+        "requested_time_s": 449.5,
+        "frame_index": 13485,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "95a73c24cfc91dc6da73affe5a8ea1bfd5e1f15eef831788ae83d21defc8c0ab"
+      },
+      {
+        "evidence_id": "frame_13511",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2bfd63eaa66d35adeb122781.jpg",
+        "requested_time_s": 450.3666666666667,
+        "frame_index": 13511,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "eb61fe30ce74a7ba505032bd869be562f6ac4438c5bf18fe05b55b48cbaada5d"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "05d33bc201d02b22a0f3ce7bb6fb87c9ff4418adebe5033f7034e2acaf2676c8",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 21.530327796936035,
+    "usage": {
+      "prompt_tokens": 8125,
+      "total_tokens": 8365,
+      "completion_tokens": 240,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Had I finished installing the bearing plate by the end of this clip?",
+      "answer": "No, I was still working on installing the bearing plate when the clip ended.",
+      "mcq_question": "How far had I got with installing the bearing plate when this clip ended?",
+      "visual_grade": 2,
+      "limitation": "The specific bearing plate component is obscured by the operator's hands and the tool, preventing direct visual confirmation of its installation state.",
+      "claims": [
+        {
+          "claim": "The action of inserting the bearing plate assembly was ongoing at the end of the clip.",
+          "source_ids": [
+            "s2"
+          ],
+          "image_ids": [
+            "frame_13511"
+          ]
+        },
+        {
+          "claim": "The bearing plate component state was recorded as -1 (incomplete) at the final frame.",
+          "source_ids": [
+            "s1"
+          ],
+          "image_ids": []
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-99de96b38ca437ed",
+      "object": "chat.completion",
+      "created": 1789827948,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Had I finished installing the bearing plate by the end of this clip?\",\n  \"answer\": \"No, I was still working on installing the bearing plate when the clip ended.\",\n  \"mcq_question\": \"How far had I got with installing the bearing plate when this clip ended?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"The specific bearing plate component is obscured by the operator's hands and the tool, preventing direct visual confirmation of its installation state.\",\n  \"claims\": [\n    {\n      \"claim\": \"The action of inserting the bearing plate assembly was ongoing at the end of the clip.\",\n      \"source_ids\": [\n        \"s2\"\n      ],\n      \"image_ids\": [\n        \"frame_13511\"\n      ]\n    },\n    {\n      \"claim\": \"The bearing plate component state was recorded as -1 (incomplete) at the final frame.\",\n      \"source_ids\": [\n        \"s1\"\n      ],\n      \"image_ids\": []\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8125,
+        "total_tokens": 8365,
+        "completion_tokens": 240,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "ongoing_step",
+        "question_proposition": "Had I finished installing the bearing plate by the end of this clip?",
+        "mcq_question_proposition": "How far had I got with installing the bearing plate when this clip ended?",
+        "canonical_answer": "No, I was still working on installing the bearing plate when the clip ended.",
+        "options": [
+          "Installation was still in progress.",
+          "Installation was complete.",
+          "Installation had not started."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "component_state": {
+            "component": "bearing_plate",
+            "frame": 13511,
+            "state": -1
+          },
+          "action": "insert_bearing_plate_assembly",
+          "endpoint_inside_action_interval": true,
+          "scope": "ongoing step; no operator-error inference"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 5,
+              "name": "bearing_plate"
+            },
+            "pointer": "/components/5"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "frame": 13496,
+              "state": [
+                0,
+                1,
+                1,
+                1,
+                -1,
+                -1,
+                0,
+                0,
+                1,
+                0,
+                -1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "pointer": "/state_sequence/5"
+          },
+          {
+            "source_id": "s2",
+            "value": {
+              "id": 70,
+              "label": "insert_bearing_plate_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 13289,
+              "f_end": 13891
+            },
+            "pointer": "/segments/70"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_13331",
+          "frame_13357",
+          "frame_13382",
+          "frame_13408",
+          "frame_13434",
+          "frame_13460",
+          "frame_13485",
+          "frame_13511"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_13331",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aca95f941e7de25b3f5d8e6d.jpg",
+          "requested_time_s": 444.3666666666667,
+          "frame_index": 13331,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "b5f770b6c0d83192b762915b0aa8ba76c2baf081c4289c818a2b4a5e54a768ca"
+        },
+        {
+          "evidence_id": "frame_13357",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/60a3dff6d652b6e0ec27cb3b.jpg",
+          "requested_time_s": 445.23333333333335,
+          "frame_index": 13357,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "7155c4ef9fbed116e3ba8898055361f2dface619541e65ea02c3da22b3b3d7d4"
+        },
+        {
+          "evidence_id": "frame_13382",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/df556589057a060c0e06d421.jpg",
+          "requested_time_s": 446.06666666666666,
+          "frame_index": 13382,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "0d2a3923023e910f6ea3b6d505219e10eb6423df10fd708c44bc8a3787b99e8e"
+        },
+        {
+          "evidence_id": "frame_13408",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa1032b7b88d28939741f7c3.jpg",
+          "requested_time_s": 446.93333333333334,
+          "frame_index": 13408,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "b4bf98f45cb09a6c7974b40893346b5b4d4840f019b478172e2d3c92b7879ab5"
+        },
+        {
+          "evidence_id": "frame_13434",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/7eb2909cde2736aaa98a36fd.jpg",
+          "requested_time_s": 447.8,
+          "frame_index": 13434,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "945a5b5f8551158da4a4f037c244feac1123a57df68e38f542639a03430e7069"
+        },
+        {
+          "evidence_id": "frame_13460",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/90ad48fd46143a4d4f24c330.jpg",
+          "requested_time_s": 448.6666666666667,
+          "frame_index": 13460,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "95585a0bb552434b05c64c4d31c74b9be82f4beda45ac69af949281abc951238"
+        },
+        {
+          "evidence_id": "frame_13485",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/f794b090a2ffc3e9d232330d.jpg",
+          "requested_time_s": 449.5,
+          "frame_index": 13485,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "95a73c24cfc91dc6da73affe5a8ea1bfd5e1f15eef831788ae83d21defc8c0ab"
+        },
+        {
+          "evidence_id": "frame_13511",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2bfd63eaa66d35adeb122781.jpg",
+          "requested_time_s": 450.3666666666667,
+          "frame_index": 13511,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "eb61fe30ce74a7ba505032bd869be562f6ac4438c5bf18fe05b55b48cbaada5d"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

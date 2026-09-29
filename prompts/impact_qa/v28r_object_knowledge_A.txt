@@ -1,0 +1,45 @@
+<impact_domain_reference>
+PURPOSE
+Optional domain reference for grounded QA generation; not per-clip evidence.
+
+TOOLS
+- combination_wrench (combination wrench): Slim silver wrench, open jaw at one end and a closed ring at the other. Holds or turns a hexagonal nut. The A manual shows it at the internal shaft/gear nut; the nut size still requires clip-specific GT.
+- flat_head_screwdriver (flat-head screwdriver): Black/blue handle, long exposed shaft and flat blade tip in the reference setup. Turns slotted screws. A checked B disassembly uses it on bearing-plate screws; do not assume it is needed in every clip.
+- phillips_screwdriver (Phillips screwdriver): Red/yellow handle and red-covered shaft with a short exposed cross-shaped tip in the reference setup. Turns cross-head screws. The A manual shows it fastening the adapter with the long screws and paired M4 nuts.
+- torx_screwdriver (Torx screwdriver): Green/black handle, exposed metal shaft and six-lobed star tip in the reference setup. Turns Torx screws. The A manual shows it on the bearing-plate screws and locking-lever screw.
+
+PARTS
+- anti_vibration_handle: Black elongated grip with a threaded mounting stud; A has a bulkier patterned grip than B in the reference figure. Provides a supporting hand grip; screws into a side socket of the gearbox housing.
+- gearbox_housing: Compact hollow casing with an open gear cavity, rim and mounting holes; black on reference A, silver/gray on reference B. Houses and supports the transmission and provides interfaces for the bearing plate, shaft assembly and side handle.
+- drive_shaft: Long axial assembly with a pale fan wheel near one end; A has a mostly smooth metal cylinder, while B exposes rotor and copper-colored commutator sections. Carries rotation toward the small bevel gear in the housing. TAS-S rotor assembly and TAS-B drive_shaft refer to related assembly granularity; this is not the separate output spindle on the bearing plate.
+- bevel_gear: Small toothed, roughly conical metal part on the housing-side end of the drive shaft. Meshes with the larger gear in the bearing-plate assembly to transmit rotation between the axes; hidden engagement still needs evidence.
+- adapter_plate: Dark ring-like part with a large central opening and model-dependent rim/ribs; not a generic flat silver plate. A locating/adapting part. In A it joins the housing at the rotor-entry side using the adapter screw/M4-nut pairs. B's figure places its adapter at the other end of the rotor assembly; do not reuse the A attachment graph for B.
+- bearing_plate: Plate with a central bearing/output spindle and a larger gear on its inner side. A has a dark plate around a metal bearing ring; B is predominantly silver in the figure. Supports/locates the output spindle and closes the gear cavity. In A the two bearing screws retain this plate to the housing.
+- screw: screw_lever, screw_adaptor_topleft, screw_adaptor_lowright, bearing_screw_topleft, bearing_screw_lowright: Threaded fasteners; the A adapter pair is long, while bearing and lever screws are separate instances. Position labels are annotation identities, not invariant screen coordinates. The adapter pair secures adapter to housing using matching M4 nuts; the bearing pair secures bearing plate to housing; the lever screw retains the lever/spring/washer subassembly at the bearing-plate area.
+- M4_nut: M4_nut_plate_topleft, M4_nut_plate_lowright: Two small hexagonal nuts in the A figure; thread size is a GT identity, not a reliable pixel-size judgment. Receive the matching A adapter screws and retain that connection; B's exploded figure does not separately list these nuts.
+- lever: Small dark elongated, slightly curved lever with a mounting eye in A. Part of the A locking mechanism, assembled with the spring, washer and lever screw. The exact internal locking target is not established by the annotation names.
+- washer: Small thin ring beside the A lever fastener. Provides a spacing/bearing surface within the lever fastening stack; exact stacking order needs a clear view or explicit instruction.
+- spring: Small helical coil spring in the A lever subassembly. Provides an elastic bias in the lever mechanism; spring force and successful return are not given by its presence.
+- M6_nut: Hexagonal nut drawn at the small bevel gear/drive-shaft end, dark in the A reference. Retains the small bevel gear on the drive-shaft end in the illustrated assembly. Do not rename a conflicting TAS-B M4 label to M6 without review.
+
+CONFIGURATION
+- Model A = Fein CG15-125BL. Black housing; adapter near the housing's rotor-entry side, retained by two long screws and paired M4 nuts; separate locking lever/spring/washer/lever-screw group. A manual: Phillips for adapter screws, Torx for bearing and lever screws. These are reference operations, not proof that this clip follows them.
+
+ANNOTATION NAMING
+- gearbox_housing_drive_shaft: Composite housing-plus-drive-shaft assembly, not a new independent component.
+- spin_drive_shaft: A TAS-B noun used in shaft-spinning labels; not a second shaft.
+- tool: Unspecified tool. Do not assign a screwdriver subtype unless GT or visual identity resolves it.
+- screw: Generic screw. Resolve a position-specific identity only from compatible GT or sufficiently clear evidence.
+- M4_nut: Generic M4 nut; does not itself identify the top-left or lower-right instance.
+- Legacy screw_plate_* and screw_bevel_* ASR names occur in one file. Preserve their raw IDs and do not silently normalize them.
+
+RULES
+1. Use this reference for recognition and concise functional language. Ground what happened, completion, order, duration and anomaly answers in the current clip's GT and video. If sources conflict, flag the item for review instead of silently rewriting GT.
+2. Tool handle colors are reference appearance cues, not universal identity rules. Holding, picking up or carrying a tool does not prove tool contact or correct use; idle holding alone is not an anomaly without task-specific GT and visual support.
+3. Use position-specific screw/nut names only when the clip evidence resolves them. top-left/lower-right are annotation identities; do not map them directly to screen corners across views. Preserve adapter/adaptor spellings in raw IDs.
+4. Model A/B, the figure's blue tool labels A/B/C/D, and its black lettered surface views are different naming systems. Prefer explicit model metadata; file A/B is a configuration cue. Do not confuse them with anomaly-choice letters.
+5. A generic screw, tool or compound noun is not an additional physical component. Preserve legacy labels and flag conflicts. Do not invent hidden tip shape, thread size, engagement, tightening torque, exact material or successful fastening.
+6. Do not assume every listed part occurs in this clip or in both models. ASR correctly-assembled state must be read from the actual clip interval. A tool being put down, a part being held or a coarse install label alone does not establish successful completion.
+7. Reference assembly order is not a unique required order: IMPACT allows multiple valid paths. Use a supported prerequisite to judge correctness; use observed GT/video intervals to describe the order actually seen.
+8. Summarize meaningful tool-part operations in natural language, without enumerating every hand movement. Keep overall action, detailed process and completion questions distinct. A correct negative completion answer needs evidence of the queried part's state, not merely its absence from a short clip.
+</impact_domain_reference>

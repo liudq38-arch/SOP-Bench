@@ -1,0 +1,47 @@
+For every selected open-QA topic, generate BOTH a natural question and its answer from the video and supplied GT facts. The input contains a topic and evidence, not a prewritten question or answer. Return exactly one QA for each selected candidate ID, with source fact IDs and evidence frame IDs.
+
+Rules:
+- Write a clear question a viewer could answer about this clip. Do not copy the topic sentence verbatim.
+- Ground answer claims in the supplied GT facts. Use video frames to check that the topic fits the clip. Do not invent tool-to-part contact, completion, causes, corrections, or actions.
+- Keep question types separate: overall asks what the clip does; detailed asks for main operation phases; completion asks about one component; order compares two distinct operations; duration asks elapsed time or clip-relative bounds.
+- Preserve exact names when mentioning a specific component, tool, or location-specific variant. Do not combine different named parts.
+- Never mention GT, annotations, labels, IDs, model selection, or the dataset in public Q/A text.
+- Cite only supplied source fact IDs. Evidence frames must be among the selected frames and support the answer. If the answer is supported by GT but not independently visible, say so in evidence_note and use cannot_independently_confirm.
+
+Answer style:
+- Overall: one or two sentences, no more than 55 words. State assembly/disassembly, mention at least one supplied tool and one to three main objects. Summarize; do not list every screw, washer, small motion, or GT item.
+- Detailed: at most four sentences and 95 words. Describe the main tool/component operation phases in chronological order. Do not repeat hand changes, holds, transfers, or every atomic action. Name a tool-part relation only when visible.
+- Completion: follow the supplied yes/no polarity. For a negative answer, begin with “No”, state that the queried component was not completed, then name what component operation did complete in this clip. Do not make every answer “Yes”.
+- Order: ask which of two distinct component operations happened first. Answer with the first operation before the second. Report observed order; do not judge whether it was required or correct.
+- Duration: ask about the supplied single-target operation episode. Give the exact supplied duration or exact clip-relative start/end times. Do not call it complete unless GT explicitly says it completed. Do not use source-video timestamps or round the supplied values.
+
+Few-shot examples (style only; never reuse these objects for the current clip):
+
+Overall
+Topic: gearbox assembly, using a Phillips screwdriver and Torx screwdriver on a bearing plate and anti-vibration handle; several fasteners also appear in GT.
+Question: What does the clip show overall?
+Answer: I assemble the gearbox, using the Phillips and Torx screwdrivers to fit the bearing plate and anti-vibration handle.
+
+Detailed operation
+Topic: loosen a handle fastener with a screwdriver, remove the handle, then remove a separate lever assembly.
+Question: What are the main steps I take to remove these components?
+Answer: I loosen the handle fastener with the screwdriver, remove the handle, and then take off the lever assembly.
+Bad answer: I pick up the tool, move it to my right hand, hold the body, transfer it back, loosen the screw three times, and put the tool away.
+
+Completion
+Topic: the adapter plate is incomplete; the bearing plate installation was completed during this clip.
+Question: Did I finish installing the adapter plate? If not, what did I complete?
+Answer: No. The adapter plate was not fully installed. I completed installation of the bearing plate.
+
+Order
+Topic: loosen an M6 nut, then remove a different adapter plate.
+Question: Which happened first, loosening the M6 nut or removing the adapter plate?
+Answer: I loosened the M6 nut before removing the adapter plate.
+Bad question: Which came first, loosening the screw or hand-loosening that same screw?
+
+Duration
+Topic: one bounded operation episode of inserting a bearing plate assembly runs from 12.4 to 28.5 seconds in the clip.
+Question: From what time to what time am I inserting the bearing plate assembly?
+Answer: I insert the bearing plate assembly from 12.4 to 28.5 seconds in the clip.
+
+Examples show concise style only. Current clip facts always take priority. Output schema JSON only.

@@ -1,0 +1,337 @@
+{
+  "request_key": "5fc9eebfcf71b945a6982d4648e5df81c67ee55cefa9a974350cde9d22e9aa74",
+  "started_utc": "2026-09-19T14:17:54.210911+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "tool_identity",
+      "question_proposition": "Which tool did I pick up with my right hand in this clip?",
+      "mcq_question_proposition": "Which tool did I pick up with my right hand in this clip?",
+      "canonical_answer": "I picked up a screwdriver with my right hand.",
+      "options": [
+        "A screwdriver.",
+        "A wrench.",
+        "A pair of pliers."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "tool": "screwdriver",
+        "hand": "right",
+        "action": "pick_up",
+        "target_interval_exclusive": [
+          22250,
+          22266
+        ],
+        "scope": "generic tool identity only, no tip subtype or appropriateness"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 17,
+            "verb": 14,
+            "noun": 17,
+            "start_frame": 22250,
+            "end_frame": 22266,
+            "phase": "normal",
+            "anomaly_type": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "entity": "right"
+          },
+          "pointer": "/segments/200"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 17,
+            "name": "pick_up_torx_screwdriver"
+          },
+          "pointer": "/action_labels/17"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "context_1",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "target_10",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "context_2",
+        "target_15",
+        "context_3"
+      ],
+      "forbidden_claims": [],
+      "proposed_qa": {
+        "open_question": "Which tool did I pick up with my right hand in this clip?",
+        "answer": "I picked up a screwdriver with my right hand.",
+        "mcq_question": "Which tool did I pick up with my right hand in this clip?",
+        "visual_grade": 2,
+        "limitation": "The specific moment of lifting the tool is not clearly captured in the static frames, though the hand is positioned over it.",
+        "claims": [
+          {
+            "claim": "I picked up a screwdriver with my right hand.",
+            "source_ids": [
+              "s0",
+              "s1"
+            ],
+            "image_ids": [
+              "target_0",
+              "target_1",
+              "target_2"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "unknown",
+        "visual_grade": 0,
+        "tool": "unknown",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "context_0",
+          "context_1",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_2",
+          "target_15",
+          "context_3"
+        ],
+        "observation": "The person holds a black component in both hands. A green screwdriver remains on the table throughout the clip. No tool is picked up by the right hand.",
+        "limitation": "The video frames do not show the right hand grasping or lifting any tool from the surface."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "5eaccccfe24b42a17594b8bba1aef2cdadb2abe1a410eb684b0b98bda30ab552",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 10.938153982162476,
+    "usage": {
+      "prompt_tokens": 1090,
+      "total_tokens": 1195,
+      "completion_tokens": 105,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": false,
+      "unsupported_claims": [],
+      "reason": "Source s1 explicitly labels the action as 'pick_up_torx_screwdriver' by the right hand. The blind answer incorrectly claims no tool was picked up, contradicting the authoritative source annotation."
+    },
+    "raw_response": {
+      "id": "chatcmpl-82a0946ea5df10cd",
+      "object": "chat.completion",
+      "created": 1789827474,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":false,\"unsupported_claims\":[],\"reason\":\"Source s1 explicitly labels the action as 'pick_up_torx_screwdriver' by the right hand. The blind answer incorrectly claims no tool was picked up, contradicting the authoritative source annotation.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1090,
+        "total_tokens": 1195,
+        "completion_tokens": 105,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "tool_identity",
+        "question_proposition": "Which tool did I pick up with my right hand in this clip?",
+        "mcq_question_proposition": "Which tool did I pick up with my right hand in this clip?",
+        "canonical_answer": "I picked up a screwdriver with my right hand.",
+        "options": [
+          "A screwdriver.",
+          "A wrench.",
+          "A pair of pliers."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "tool": "screwdriver",
+          "hand": "right",
+          "action": "pick_up",
+          "target_interval_exclusive": [
+            22250,
+            22266
+          ],
+          "scope": "generic tool identity only, no tip subtype or appropriateness"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 17,
+              "verb": 14,
+              "noun": 17,
+              "start_frame": 22250,
+              "end_frame": 22266,
+              "phase": "normal",
+              "anomaly_type": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "entity": "right"
+            },
+            "pointer": "/segments/200"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 17,
+              "name": "pick_up_torx_screwdriver"
+            },
+            "pointer": "/action_labels/17"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "context_1",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_2",
+          "target_15",
+          "context_3"
+        ],
+        "forbidden_claims": [],
+        "proposed_qa": {
+          "open_question": "Which tool did I pick up with my right hand in this clip?",
+          "answer": "I picked up a screwdriver with my right hand.",
+          "mcq_question": "Which tool did I pick up with my right hand in this clip?",
+          "visual_grade": 2,
+          "limitation": "The specific moment of lifting the tool is not clearly captured in the static frames, though the hand is positioned over it.",
+          "claims": [
+            {
+              "claim": "I picked up a screwdriver with my right hand.",
+              "source_ids": [
+                "s0",
+                "s1"
+              ],
+              "image_ids": [
+                "target_0",
+                "target_1",
+                "target_2"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "unknown",
+          "visual_grade": 0,
+          "tool": "unknown",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "context_0",
+            "context_1",
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "target_4",
+            "target_5",
+            "target_6",
+            "target_7",
+            "target_8",
+            "target_9",
+            "target_10",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "context_2",
+            "target_15",
+            "context_3"
+          ],
+          "observation": "The person holds a black component in both hands. A green screwdriver remains on the table throughout the clip. No tool is picked up by the right hand.",
+          "limitation": "The video frames do not show the right hand grasping or lifting any tool from the surface."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

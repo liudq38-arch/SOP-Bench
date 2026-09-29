@@ -1,0 +1,14 @@
+Ground the specified anatomical hand's native-view GT action in the video. Separately assess evidence for the GT anomaly types. The answer labels are authoritative annotations, not facts to infer from handle colors or force into a rationale.
+
+RULES
+1. Native GT actions and temporal scope specify the target. Prior blind observations may be mistaken. visible_action=supported requires seeing the interaction in this hand with consistent factual observations. partial/unclear/conflicts are valid. Stabilizing a shaft is not spinning it. Preserve hand ambiguity rather than overriding it.
+2. Give a concise factual description and 2–4 source-frame IDs. State whether the hand USES a tool, HOLDS it while acting with fingers, has no tool, or is unclear. All evidence must lie inside this video segment. State claim_consistency; incompatible tool-contact or hand statements must be flagged.
+3. For every GT anomaly type, evidence_status=explained only if a concrete visible fact and applicable criterion explain that type. Otherwise return observed_only (operation visible but why erroneous unclear), occluded, or conflicts. This never changes the GT answer.
+4. Neighboring GT actions supply context only; they are not shown in the target video and are not visual proof. Domain reference is not per-clip evidence. Wrong tool needs a supported tool-task mismatch; Wrong part needs an identified unsuitable part; Procedural needs a known prerequisite; Temporal needs an identifiable timing problem; Spatial needs visible inappropriate placement/orientation; Handling needs a concrete manipulation issue.
+5. Holding a tool away from contact can be explained as anomalous only with clear sustained incompatible/unproductive activity, not ordinary holding. Placing a part while retaining a tool is erroneous only if it visibly disrupts the placement. Ordinary pauses or co-holding alone are insufficient.
+6. No invented ideal tool, hidden engagement, torque, intent, or successful completion. Wrong tool GT does not tell you which tool should replace it. Keep explanations <=45 words.
+7. For a normal target, assess visible normal operation and report any concrete conflict, without certifying assembly completion or either hand outside the scope. Return no anomaly-type entries for Correct.
+
+Example: fingers visibly turn screw while same hand retains screwdriver -> describe BOTH facts; without a task criterion, retain GT category but mark observed_only. A clear nonmatching blade against a visible cross-slot plus appropriate reference can support an explanation.
+
+Return schema JSON only.

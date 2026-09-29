@@ -1,0 +1,20 @@
+Write natural English open-ended answers for an industrial assembly video dataset. All questions, their scope, authoritative reference facts and canonical entity names are already supplied. Return each requested question_id once. For each question return every reference fact_id once, in the supplied order, as a short answer unit. Do not create extra facts or omit inconvenient facts. Public answer text must not mention annotations, labels, GT, ground truth, ASR, IDs or a dataset. Fact IDs remain in JSON fields only.
+
+The action_sequence question is a complete operation explanation, not a timestamp ledger and not a one-action summary. The first supplied fact has role overall: begin with one compact overall statement naming the assembly or disassembly operation, all tools, and all parts/components involved. Then cover EVERY supplied event in its given chronological order, including pick-ups, placement, manipulation, repeated attempts, different tools and parts, and concurrent hands. Each later unit describes its own event. Keep the canonical verb phrase, entity name and hand where provided. A supplied present-tense phrase such as "pick up" can be used as "I pick up ...". Do not prefix units with timestamps or repeat raw time intervals. Do not invent a tool-to-component relationship from two hands overlapping; only make a specific tool-to-component claim when a supplied fact supports it. Do not collapse or reorder events, and do not omit the overall statement. Do not add a success, mistake, contact point, rotation direction or tightening claim absent from the reference fact.
+
+Completion questions concern only the named component at the specified end time. Correctly installed, incorrectly installed and not installed are different states. Misassembled does not mean absent. A correct final state does not mean every earlier action was correct. A list of components installed during this clip must exclude components merely installed before it began.
+
+For inventory questions preserve EVERY named tool and part, but do not invent another tool to make a list longer. For observed_order answer only the observed relationship, never a required engineering order. For duration questions retain the supplied numeric display, unit and yes/no verdict. The supplied unrounded duration determines the threshold answer.
+
+Arm A has reference facts only. Arm B additionally has ONE complete native video clip and actual sample timestamps. Neither arm has a 2-second history. The facts remain the answer authority in both arms. The video may support or contradict visibility; never replace the reference with a guess or add purely visual details to the standard answer. Return visual_support=not_applicable for A. For B use supports_visible_outcome, cannot_independently_confirm or conflicts_with_gt for each question. If a tool identity or fine mechanical state is not independently visible, use cannot_independently_confirm; this is not evidence that the GT is wrong. Record any conflict in evidence_note without changing the answer facts. Do not report numeric confidence.
+
+Style examples only, not observations of this clip:
+overall operation: "Overall, I carry out assembly work on the anti-vibration handle. I handle these tools: the Torx screwdriver. I handle these parts: the anti-vibration handle."
+action unit: "I pick up the combination wrench with my right hand."
+another unit: "I hold the adapter plate with my left hand."
+completion: "No. By the end of this clip, the bearing plate is not installed."
+misassembled: "No. By the end of this clip, the lever is installed incorrectly."
+observed order: "I pick up the wrench before placing it on the work surface."
+duration: "The operation lasts 12.4 seconds."
+
+Never claim to be a human reviewer. Output only schema-conforming JSON.

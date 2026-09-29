@@ -1,0 +1,451 @@
+{
+  "request_key": "91fbf038fbfd8d3bf5ad941693f0450c2fb8d8d510d1652387dd6c4b1bcec6a6",
+  "started_utc": "2026-09-19T14:30:45.883183+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "action_error_category",
+      "question_proposition": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+      "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+      "canonical_answer": "Spatial, object handling and wrong part errors.",
+      "options": [
+        "Spatial, object handling and wrong part errors.",
+        "Spatial, object handling and timing errors.",
+        "Spatial, object handling and wrong tool errors."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "action": "pick_up_adapter_plate",
+        "hand": "right",
+        "phase": "anomaly",
+        "error_attributes": [
+          "spatial",
+          "object-handling",
+          "wrong-part"
+        ],
+        "target_interval": [
+          156,
+          210
+        ],
+        "error_mechanism": null,
+        "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 5,
+            "verb": 14,
+            "noun": 1,
+            "start_frame": 156,
+            "end_frame": 210,
+            "phase": "anomaly",
+            "anomaly_type": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "entity": "right"
+          },
+          "pointer": "/segments/72"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 5,
+            "name": "pick_up_adapter_plate"
+          },
+          "pointer": "/action_labels/5"
+        },
+        {
+          "source_id": "s2",
+          "value": [
+            {
+              "id": 0,
+              "name": "error_temporal"
+            },
+            {
+              "id": 1,
+              "name": "error_spatial"
+            },
+            {
+              "id": 2,
+              "name": "error_handling"
+            },
+            {
+              "id": 3,
+              "name": "error_wrong_part"
+            },
+            {
+              "id": 4,
+              "name": "error_wrong_tool"
+            },
+            {
+              "id": 5,
+              "name": "error_procedural"
+            }
+          ],
+          "pointer": "/anomaly_types"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_141",
+        "frame_153",
+        "frame_165",
+        "frame_177",
+        "frame_189",
+        "frame_201",
+        "frame_213",
+        "frame_225"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_141",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a5c862ece2b219ffec022cfd.jpg",
+        "requested_time_s": 4.7,
+        "frame_index": 141,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "5c315f8c4fdfdf29b6e16197c3186baf3e14943504a62862621a0aec84405eca"
+      },
+      {
+        "evidence_id": "frame_153",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b5c8d767d477a68149a35335.jpg",
+        "requested_time_s": 5.1,
+        "frame_index": 153,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "63c97a17a670acb4d210a21db1305a4ad18e36fe8151dd4b298842be4a9433d3"
+      },
+      {
+        "evidence_id": "frame_165",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e800b749a493aee3c8a411b9.jpg",
+        "requested_time_s": 5.5,
+        "frame_index": 165,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "7321e11b6c27e0256c9ad6e8d60bbd9837205e6b3a710a2a484d04e1270a1180"
+      },
+      {
+        "evidence_id": "frame_177",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/334c880713caf0b97f20104a.jpg",
+        "requested_time_s": 5.9,
+        "frame_index": 177,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "9bee96bb0e9304df84fda94ad79685a42854a9011c12fadf1aafe6756aa00ef4"
+      },
+      {
+        "evidence_id": "frame_189",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/790345ca0f55793b1259f0a1.jpg",
+        "requested_time_s": 6.3,
+        "frame_index": 189,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "66b6ff5d0c4f8cfedbacbbbea7610cab8384b939ff3067bc0e3ef05d7f8dece8"
+      },
+      {
+        "evidence_id": "frame_201",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/5513a664e7c4439854df2571.jpg",
+        "requested_time_s": 6.7,
+        "frame_index": 201,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "d469b4232fb6485c2e33b3181c27834528779d1debe82ec064c99864d2023135"
+      },
+      {
+        "evidence_id": "frame_213",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/38946e28dc4481683c982d79.jpg",
+        "requested_time_s": 7.1,
+        "frame_index": 213,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "060084ff95a095e68413cb0695a65a53054215eb21b3cd93d8b55798a1e26648"
+      },
+      {
+        "evidence_id": "frame_225",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/84c50e1c42a657d92e09f7b7.jpg",
+        "requested_time_s": 7.5,
+        "frame_index": 225,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "d03430365236549a06fadc437c800272d0645b4f38b87bb7407b133402440890"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "4b60d15b120e41d38205249a95970b7930fbe280d98abe67abc819b57afc5b93",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 17.53860640525818,
+    "usage": {
+      "prompt_tokens": 8157,
+      "total_tokens": 8417,
+      "completion_tokens": 260,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+      "answer": "Spatial, object handling, and wrong part errors occurred during the action.",
+      "mcq_question": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+      "visual_grade": 2,
+      "limitation": "Frames show the hand reaching and grasping, but specific error mechanisms like spatial misalignment or wrong part selection are not visually explicit.",
+      "claims": [
+        {
+          "claim": "Spatial, object handling, and wrong part errors occurred during the action.",
+          "source_ids": [
+            "s0",
+            "s2"
+          ],
+          "image_ids": [
+            "frame_141",
+            "frame_153",
+            "frame_165",
+            "frame_177",
+            "frame_189",
+            "frame_201",
+            "frame_213",
+            "frame_225"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-a11bbcb425aa9621",
+      "object": "chat.completion",
+      "created": 1789828248,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"What types of error occurred while I was picking up the adapter plate with my right hand?\",\n  \"answer\": \"Spatial, object handling, and wrong part errors occurred during the action.\",\n  \"mcq_question\": \"Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"Frames show the hand reaching and grasping, but specific error mechanisms like spatial misalignment or wrong part selection are not visually explicit.\",\n  \"claims\": [\n    {\n      \"claim\": \"Spatial, object handling, and wrong part errors occurred during the action.\",\n      \"source_ids\": [\n        \"s0\",\n        \"s2\"\n      ],\n      \"image_ids\": [\n        \"frame_141\",\n        \"frame_153\",\n        \"frame_165\",\n        \"frame_177\",\n        \"frame_189\",\n        \"frame_201\",\n        \"frame_213\",\n        \"frame_225\"\n      ]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8157,
+        "total_tokens": 8417,
+        "completion_tokens": 260,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "action_error_category",
+        "question_proposition": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+        "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+        "canonical_answer": "Spatial, object handling and wrong part errors.",
+        "options": [
+          "Spatial, object handling and wrong part errors.",
+          "Spatial, object handling and timing errors.",
+          "Spatial, object handling and wrong tool errors."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "action": "pick_up_adapter_plate",
+          "hand": "right",
+          "phase": "anomaly",
+          "error_attributes": [
+            "spatial",
+            "object-handling",
+            "wrong-part"
+          ],
+          "target_interval": [
+            156,
+            210
+          ],
+          "error_mechanism": null,
+          "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 5,
+              "verb": 14,
+              "noun": 1,
+              "start_frame": 156,
+              "end_frame": 210,
+              "phase": "anomaly",
+              "anomaly_type": [
+                0,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "entity": "right"
+            },
+            "pointer": "/segments/72"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 5,
+              "name": "pick_up_adapter_plate"
+            },
+            "pointer": "/action_labels/5"
+          },
+          {
+            "source_id": "s2",
+            "value": [
+              {
+                "id": 0,
+                "name": "error_temporal"
+              },
+              {
+                "id": 1,
+                "name": "error_spatial"
+              },
+              {
+                "id": 2,
+                "name": "error_handling"
+              },
+              {
+                "id": 3,
+                "name": "error_wrong_part"
+              },
+              {
+                "id": 4,
+                "name": "error_wrong_tool"
+              },
+              {
+                "id": 5,
+                "name": "error_procedural"
+              }
+            ],
+            "pointer": "/anomaly_types"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_141",
+          "frame_153",
+          "frame_165",
+          "frame_177",
+          "frame_189",
+          "frame_201",
+          "frame_213",
+          "frame_225"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_141",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/a5c862ece2b219ffec022cfd.jpg",
+          "requested_time_s": 4.7,
+          "frame_index": 141,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "5c315f8c4fdfdf29b6e16197c3186baf3e14943504a62862621a0aec84405eca"
+        },
+        {
+          "evidence_id": "frame_153",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b5c8d767d477a68149a35335.jpg",
+          "requested_time_s": 5.1,
+          "frame_index": 153,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "63c97a17a670acb4d210a21db1305a4ad18e36fe8151dd4b298842be4a9433d3"
+        },
+        {
+          "evidence_id": "frame_165",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e800b749a493aee3c8a411b9.jpg",
+          "requested_time_s": 5.5,
+          "frame_index": 165,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "7321e11b6c27e0256c9ad6e8d60bbd9837205e6b3a710a2a484d04e1270a1180"
+        },
+        {
+          "evidence_id": "frame_177",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/334c880713caf0b97f20104a.jpg",
+          "requested_time_s": 5.9,
+          "frame_index": 177,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "9bee96bb0e9304df84fda94ad79685a42854a9011c12fadf1aafe6756aa00ef4"
+        },
+        {
+          "evidence_id": "frame_189",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/790345ca0f55793b1259f0a1.jpg",
+          "requested_time_s": 6.3,
+          "frame_index": 189,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "66b6ff5d0c4f8cfedbacbbbea7610cab8384b939ff3067bc0e3ef05d7f8dece8"
+        },
+        {
+          "evidence_id": "frame_201",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/5513a664e7c4439854df2571.jpg",
+          "requested_time_s": 6.7,
+          "frame_index": 201,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "d469b4232fb6485c2e33b3181c27834528779d1debe82ec064c99864d2023135"
+        },
+        {
+          "evidence_id": "frame_213",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/38946e28dc4481683c982d79.jpg",
+          "requested_time_s": 7.1,
+          "frame_index": 213,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "060084ff95a095e68413cb0695a65a53054215eb21b3cd93d8b55798a1e26648"
+        },
+        {
+          "evidence_id": "frame_225",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/84c50e1c42a657d92e09f7b7.jpg",
+          "requested_time_s": 7.5,
+          "frame_index": 225,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "d03430365236549a06fadc437c800272d0645b4f38b87bb7407b133402440890"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

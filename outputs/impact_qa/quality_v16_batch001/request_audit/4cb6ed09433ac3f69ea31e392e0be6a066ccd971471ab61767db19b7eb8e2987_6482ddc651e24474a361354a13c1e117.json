@@ -1,0 +1,372 @@
+{
+  "request_key": "4cb6ed09433ac3f69ea31e392e0be6a066ccd971471ab61767db19b7eb8e2987",
+  "started_utc": "2026-09-19T14:30:27.135388+00:00",
+  "stage": "quality_v16_visual_audit",
+  "request": {
+    "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+      "clip_start_s": 4.3,
+      "clip_end_s_exclusive": 61.5,
+      "allowed_image_ids": [
+        "frame_129",
+        "frame_374",
+        "frame_619",
+        "frame_864",
+        "frame_1109",
+        "frame_1354",
+        "frame_1599",
+        "frame_1844"
+      ],
+      "proposed_qa": {
+        "open_question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+        "answer": "Yes, I started installing the rotor assembly first.",
+        "mcq_question": "Which did I start first: attaching the adapter plate or installing the rotor assembly?"
+      },
+      "claims": [
+        {
+          "claim": "I started installing the rotor assembly first.",
+          "image_ids": [
+            "frame_129",
+            "frame_374",
+            "frame_619",
+            "frame_864",
+            "frame_1109",
+            "frame_1354",
+            "frame_1599"
+          ]
+        }
+      ],
+      "options": [
+        "Both started at the same time.",
+        "Installing the rotor assembly.",
+        "Attaching the adapter plate."
+      ],
+      "blind_answer": {
+        "answer": "No, the rotor assembly is being installed throughout the frames, while the adapter plate is not visibly attached.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "frame_129",
+          "frame_374",
+          "frame_619",
+          "frame_864",
+          "frame_1109",
+          "frame_1354",
+          "frame_1599",
+          "frame_1844"
+        ],
+        "observation": "The person holds a cylindrical component (rotor assembly) and manipulates it. No adapter plate is seen being attached in these frames.",
+        "limitation": "Cannot confirm if the adapter plate was attached earlier or later outside the provided frames."
+      }
+    },
+    "images": [
+      {
+        "evidence_id": "frame_129",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/eb9b9752411a042702407385.jpg",
+        "requested_time_s": 4.3,
+        "frame_index": 129,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "a2dd5c63e6316612785f71c219e556a149c5ec5bbb68ef6342542eaf4a59daf9"
+      },
+      {
+        "evidence_id": "frame_374",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e10f568a98d6c78a2f485057.jpg",
+        "requested_time_s": 12.466666666666667,
+        "frame_index": 374,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "1ae362721017b057cd6b419961f6fc1e3b0053f83b93fc61df1290db0229e6c8"
+      },
+      {
+        "evidence_id": "frame_619",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/841b1a3ef82798d19b32ac4c.jpg",
+        "requested_time_s": 20.633333333333333,
+        "frame_index": 619,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "5957f43f344295f84bfe82b98c470d26edb5275388ca21e1d4710e6832924afa"
+      },
+      {
+        "evidence_id": "frame_864",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2ec51786f2e0ada9a96b61d3.jpg",
+        "requested_time_s": 28.8,
+        "frame_index": 864,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "c257734004580f1e7f0f96594854dea7feedaa491e6f2e0af83d12df49929e6b"
+      },
+      {
+        "evidence_id": "frame_1109",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b9f73a896c15ebfee7d9e4f5.jpg",
+        "requested_time_s": 36.96666666666667,
+        "frame_index": 1109,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "7260ba230a90e67e84484c0e31b9ba3aa72d33b9ac5d2f03776340e2a1c906e5"
+      },
+      {
+        "evidence_id": "frame_1354",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/115a1dd8a6052ea521c2d4c1.jpg",
+        "requested_time_s": 45.13333333333333,
+        "frame_index": 1354,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "42f96d95e7b39b4f5ff29f9dac3939e50daeb4e81fb43ccc77909bd70b849e8c"
+      },
+      {
+        "evidence_id": "frame_1599",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ff1b8c10cf9a6deebab37ad1.jpg",
+        "requested_time_s": 53.3,
+        "frame_index": 1599,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "876e9c52b92a73b28020cbce8754c9d85e8f91b4c6e5675d88346665f958cf9d"
+      },
+      {
+        "evidence_id": "frame_1844",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/0f99c173fc04c75f2bd80375.jpg",
+        "requested_time_s": 61.46666666666667,
+        "frame_index": 1844,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "183c7be7eeb5e6791bdad4160ad958fa8af4119893101c16564fe7924da442f5"
+      }
+    ],
+    "max_tokens": 1100
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "ab06da1de5917ae6aee7a41ba8c989e525181c426d8e655a34454a3137af6b1c",
+    "status": "ok",
+    "stage": "quality_v16_visual_audit",
+    "seconds": 18.729827642440796,
+    "usage": {
+      "prompt_tokens": 8089,
+      "total_tokens": 8373,
+      "completion_tokens": 284,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "visual_grade": 1,
+      "answer_supported": false,
+      "blind_agrees": false,
+      "question_unambiguous": false,
+      "evidence_valid": false,
+      "claim_checks": [
+        {
+          "claim_index": 0,
+          "supported": false,
+          "image_ids": [
+            "frame_129",
+            "frame_1844"
+          ],
+          "observation": "Frames show manipulation of a cylindrical part, but no adapter plate attachment is visible to establish temporal order."
+        }
+      ],
+      "supported_option_indices": [],
+      "option_checks": [
+        {
+          "index": 0,
+          "verdict": "uncertain",
+          "reason": "No visual evidence of either action starting to compare timing."
+        },
+        {
+          "index": 1,
+          "verdict": "uncertain",
+          "reason": "Person holds a component, but 'installing' implies connection not clearly shown; no plate seen."
+        },
+        {
+          "index": 2,
+          "verdict": "uncertain",
+          "reason": "Adapter plate is not visible in any frame to confirm attachment."
+        }
+      ],
+      "counterevidence": "The provided frames only show the person holding and manipulating a single cylindrical component. There is no visual evidence of an adapter plate being attached or the specific start of an installation process for either item.",
+      "before_id": null,
+      "after_id": null
+    },
+    "raw_response": {
+      "id": "chatcmpl-b063c063a3b753aa",
+      "object": "chat.completion",
+      "created": 1789828227,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n\"visual_grade\": 1,\n\"answer_supported\": false,\n\"blind_agrees\": false,\n\"question_unambiguous\": false,\n\"evidence_valid\": false,\n\"claim_checks\": [\n{\"claim_index\": 0, \"supported\": false, \"image_ids\": [\"frame_129\", \"frame_1844\"], \"observation\": \"Frames show manipulation of a cylindrical part, but no adapter plate attachment is visible to establish temporal order.\"}\n],\n\"supported_option_indices\": [],\n\"option_checks\": [\n{\"index\": 0, \"verdict\": \"uncertain\", \"reason\": \"No visual evidence of either action starting to compare timing.\"},\n{\"index\": 1, \"verdict\": \"uncertain\", \"reason\": \"Person holds a component, but 'installing' implies connection not clearly shown; no plate seen.\"},\n{\"index\": 2, \"verdict\": \"uncertain\", \"reason\": \"Adapter plate is not visible in any frame to confirm attachment.\"}\n],\n\"counterevidence\": \"The provided frames only show the person holding and manipulating a single cylindrical component. There is no visual evidence of an adapter plate being attached or the specific start of an installation process for either item.\",\n\"before_id\": null,\n\"after_id\": null\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8089,
+        "total_tokens": 8373,
+        "completion_tokens": 284,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8000/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "Audit a proposed video QA adversarially. You see the QA, shuffled options, a separate visual answer, and the frames; NO GT. The proposed answer and blind answer can BOTH be wrong. Independently inspect the cited frames and actively seek a counterexample. Check component/tool identity, hand, temporal scope, actual transitions, physical vs printed objects, answer completeness, and each distractor. A plausible narrative or a legal frame ID is not visual proof. Tool pickup requires the same object on surface then lifted; state questions need actual connection evidence; observed order requires BOTH starts; an anomaly category requires a visible departure, not just normal handling. Do not certify internal fit, torque, mandatory order, or a correction without evidence.\nReturn exactly {\"visual_grade\":integer 0..3,\"answer_supported\":boolean,\"blind_agrees\":boolean,\"question_unambiguous\":boolean,\"evidence_valid\":boolean,\"claim_checks\":[{\"claim_index\":integer,\"supported\":boolean,\"image_ids\":[string],\"observation\":string}],\"supported_option_indices\":[integer],\"option_checks\":[{\"index\":integer,\"verdict\":\"supported\"|\"contradicted\"|\"uncertain\",\"reason\":string}],\"counterevidence\":string,\"before_id\":string|null,\"after_id\":string|null}.\nGrade3 means directly visible with no material ambiguity; lower grades are held. Give one claim_check per proposed claim, one option_check per option (zero-based index), <=25 words per observation/reason, counterevidence <=45 words. Cite only allowed exact frame IDs. List all visually supportable options, not just the most likely. Two supportable or any unresolved alternative means question ambiguity. A blank counterevidence string means none found; state real limitations otherwise. For tool pickup independently cite before/after IDs in chronological order; otherwise null allowed. Do not provide chain-of-thought.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+        "clip_start_s": 4.3,
+        "clip_end_s_exclusive": 61.5,
+        "allowed_image_ids": [
+          "frame_129",
+          "frame_374",
+          "frame_619",
+          "frame_864",
+          "frame_1109",
+          "frame_1354",
+          "frame_1599",
+          "frame_1844"
+        ],
+        "proposed_qa": {
+          "open_question": "Did I start installing the rotor assembly before attaching the adapter plate?",
+          "answer": "Yes, I started installing the rotor assembly first.",
+          "mcq_question": "Which did I start first: attaching the adapter plate or installing the rotor assembly?"
+        },
+        "claims": [
+          {
+            "claim": "I started installing the rotor assembly first.",
+            "image_ids": [
+              "frame_129",
+              "frame_374",
+              "frame_619",
+              "frame_864",
+              "frame_1109",
+              "frame_1354",
+              "frame_1599"
+            ]
+          }
+        ],
+        "options": [
+          "Both started at the same time.",
+          "Installing the rotor assembly.",
+          "Attaching the adapter plate."
+        ],
+        "blind_answer": {
+          "answer": "No, the rotor assembly is being installed throughout the frames, while the adapter plate is not visibly attached.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "frame_129",
+            "frame_374",
+            "frame_619",
+            "frame_864",
+            "frame_1109",
+            "frame_1354",
+            "frame_1599",
+            "frame_1844"
+          ],
+          "observation": "The person holds a cylindrical component (rotor assembly) and manipulates it. No adapter plate is seen being attached in these frames.",
+          "limitation": "Cannot confirm if the adapter plate was attached earlier or later outside the provided frames."
+        }
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_129",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/eb9b9752411a042702407385.jpg",
+          "requested_time_s": 4.3,
+          "frame_index": 129,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "a2dd5c63e6316612785f71c219e556a149c5ec5bbb68ef6342542eaf4a59daf9"
+        },
+        {
+          "evidence_id": "frame_374",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/e10f568a98d6c78a2f485057.jpg",
+          "requested_time_s": 12.466666666666667,
+          "frame_index": 374,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "1ae362721017b057cd6b419961f6fc1e3b0053f83b93fc61df1290db0229e6c8"
+        },
+        {
+          "evidence_id": "frame_619",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/841b1a3ef82798d19b32ac4c.jpg",
+          "requested_time_s": 20.633333333333333,
+          "frame_index": 619,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "5957f43f344295f84bfe82b98c470d26edb5275388ca21e1d4710e6832924afa"
+        },
+        {
+          "evidence_id": "frame_864",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2ec51786f2e0ada9a96b61d3.jpg",
+          "requested_time_s": 28.8,
+          "frame_index": 864,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "c257734004580f1e7f0f96594854dea7feedaa491e6f2e0af83d12df49929e6b"
+        },
+        {
+          "evidence_id": "frame_1109",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b9f73a896c15ebfee7d9e4f5.jpg",
+          "requested_time_s": 36.96666666666667,
+          "frame_index": 1109,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "7260ba230a90e67e84484c0e31b9ba3aa72d33b9ac5d2f03776340e2a1c906e5"
+        },
+        {
+          "evidence_id": "frame_1354",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/115a1dd8a6052ea521c2d4c1.jpg",
+          "requested_time_s": 45.13333333333333,
+          "frame_index": 1354,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "42f96d95e7b39b4f5ff29f9dac3939e50daeb4e81fb43ccc77909bd70b849e8c"
+        },
+        {
+          "evidence_id": "frame_1599",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ff1b8c10cf9a6deebab37ad1.jpg",
+          "requested_time_s": 53.3,
+          "frame_index": 1599,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "876e9c52b92a73b28020cbce8754c9d85e8f91b4c6e5675d88346665f958cf9d"
+        },
+        {
+          "evidence_id": "frame_1844",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/0f99c173fc04c75f2bd80375.jpg",
+          "requested_time_s": 61.46666666666667,
+          "frame_index": 1844,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "183c7be7eeb5e6791bdad4160ad958fa8af4119893101c16564fe7924da442f5"
+        }
+      ],
+      "max_tokens": 1100,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

@@ -1,0 +1,697 @@
+{
+  "request_key": "a240cb9128192ea5fa201534f9fb0f86b4f913ce2d7d0377cb852a3c511f874c",
+  "started_utc": "2026-09-19T14:25:59.324595+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "action_error_category",
+      "question_proposition": "What types of error occurred while I was aligning the tool with my right hand?",
+      "mcq_question_proposition": "Which option gives the complete set of error types while I was aligning the tool with my right hand?",
+      "canonical_answer": "Object handling and wrong tool errors.",
+      "options": [
+        "Object handling and wrong tool errors.",
+        "Object handling and spatial errors.",
+        "Object handling and timing errors."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "action": "align_tool",
+        "hand": "right",
+        "phase": "anomaly",
+        "error_attributes": [
+          "object-handling",
+          "wrong-tool"
+        ],
+        "target_interval": [
+          1580,
+          1811
+        ],
+        "error_mechanism": null,
+        "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 81,
+            "verb": 1,
+            "noun": 16,
+            "start_frame": 1580,
+            "end_frame": 1811,
+            "phase": "anomaly",
+            "anomaly_type": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "entity": "right"
+          },
+          "pointer": "/segments/271"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 81,
+            "name": "align_tool"
+          },
+          "pointer": "/action_labels/81"
+        },
+        {
+          "source_id": "s2",
+          "value": [
+            {
+              "id": 0,
+              "name": "error_temporal"
+            },
+            {
+              "id": 1,
+              "name": "error_spatial"
+            },
+            {
+              "id": 2,
+              "name": "error_handling"
+            },
+            {
+              "id": 3,
+              "name": "error_wrong_part"
+            },
+            {
+              "id": 4,
+              "name": "error_wrong_tool"
+            },
+            {
+              "id": 5,
+              "name": "error_procedural"
+            }
+          ],
+          "pointer": "/anomaly_types"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "context_1",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "target_10",
+        "context_2",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "target_15",
+        "context_3"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "context_0",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/9ef2ca68bbd5169e46447b18.jpg",
+        "requested_time_s": 52.166666666666664,
+        "frame_index": 1565,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "8143e619742b31c18a089b0d784a06928622302cbb4cf33903ff5abf78b4316d"
+      },
+      {
+        "evidence_id": "target_0",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/c178ae7ccd770b27e4fef49f.jpg",
+        "requested_time_s": 52.666666666666664,
+        "frame_index": 1580,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "19cd94830a72f235854100c1f1553cbed92a08b8e5d3d2434457e417609c76d8"
+      },
+      {
+        "evidence_id": "target_1",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/3b1a0ecd5ab12776dd8c7ce6.jpg",
+        "requested_time_s": 53.166666666666664,
+        "frame_index": 1595,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "00862023344f4a2f1da970c9bb37855f3d5ccda9ebe16b11a125d263f1aba5ce"
+      },
+      {
+        "evidence_id": "target_2",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dc3c98db409151eb7aa23dd3.jpg",
+        "requested_time_s": 53.7,
+        "frame_index": 1611,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "b72094d398882411a3e2e3bbb03c660c68b671051c7de108ee29b70aa51757db"
+      },
+      {
+        "evidence_id": "target_3",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/7c73e469b3af5a0cdf872709.jpg",
+        "requested_time_s": 54.2,
+        "frame_index": 1626,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "1748fd350a5000bc9439788048d0d5e9defa1c81e83184d77a04f79685c741c1"
+      },
+      {
+        "evidence_id": "target_4",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/bd70fa8dbf711a1df8dc1817.jpg",
+        "requested_time_s": 54.733333333333334,
+        "frame_index": 1642,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "6ffc33bdaeda26995aa17460e1095ae1de42318def36557bb0f4982be2195036"
+      },
+      {
+        "evidence_id": "context_1",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/7db2653d95a93967306b0096.jpg",
+        "requested_time_s": 55.06666666666667,
+        "frame_index": 1652,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "00f2905611deaadbd4a114990abaa4a72eecd8ff38c2b13da514080e68387e89"
+      },
+      {
+        "evidence_id": "target_5",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/08703e3abd57f334f4d7badb.jpg",
+        "requested_time_s": 55.233333333333334,
+        "frame_index": 1657,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "8f1fedfd6de147412bd98b646d34511f1a4dc581908e557e8cf324c195204683"
+      },
+      {
+        "evidence_id": "target_6",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/400735fb028a002f3697bc31.jpg",
+        "requested_time_s": 55.733333333333334,
+        "frame_index": 1672,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "a9dc896810f2a81d1f8e5747052f376caf2884dc9deffe00a0e246e7c9e7940d"
+      },
+      {
+        "evidence_id": "target_7",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a62413ea344f6276cda37506.jpg",
+        "requested_time_s": 56.266666666666666,
+        "frame_index": 1688,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "a0518524f6f29877fae8d6d18d23c9671d57c47f14a2865d442cf3f8887897c9"
+      },
+      {
+        "evidence_id": "target_8",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fc90d4a3f4d2dc0def573662.jpg",
+        "requested_time_s": 56.766666666666666,
+        "frame_index": 1703,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "51a90022c51203489e24972182314b180bb5dcb3c8dd634ab591fb6a4683f97d"
+      },
+      {
+        "evidence_id": "target_9",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/103aa15f62985748d9bc5eef.jpg",
+        "requested_time_s": 57.3,
+        "frame_index": 1719,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "3f57903068166c21994c1f5fa33d055b1cbca3d497d8cd8bf52c652b8bf35b67"
+      },
+      {
+        "evidence_id": "target_10",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/854b409c4a9cd0b73c054a25.jpg",
+        "requested_time_s": 57.8,
+        "frame_index": 1734,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "07d18ca9f3074d1fdde970e294013b5fe3629a868ebb0997278dfe0d002724a5"
+      },
+      {
+        "evidence_id": "context_2",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/e29ddc0162c65d23a574c1c6.jpg",
+        "requested_time_s": 57.96666666666667,
+        "frame_index": 1739,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "75fc193682cb77ff4e523776a382d70c2028112829aaaeb89b5eb1d80839309d"
+      },
+      {
+        "evidence_id": "target_11",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dc5cad6f96919d86fc885210.jpg",
+        "requested_time_s": 58.3,
+        "frame_index": 1749,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "ef67850e86b402f4c44d139a75d43a9f230a8a894e09ba1a57d298d0db4be360"
+      },
+      {
+        "evidence_id": "target_12",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/b0fd92f56bf1f3b2f5b0bfb9.jpg",
+        "requested_time_s": 58.833333333333336,
+        "frame_index": 1765,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "ec77b4f215124096360a15c7b93c9fd8c8385ed1f7951670664e38271deab5ab"
+      },
+      {
+        "evidence_id": "target_13",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fed629741830cf3a107dc8d7.jpg",
+        "requested_time_s": 59.333333333333336,
+        "frame_index": 1780,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "54c1372e3af308324d515d019e737ad14b5dc4d5632f0464a531ad76c961ec1f"
+      },
+      {
+        "evidence_id": "target_14",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/abc834e22ad72e78ed9c2d22.jpg",
+        "requested_time_s": 59.86666666666667,
+        "frame_index": 1796,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "313c2ffe10c0ce219828450a90df7f80a7204dd1245abd7834ce256ab9685d91"
+      },
+      {
+        "evidence_id": "target_15",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/4254b240a56593b7be70edbd.jpg",
+        "requested_time_s": 60.36666666666667,
+        "frame_index": 1811,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "6336186d370607c7ee3f262bf0e99e10fc507ccd0d411ca03d2c57ae2233798e"
+      },
+      {
+        "evidence_id": "context_3",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/ffb11ed089c6478972789653.jpg",
+        "requested_time_s": 60.86666666666667,
+        "frame_index": 1826,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "76124a3ee83b79ff9f11bddc67a15f05d779593b4a75f4cac57ed62eac7381a1"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "a6fc8451d50070986e44ac3879e0467e47a7d541b69f490c59d7c457538ad665",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 21.1292827129364,
+    "usage": {
+      "prompt_tokens": 6714,
+      "total_tokens": 7009,
+      "completion_tokens": 295,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "What types of error occurred while I was aligning the tool with my right hand?",
+      "answer": "Object handling and wrong tool errors occurred during the alignment action.",
+      "mcq_question": "Which option gives the complete set of error types while I was aligning the tool with my right hand?",
+      "visual_grade": 2,
+      "limitation": "Frames show the alignment action but do not visually distinguish the specific error categories or confirm the wrong tool identity.",
+      "claims": [
+        {
+          "claim": "Object handling and wrong tool errors occurred during the alignment action.",
+          "source_ids": [
+            "s0",
+            "s2"
+          ],
+          "image_ids": [
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "target_4",
+            "target_5",
+            "target_6",
+            "target_7",
+            "target_8",
+            "target_9",
+            "target_10",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "target_15"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-9cc57a78e6ee9f59",
+      "object": "chat.completion",
+      "created": 1789827960,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"What types of error occurred while I was aligning the tool with my right hand?\",\n  \"answer\": \"Object handling and wrong tool errors occurred during the alignment action.\",\n  \"mcq_question\": \"Which option gives the complete set of error types while I was aligning the tool with my right hand?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"Frames show the alignment action but do not visually distinguish the specific error categories or confirm the wrong tool identity.\",\n  \"claims\": [\n    {\n      \"claim\": \"Object handling and wrong tool errors occurred during the alignment action.\",\n      \"source_ids\": [\n        \"s0\",\n        \"s2\"\n      ],\n      \"image_ids\": [\n        \"target_0\",\n        \"target_1\",\n        \"target_2\",\n        \"target_3\",\n        \"target_4\",\n        \"target_5\",\n        \"target_6\",\n        \"target_7\",\n        \"target_8\",\n        \"target_9\",\n        \"target_10\",\n        \"target_11\",\n        \"target_12\",\n        \"target_13\",\n        \"target_14\",\n        \"target_15\"\n      ]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 6714,
+        "total_tokens": 7009,
+        "completion_tokens": 295,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8000/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "action_error_category",
+        "question_proposition": "What types of error occurred while I was aligning the tool with my right hand?",
+        "mcq_question_proposition": "Which option gives the complete set of error types while I was aligning the tool with my right hand?",
+        "canonical_answer": "Object handling and wrong tool errors.",
+        "options": [
+          "Object handling and wrong tool errors.",
+          "Object handling and spatial errors.",
+          "Object handling and timing errors."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "action": "align_tool",
+          "hand": "right",
+          "phase": "anomaly",
+          "error_attributes": [
+            "object-handling",
+            "wrong-tool"
+          ],
+          "target_interval": [
+            1580,
+            1811
+          ],
+          "error_mechanism": null,
+          "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 81,
+              "verb": 1,
+              "noun": 16,
+              "start_frame": 1580,
+              "end_frame": 1811,
+              "phase": "anomaly",
+              "anomaly_type": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              "entity": "right"
+            },
+            "pointer": "/segments/271"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 81,
+              "name": "align_tool"
+            },
+            "pointer": "/action_labels/81"
+          },
+          {
+            "source_id": "s2",
+            "value": [
+              {
+                "id": 0,
+                "name": "error_temporal"
+              },
+              {
+                "id": 1,
+                "name": "error_spatial"
+              },
+              {
+                "id": 2,
+                "name": "error_handling"
+              },
+              {
+                "id": 3,
+                "name": "error_wrong_part"
+              },
+              {
+                "id": 4,
+                "name": "error_wrong_tool"
+              },
+              {
+                "id": 5,
+                "name": "error_procedural"
+              }
+            ],
+            "pointer": "/anomaly_types"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "context_1",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "context_2",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "target_15",
+          "context_3"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "context_0",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/9ef2ca68bbd5169e46447b18.jpg",
+          "requested_time_s": 52.166666666666664,
+          "frame_index": 1565,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "8143e619742b31c18a089b0d784a06928622302cbb4cf33903ff5abf78b4316d"
+        },
+        {
+          "evidence_id": "target_0",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/c178ae7ccd770b27e4fef49f.jpg",
+          "requested_time_s": 52.666666666666664,
+          "frame_index": 1580,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "19cd94830a72f235854100c1f1553cbed92a08b8e5d3d2434457e417609c76d8"
+        },
+        {
+          "evidence_id": "target_1",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/3b1a0ecd5ab12776dd8c7ce6.jpg",
+          "requested_time_s": 53.166666666666664,
+          "frame_index": 1595,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "00862023344f4a2f1da970c9bb37855f3d5ccda9ebe16b11a125d263f1aba5ce"
+        },
+        {
+          "evidence_id": "target_2",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dc3c98db409151eb7aa23dd3.jpg",
+          "requested_time_s": 53.7,
+          "frame_index": 1611,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "b72094d398882411a3e2e3bbb03c660c68b671051c7de108ee29b70aa51757db"
+        },
+        {
+          "evidence_id": "target_3",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/7c73e469b3af5a0cdf872709.jpg",
+          "requested_time_s": 54.2,
+          "frame_index": 1626,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "1748fd350a5000bc9439788048d0d5e9defa1c81e83184d77a04f79685c741c1"
+        },
+        {
+          "evidence_id": "target_4",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/bd70fa8dbf711a1df8dc1817.jpg",
+          "requested_time_s": 54.733333333333334,
+          "frame_index": 1642,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "6ffc33bdaeda26995aa17460e1095ae1de42318def36557bb0f4982be2195036"
+        },
+        {
+          "evidence_id": "context_1",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/7db2653d95a93967306b0096.jpg",
+          "requested_time_s": 55.06666666666667,
+          "frame_index": 1652,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "00f2905611deaadbd4a114990abaa4a72eecd8ff38c2b13da514080e68387e89"
+        },
+        {
+          "evidence_id": "target_5",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/08703e3abd57f334f4d7badb.jpg",
+          "requested_time_s": 55.233333333333334,
+          "frame_index": 1657,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "8f1fedfd6de147412bd98b646d34511f1a4dc581908e557e8cf324c195204683"
+        },
+        {
+          "evidence_id": "target_6",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/400735fb028a002f3697bc31.jpg",
+          "requested_time_s": 55.733333333333334,
+          "frame_index": 1672,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "a9dc896810f2a81d1f8e5747052f376caf2884dc9deffe00a0e246e7c9e7940d"
+        },
+        {
+          "evidence_id": "target_7",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a62413ea344f6276cda37506.jpg",
+          "requested_time_s": 56.266666666666666,
+          "frame_index": 1688,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "a0518524f6f29877fae8d6d18d23c9671d57c47f14a2865d442cf3f8887897c9"
+        },
+        {
+          "evidence_id": "target_8",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fc90d4a3f4d2dc0def573662.jpg",
+          "requested_time_s": 56.766666666666666,
+          "frame_index": 1703,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "51a90022c51203489e24972182314b180bb5dcb3c8dd634ab591fb6a4683f97d"
+        },
+        {
+          "evidence_id": "target_9",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/103aa15f62985748d9bc5eef.jpg",
+          "requested_time_s": 57.3,
+          "frame_index": 1719,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "3f57903068166c21994c1f5fa33d055b1cbca3d497d8cd8bf52c652b8bf35b67"
+        },
+        {
+          "evidence_id": "target_10",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/854b409c4a9cd0b73c054a25.jpg",
+          "requested_time_s": 57.8,
+          "frame_index": 1734,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "07d18ca9f3074d1fdde970e294013b5fe3629a868ebb0997278dfe0d002724a5"
+        },
+        {
+          "evidence_id": "context_2",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/e29ddc0162c65d23a574c1c6.jpg",
+          "requested_time_s": 57.96666666666667,
+          "frame_index": 1739,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "75fc193682cb77ff4e523776a382d70c2028112829aaaeb89b5eb1d80839309d"
+        },
+        {
+          "evidence_id": "target_11",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dc5cad6f96919d86fc885210.jpg",
+          "requested_time_s": 58.3,
+          "frame_index": 1749,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "ef67850e86b402f4c44d139a75d43a9f230a8a894e09ba1a57d298d0db4be360"
+        },
+        {
+          "evidence_id": "target_12",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/b0fd92f56bf1f3b2f5b0bfb9.jpg",
+          "requested_time_s": 58.833333333333336,
+          "frame_index": 1765,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "ec77b4f215124096360a15c7b93c9fd8c8385ed1f7951670664e38271deab5ab"
+        },
+        {
+          "evidence_id": "target_13",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fed629741830cf3a107dc8d7.jpg",
+          "requested_time_s": 59.333333333333336,
+          "frame_index": 1780,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "54c1372e3af308324d515d019e737ad14b5dc4d5632f0464a531ad76c961ec1f"
+        },
+        {
+          "evidence_id": "target_14",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/abc834e22ad72e78ed9c2d22.jpg",
+          "requested_time_s": 59.86666666666667,
+          "frame_index": 1796,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "313c2ffe10c0ce219828450a90df7f80a7204dd1245abd7834ce256ab9685d91"
+        },
+        {
+          "evidence_id": "target_15",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/4254b240a56593b7be70edbd.jpg",
+          "requested_time_s": 60.36666666666667,
+          "frame_index": 1811,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "6336186d370607c7ee3f262bf0e99e10fc507ccd0d411ca03d2c57ae2233798e"
+        },
+        {
+          "evidence_id": "context_3",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/ffb11ed089c6478972789653.jpg",
+          "requested_time_s": 60.86666666666667,
+          "frame_index": 1826,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "76124a3ee83b79ff9f11bddc67a15f05d779593b4a75f4cac57ed62eac7381a1"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

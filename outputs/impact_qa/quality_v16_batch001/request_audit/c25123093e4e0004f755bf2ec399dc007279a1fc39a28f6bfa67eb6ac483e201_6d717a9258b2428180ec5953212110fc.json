@@ -1,0 +1,622 @@
+{
+  "request_key": "c25123093e4e0004f755bf2ec399dc007279a1fc39a28f6bfa67eb6ac483e201",
+  "started_utc": "2026-09-19T14:27:10.802328+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question_proposition": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+      "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "canonical_answer": "Yes, I started attaching the adapter plate first.",
+      "options": [
+        "Inserting the bearing plate assembly.",
+        "Attaching the adapter plate.",
+        "Both started at the same time."
+      ],
+      "correct_option_index": 1,
+      "facts": {
+        "first_action": "attach_adapter_plate",
+        "second_action": "insert_bearing_plate_assembly",
+        "first_onsets": [
+          1618,
+          3512
+        ],
+        "scope": "first observed starts within the clip, not completion or mandatory ordering"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 16,
+            "label": "attach_adapter_plate",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 1618,
+            "f_end": 1991
+          },
+          "pointer": "/segments/13"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 20,
+            "label": "insert_bearing_plate_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 3512,
+            "f_end": 3653
+          },
+          "pointer": "/segments/22"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "context_1",
+        "context_2",
+        "target_8",
+        "target_9",
+        "target_10",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "context_3",
+        "target_15"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "context_0",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/5c709d0317122922bfcde55c.jpg",
+        "requested_time_s": 53.93333333333333,
+        "frame_index": 1618,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "45dcfab6de8d117ec26209ce1b99266f735603bf1fce87e6c40bd0be0814e0b8"
+      },
+      {
+        "evidence_id": "target_0",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/9118f7e77bf207657d9d658d.jpg",
+        "requested_time_s": 53.93333333333333,
+        "frame_index": 1618,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "5304e0937f36abcf8cfbda265e2888d4e962c9af75ca570b7adce0ea2b01451d"
+      },
+      {
+        "evidence_id": "target_1",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/68c35e9b0f53fec93073fbf3.jpg",
+        "requested_time_s": 54.2,
+        "frame_index": 1626,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "1e6995399b9b5f3217fbc75c52a9c631c3dd20915f5424da6738c2fed7964dad"
+      },
+      {
+        "evidence_id": "target_2",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/af713a69110e545a81665627.jpg",
+        "requested_time_s": 54.43333333333333,
+        "frame_index": 1633,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "3ff13054fa399fc7ced8af9b8361012b96f21aeff6cf559f6fba24d1888ae8fb"
+      },
+      {
+        "evidence_id": "target_3",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/08de6567f0da170542eef803.jpg",
+        "requested_time_s": 54.93333333333333,
+        "frame_index": 1648,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "134408d817adffb6722c9be922f9b9a6fee0c5b88f89f2b2b55e8af740014eff"
+      },
+      {
+        "evidence_id": "target_4",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/6c9dff1e363ed82ecea6562d.jpg",
+        "requested_time_s": 55.43333333333333,
+        "frame_index": 1663,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "9e6a2929d1861011fad658589d32a2ed74909f319c0d46d4927725bb939c6e3c"
+      },
+      {
+        "evidence_id": "target_5",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/07f104970c333a564bbe5ca2.jpg",
+        "requested_time_s": 55.93333333333333,
+        "frame_index": 1678,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "871a8ace50adaf2b9ae070b3e591aa361ddc0b048341824bbee156dfbadf66d6"
+      },
+      {
+        "evidence_id": "target_6",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/3d8a03fc22c6f7f54736c689.jpg",
+        "requested_time_s": 56.43333333333333,
+        "frame_index": 1693,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "4255b38e5745319991449fb28b955896b1443363910125d520e04ad12ca5a48b"
+      },
+      {
+        "evidence_id": "target_7",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/cc2f2d8133f0803fa0858c5e.jpg",
+        "requested_time_s": 56.93333333333333,
+        "frame_index": 1708,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "80818ab3279ecad90496de59567c857e63ece3f50ec26541104f9526dae3d4f2"
+      },
+      {
+        "evidence_id": "context_1",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a88a3081692f662b833ed00e.jpg",
+        "requested_time_s": 75.96666666666667,
+        "frame_index": 2279,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "cc1f07229bd327ab7f5a28e481370cb46fff355ffa1cda4bd5658f168eabfddd"
+      },
+      {
+        "evidence_id": "context_2",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/0c39acb7aa9705cdf9016979.jpg",
+        "requested_time_s": 98.03333333333333,
+        "frame_index": 2941,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "82c5fdf2046cd127f01bbfbc21c8c0c12e426152f27db6ba0a3b284a091edf86"
+      },
+      {
+        "evidence_id": "target_8",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dbc9358b6753d5f1006ac3bb.jpg",
+        "requested_time_s": 117.06666666666666,
+        "frame_index": 3512,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "f2f90736aef9464e1746c5a65b7f5fcc40042613b1cf2610b77bd123b2a4cdf8"
+      },
+      {
+        "evidence_id": "target_9",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/ee085cc5a5c09feafb3e3fac.jpg",
+        "requested_time_s": 117.33333333333333,
+        "frame_index": 3520,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "aa9ab51bdb5d5574377ce4097ae90e496602a6097d593134e2a4e69732591b64"
+      },
+      {
+        "evidence_id": "target_10",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fe8cbd0907e2a0ff5556df0d.jpg",
+        "requested_time_s": 117.56666666666666,
+        "frame_index": 3527,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "17c9e36dee673d2ccdab0f47c2c9dda5f53e10d87b28f9e530e5e33e436e53e0"
+      },
+      {
+        "evidence_id": "target_11",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/d1579b5e7a77c3a5e51fdfa6.jpg",
+        "requested_time_s": 118.06666666666666,
+        "frame_index": 3542,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "906650d5025821841b3c1177c53a61d7cbb7ef3fe02cfb12e5168849558e34c1"
+      },
+      {
+        "evidence_id": "target_12",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/2dba7b225b6527d20c395149.jpg",
+        "requested_time_s": 118.56666666666666,
+        "frame_index": 3557,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "bf1da916cdd1c3f04dcaf758a20b920211cd4371734c74ad420a932da1d915fc"
+      },
+      {
+        "evidence_id": "target_13",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/12708f7a109c631cc1896ebf.jpg",
+        "requested_time_s": 119.06666666666666,
+        "frame_index": 3572,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "49d1bfb3eba7e51b037506702902f7de29954763ff2be1e6e9fb511d41aeaa5f"
+      },
+      {
+        "evidence_id": "target_14",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a3bb793dc26eb9353aa24e22.jpg",
+        "requested_time_s": 119.56666666666666,
+        "frame_index": 3587,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "20ccfc1db6e709227d529575408c44a6188b01112cbaab79b60fbe92feb660ba"
+      },
+      {
+        "evidence_id": "context_3",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/34eae5c866bac909d290d4cb.jpg",
+        "requested_time_s": 120.06666666666666,
+        "frame_index": 3602,
+        "time_scope": "Original recording time. Full-frame context; not a second execution.",
+        "view": "front",
+        "sha256": "5f016e0b6856d0da7031e73b09980d769efa3f9819f71c3721a766d57d876e89"
+      },
+      {
+        "evidence_id": "target_15",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/0982743cb176593956ce3550.jpg",
+        "requested_time_s": 120.06666666666666,
+        "frame_index": 3602,
+        "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+        "view": "front",
+        "sha256": "7907fcf75787b283a9f7eec59649af8229a787c37db787ac93b2b4c5522bb953"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "00d365faa7841c8a4090b0d0c100b2329f07a951ebf670506dd2da1ac4a1a4c7",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 21.802942037582397,
+    "usage": {
+      "prompt_tokens": 6602,
+      "total_tokens": 6877,
+      "completion_tokens": 275,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+      "answer": "Yes, I started attaching the adapter plate first.",
+      "mcq_question": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+      "visual_grade": 2,
+      "limitation": "Frames show the actions occurring but do not explicitly display the precise start timestamps required to definitively prove the order without source data.",
+      "claims": [
+        {
+          "claim": "I started attaching the adapter plate first.",
+          "source_ids": [
+            "s0"
+          ],
+          "image_ids": [
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "target_4",
+            "target_5",
+            "target_6",
+            "target_7"
+          ]
+        },
+        {
+          "claim": "I started inserting the bearing plate assembly second.",
+          "source_ids": [
+            "s1"
+          ],
+          "image_ids": [
+            "target_8",
+            "target_9",
+            "target_10",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "target_15"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-aea9e2774bd6049c",
+      "object": "chat.completion",
+      "created": 1789828032,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Did I start attaching the adapter plate before inserting the bearing plate assembly?\",\n  \"answer\": \"Yes, I started attaching the adapter plate first.\",\n  \"mcq_question\": \"Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"Frames show the actions occurring but do not explicitly display the precise start timestamps required to definitively prove the order without source data.\",\n  \"claims\": [\n    {\n      \"claim\": \"I started attaching the adapter plate first.\",\n      \"source_ids\": [\"s0\"],\n      \"image_ids\": [\"target_0\", \"target_1\", \"target_2\", \"target_3\", \"target_4\", \"target_5\", \"target_6\", \"target_7\"]\n    },\n    {\n      \"claim\": \"I started inserting the bearing plate assembly second.\",\n      \"source_ids\": [\"s1\"],\n      \"image_ids\": [\"target_8\", \"target_9\", \"target_10\", \"target_11\", \"target_12\", \"target_13\", \"target_14\", \"target_15\"]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 6602,
+        "total_tokens": 6877,
+        "completion_tokens": 275,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question_proposition": "Did I start attaching the adapter plate before inserting the bearing plate assembly?",
+        "mcq_question_proposition": "Which did I start first: attaching the adapter plate or inserting the bearing plate assembly?",
+        "canonical_answer": "Yes, I started attaching the adapter plate first.",
+        "options": [
+          "Inserting the bearing plate assembly.",
+          "Attaching the adapter plate.",
+          "Both started at the same time."
+        ],
+        "correct_option_index": 1,
+        "facts": {
+          "first_action": "attach_adapter_plate",
+          "second_action": "insert_bearing_plate_assembly",
+          "first_onsets": [
+            1618,
+            3512
+          ],
+          "scope": "first observed starts within the clip, not completion or mandatory ordering"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 16,
+              "label": "attach_adapter_plate",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 1618,
+              "f_end": 1991
+            },
+            "pointer": "/segments/13"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 20,
+              "label": "insert_bearing_plate_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 3512,
+              "f_end": 3653
+            },
+            "pointer": "/segments/22"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "context_1",
+          "context_2",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_3",
+          "target_15"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "context_0",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/5c709d0317122922bfcde55c.jpg",
+          "requested_time_s": 53.93333333333333,
+          "frame_index": 1618,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "45dcfab6de8d117ec26209ce1b99266f735603bf1fce87e6c40bd0be0814e0b8"
+        },
+        {
+          "evidence_id": "target_0",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/9118f7e77bf207657d9d658d.jpg",
+          "requested_time_s": 53.93333333333333,
+          "frame_index": 1618,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "5304e0937f36abcf8cfbda265e2888d4e962c9af75ca570b7adce0ea2b01451d"
+        },
+        {
+          "evidence_id": "target_1",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/68c35e9b0f53fec93073fbf3.jpg",
+          "requested_time_s": 54.2,
+          "frame_index": 1626,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "1e6995399b9b5f3217fbc75c52a9c631c3dd20915f5424da6738c2fed7964dad"
+        },
+        {
+          "evidence_id": "target_2",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/af713a69110e545a81665627.jpg",
+          "requested_time_s": 54.43333333333333,
+          "frame_index": 1633,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "3ff13054fa399fc7ced8af9b8361012b96f21aeff6cf559f6fba24d1888ae8fb"
+        },
+        {
+          "evidence_id": "target_3",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/08de6567f0da170542eef803.jpg",
+          "requested_time_s": 54.93333333333333,
+          "frame_index": 1648,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "134408d817adffb6722c9be922f9b9a6fee0c5b88f89f2b2b55e8af740014eff"
+        },
+        {
+          "evidence_id": "target_4",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/6c9dff1e363ed82ecea6562d.jpg",
+          "requested_time_s": 55.43333333333333,
+          "frame_index": 1663,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "9e6a2929d1861011fad658589d32a2ed74909f319c0d46d4927725bb939c6e3c"
+        },
+        {
+          "evidence_id": "target_5",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/07f104970c333a564bbe5ca2.jpg",
+          "requested_time_s": 55.93333333333333,
+          "frame_index": 1678,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "871a8ace50adaf2b9ae070b3e591aa361ddc0b048341824bbee156dfbadf66d6"
+        },
+        {
+          "evidence_id": "target_6",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/3d8a03fc22c6f7f54736c689.jpg",
+          "requested_time_s": 56.43333333333333,
+          "frame_index": 1693,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "4255b38e5745319991449fb28b955896b1443363910125d520e04ad12ca5a48b"
+        },
+        {
+          "evidence_id": "target_7",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/cc2f2d8133f0803fa0858c5e.jpg",
+          "requested_time_s": 56.93333333333333,
+          "frame_index": 1708,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "80818ab3279ecad90496de59567c857e63ece3f50ec26541104f9526dae3d4f2"
+        },
+        {
+          "evidence_id": "context_1",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a88a3081692f662b833ed00e.jpg",
+          "requested_time_s": 75.96666666666667,
+          "frame_index": 2279,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "cc1f07229bd327ab7f5a28e481370cb46fff355ffa1cda4bd5658f168eabfddd"
+        },
+        {
+          "evidence_id": "context_2",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/0c39acb7aa9705cdf9016979.jpg",
+          "requested_time_s": 98.03333333333333,
+          "frame_index": 2941,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "82c5fdf2046cd127f01bbfbc21c8c0c12e426152f27db6ba0a3b284a091edf86"
+        },
+        {
+          "evidence_id": "target_8",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/dbc9358b6753d5f1006ac3bb.jpg",
+          "requested_time_s": 117.06666666666666,
+          "frame_index": 3512,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "f2f90736aef9464e1746c5a65b7f5fcc40042613b1cf2610b77bd123b2a4cdf8"
+        },
+        {
+          "evidence_id": "target_9",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/ee085cc5a5c09feafb3e3fac.jpg",
+          "requested_time_s": 117.33333333333333,
+          "frame_index": 3520,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "aa9ab51bdb5d5574377ce4097ae90e496602a6097d593134e2a4e69732591b64"
+        },
+        {
+          "evidence_id": "target_10",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/fe8cbd0907e2a0ff5556df0d.jpg",
+          "requested_time_s": 117.56666666666666,
+          "frame_index": 3527,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "17c9e36dee673d2ccdab0f47c2c9dda5f53e10d87b28f9e530e5e33e436e53e0"
+        },
+        {
+          "evidence_id": "target_11",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/d1579b5e7a77c3a5e51fdfa6.jpg",
+          "requested_time_s": 118.06666666666666,
+          "frame_index": 3542,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "906650d5025821841b3c1177c53a61d7cbb7ef3fe02cfb12e5168849558e34c1"
+        },
+        {
+          "evidence_id": "target_12",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/2dba7b225b6527d20c395149.jpg",
+          "requested_time_s": 118.56666666666666,
+          "frame_index": 3557,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "bf1da916cdd1c3f04dcaf758a20b920211cd4371734c74ad420a932da1d915fc"
+        },
+        {
+          "evidence_id": "target_13",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/12708f7a109c631cc1896ebf.jpg",
+          "requested_time_s": 119.06666666666666,
+          "frame_index": 3572,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "49d1bfb3eba7e51b037506702902f7de29954763ff2be1e6e9fb511d41aeaa5f"
+        },
+        {
+          "evidence_id": "target_14",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/a3bb793dc26eb9353aa24e22.jpg",
+          "requested_time_s": 119.56666666666666,
+          "frame_index": 3587,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "20ccfc1db6e709227d529575408c44a6188b01112cbaab79b60fbe92feb660ba"
+        },
+        {
+          "evidence_id": "context_3",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/34eae5c866bac909d290d4cb.jpg",
+          "requested_time_s": 120.06666666666666,
+          "frame_index": 3602,
+          "time_scope": "Original recording time. Full-frame context; not a second execution.",
+          "view": "front",
+          "sha256": "5f016e0b6856d0da7031e73b09980d769efa3f9819f71c3721a766d57d876e89"
+        },
+        {
+          "evidence_id": "target_15",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v13_inputs/frames/0982743cb176593956ce3550.jpg",
+          "requested_time_s": 120.06666666666666,
+          "frame_index": 3602,
+          "time_scope": "Original recording time. Target evidence. Fixed spatial crop of same recording.",
+          "view": "front",
+          "sha256": "7907fcf75787b283a9f7eec59649af8229a787c37db787ac93b2b4c5522bb953"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

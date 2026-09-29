@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMPACT | Multi-Granularity Industrial Procedural Action Understanding</title>
+    <meta
+      name="description"
+      content="IMPACT is a synchronized five-view RGB-D dataset and benchmark for industrial procedural understanding under viewpoint shift, partial observability, multi-route execution, and anomaly recovery."
+    />
+    <link rel="canonical" href="https://kratos-wen.github.io/IMPACT/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="IMPACT: A Dataset for Multi-Granularity Human Procedural Action Understanding in Industrial Assembly" />
+    <meta property="og:description" content="A synchronized five-view RGB-D dataset and benchmark for industrial procedural action understanding." />
+    <meta property="og:url" content="https://kratos-wen.github.io/IMPACT/" />
+    <meta property="og:image" content="https://kratos-wen.github.io/IMPACT/assets/figures/IMPACT.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/figures/icon.png" type="image/png" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="site-header-inner">
+          <a class="brand" href="#top" aria-label="IMPACT home">
+            <img
+              class="brand-logo"
+              src="./assets/figures/IMPACT.jpg"
+              alt="IMPACT logo"
+            />
+          </a>
+          <nav class="site-nav" aria-label="Primary">
+            <a href="#overview">Overview</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#download">Download</a>
+            <a href="#benchmark">Benchmark</a>
+            <a href="#resources">Resources</a>
+          </nav>
+        </div>
+      </header>
+
+      <main id="top" class="page-main">
+        <section class="hero reveal">
+          <p class="hero-kicker">Under Review at the ACM Multimedia 2026 Dataset Track</p>
+          <h1>
+            IMPACT: A Dataset for Multi-Granularity Human Procedural Action Understanding<br />
+            in Industrial Assembly
+          </h1>
+          <div class="author-block" aria-label="Authors and affiliations">
+            <p class="author-line">
+              Di Wen<sup>1</sup>, Zeyun Zhong<sup>1</sup>, David Schneider<sup>1</sup>,
+              Manuel Zaremski<sup>1</sup>, Linus Kunzmann<sup>1</sup>
+            </p>
+            <p class="author-line">
+              Yitian Shi<sup>1</sup>, Ruiping Liu<sup>1</sup>, Yufan Chen<sup>1</sup>,
+              Junwei Zheng<sup>1,2</sup>, Jiahang Li<sup>1</sup>
+            </p>
+            <p class="author-line">
+              Jonas Hemmerich<sup>1</sup>, Qiyi Tong<sup>3</sup>, Patric Grauberger<sup>1</sup>,
+              Arash Ajoudani<sup>3</sup>, Danda Pani Paudel<sup>4</sup>
+            </p>
+            <p class="author-line">
+              Sven Matthiesen<sup>1</sup>, Barbara Deml<sup>1</sup>, Jürgen Beyerer<sup>1</sup>,
+              Luc Van Gool<sup>4</sup>, Rainer Stiefelhagen<sup>1</sup>, Kunyu Peng<sup>1,4,*</sup>
+            </p>
+            <p class="author-affiliations">
+              <span class="affiliation-item"><sup>1</sup>Karlsruhe Institute of Technology, Germany</span>
+              <span class="affiliation-item"><sup>2</sup>ETH Zurich, Switzerland</span>
+              <span class="affiliation-item"><sup>3</sup>Italian Institute of Technology, Italy</span>
+              <span class="affiliation-item"><sup>4</sup>INSAIT, Sofia University, Bulgaria</span>
+            </p>
+            <p class="author-note">
+              <span>*</span> Corresponding author:
+              <a href="mailto:kunyu.peng@kit.edu">kunyu.peng@kit.edu</a>
+            </p>
+          </div>
+          <p class="hero-subtitle">
+            A synchronized five-view RGB-D dataset and benchmark for industrial
+            assembly under viewpoint shift, partial observability, multi-route
+            execution, and anomaly recovery.
+          </p>
+          <p class="hero-meta">
+            Benchmark code, task protocols, and released baselines are
+            maintained in the GitHub repository.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#paper">Citation</a>
+            <a class="button" href="#download">Download</a>
+            <a class="button" href="#benchmark">Benchmark</a>
+            <a class="button" href="https://github.com/Kratos-Wen/IMPACT">Code</a>
+          </div>
+        </section>
+
+        <section class="media-section reveal">
+          <div class="figure-grid video-grid">
+            <figure class="figure-card figure-card-video">
+              <video
+                class="media-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Dataset video modalities demo"
+              >
+                <source src="./assets/videos/recording_demo.mp4" type="video/mp4" />
+              </video>
+            </figure>
+          </div>
+        </section>
+
+        <section class="media-section reveal">
+          <div class="section-head">
+            <h2>Assembly Task and Recording Setup</h2>
+            <p>
+              IMPACT is collected around real angle grinder assembly and
+              disassembly with synchronized ego and exo RGB-D, gaze, audio, and
+              cognitive metadata.
+            </p>
+          </div>
+          <div class="figure-grid figure-grid-collection">
+            <figure class="figure-card figure-card-centered figure-card-objects">
+              <img
+                src="./assets/figures/2anglegrinderconfig.svg"
+                alt="Two angle grinder configurations and associated assembly parts used in IMPACT."
+              />
+            </figure>
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Manual_Book.svg"
+                alt="Manual book showing standardized installation and dismantling order."
+              />
+            </figure>
+            <div class="figure-grid paired-figure-grid">
+              <figure class="figure-card figure-card-paired">
+                <img
+                  src="./assets/figures/Data_acquisition.svg"
+                  alt="Data acquisition pipeline for the IMPACT dataset."
+                />
+              </figure>
+              <figure class="figure-card figure-card-paired figure-card-workstation">
+                <img
+                  src="./assets/figures/work_station.svg"
+                  alt="IMPACT data acquisition workstation."
+                />
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-strip reveal">
+          <article class="info-chip">
+            <span class="info-label">Trials</span>
+            <strong>112 trials</strong>
+          </article>
+          <article class="info-chip">
+            <span class="info-label">Participants</span>
+            <strong>13 subjects</strong>
+          </article>
+          <article class="info-chip">
+            <span class="info-label">Duration</span>
+            <strong>39.5 video hours</strong>
+          </article>
+          <article class="info-chip">
+            <span class="info-label">Views</span>
+            <strong>1 ego + 4 exo RGB-D</strong>
+          </article>
+        </section>
+
+        <section id="overview" class="section reveal">
+          <div class="section-head">
+            <h2>Dataset Overview</h2>
+            <p>
+              IMPACT comprises 112 trials from 13 participants and 39.5 video
+              hours of synchronized industrial assembly data.
+            </p>
+          </div>
+          <figure class="figure-card figure-card-full figure-card-centered figure-card-statistics">
+            <img
+              src="./assets/figures/Dataset_statistic.svg"
+              alt="Dataset statistics summary for the IMPACT benchmark."
+            />
+          </figure>
+          <div class="snapshot-grid">
+            <article class="snapshot-card">
+              <span class="snapshot-label">Assembly object</span>
+              <h3>Two physical product configurations</h3>
+              <p>
+                Two angle grinder configurations provide a natural
+                cross-configuration generalization setting.
+              </p>
+            </article>
+            <article class="snapshot-card">
+              <span class="snapshot-label">Execution structure</span>
+              <h3>Partial-order procedural execution</h3>
+              <p>
+                Valid trajectories follow a prerequisite graph rather than a
+                single rigid sequence.
+              </p>
+            </article>
+            <article class="snapshot-card">
+              <span class="snapshot-label">Supervision</span>
+              <h3>Anomaly and compliance supervision</h3>
+              <p>
+                Explicit anomaly recovery supervision is paired with compliance
+                phases and a six-category anomaly taxonomy.
+              </p>
+            </article>
+            <article class="snapshot-card">
+              <span class="snapshot-label">Human metadata</span>
+              <h3>Trial-level cognitive workload</h3>
+              <p>
+                Each trial is paired with NASA-TLX workload measurement.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="tasks" class="section reveal">
+          <div class="section-head">
+            <h2>Benchmark Tasks</h2>
+          </div>
+          <div class="figure-grid figure-grid-tasks">
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Task_temporal_understanding.svg"
+                alt="Temporal understanding task family: TAS-S, TAS-BL, and TAS-BR."
+              />
+            </figure>
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Task_cross_view_understanding.svg"
+                alt="Cross-view understanding task family: CV-TA, CV-SMR, and CV-SMC."
+              />
+            </figure>
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Task_action_forecasting.svg"
+                alt="Action forecasting task family: AF-S and AF-L."
+              />
+            </figure>
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Task_state_reasoning.svg"
+                alt="State and reasoning task family: PSR, ASR, PPR, and ATR."
+              />
+            </figure>
+          </div>
+        </section>
+
+        <section id="download" class="section reveal">
+          <div class="section-head">
+            <h2>Download</h2>
+            <p>
+              Versioned archives provide annotations, multi-view media, ego
+              audio and eye tracking, released features, and a compact
+              quick-start sample.
+            </p>
+          </div>
+          <div class="section-actions" aria-label="Release channels">
+            <a class="button" href="https://github.com/Kratos-Wen/IMPACT">
+              Repository
+            </a>
+            <a
+              class="button button-primary"
+              href="https://drive.google.com/drive/folders/1P7vBnxSVH9g_lQc5n0c0WA47QAGEhE_U?usp=sharing"
+            >
+              Google Drive Release
+            </a>
+            <a class="button" href="https://huggingface.co/datasets/KratosWen/IMPACT">
+              Hugging Face Mirror
+            </a>
+          </div>
+          <div class="table-panel">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Benchmark repository</td>
+                  <td>Official protocols, splits, mappings, task entry points, and evaluation code.</td>
+                </tr>
+                <tr>
+                  <td>Full data release</td>
+                  <td>Annotations, five-view RGB, four-view depth, ego audio and eye tracking, and released feature packs.</td>
+                </tr>
+                <tr>
+                  <td>Quick-start sample</td>
+                  <td>Three complete executions with synchronized media, features, and task annotations in <code>IMPACT-v1.1-sample.zip</code>.</td>
+                </tr>
+                <tr>
+                  <td>Integrity metadata</td>
+                  <td>Archive byte sizes and SHA-256 checksums are published with each v1.1 mirror.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section reveal">
+          <div class="section-head">
+            <h2>Release Update</h2>
+            <p>
+              Versioned annotation updates are documented with reproducible release notes.
+            </p>
+          </div>
+          <div class="news-list">
+            <article class="news-item">
+              <div class="news-date">Released · Jul 2026</div>
+              <div>
+                <h3>IMPACT v1.1</h3>
+                <p>
+                  We further improved the released annotations and videos. All
+                  560 TAS-B annotation files were revalidated, and 117 of 560
+                  RGB videos (20.9%) were updated. The refined release is now
+                  available on Google Drive and Hugging Face.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section reveal">
+          <div class="section-head">
+            <h2>Annotation Schema</h2>
+            <p>
+              Aligned supervision spans interaction dynamics, procedural
+              structure, compliance, and state evolution.
+            </p>
+          </div>
+          <div class="figure-grid figure-grid-annotation">
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/annotation_demo.svg"
+                alt="Annotation demo for the IMPACT dataset."
+              />
+            </figure>
+            <figure class="figure-card figure-card-video">
+              <video
+                class="media-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Annotation visualization demo"
+              >
+                <source src="./assets/videos/annotation_demo.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <figure class="figure-card">
+              <img
+                src="./assets/figures/Data_annotation.svg"
+                alt="Data annotation workflow for the IMPACT dataset."
+              />
+            </figure>
+          </div>
+          <div class="schema-grid">
+            <article class="schema-card">
+              <h3>Fine-grained actions</h3>
+              <p>Hand-specific labels capture coordinated bimanual interaction.</p>
+            </article>
+            <article class="schema-card">
+              <h3>Procedural structure</h3>
+              <p>Coarse steps and completion events connect segmentation to graph-based reasoning.</p>
+            </article>
+            <article class="schema-card">
+              <h3>Assembly states</h3>
+              <p>Component-wise ternary states support direct ASR and indirect PSR.</p>
+            </article>
+            <article class="schema-card">
+              <h3>Compliance and anomalies</h3>
+              <p>Compliance phases are paired with anomaly categories for diagnosis.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="benchmark" class="section reveal">
+          <div class="section-head">
+            <h2>Benchmark</h2>
+            <p>
+              Released methods are organized by task family, with detailed
+              protocols maintained in the task-specific pages.
+            </p>
+          </div>
+          <div class="benchmark-grid">
+            <article class="panel">
+              <h3>Task coverage</h3>
+              <ul>
+                <li>Temporal understanding: <code>TAS-S</code> and <code>TAS-BL/BR</code>.</li>
+                <li>Cross-view understanding: <code>CV-TA</code>, <code>CV-SMR</code>, and <code>CV-SMC</code>.</li>
+                <li>Forecasting and reasoning: <code>AF-S</code>, <code>AF-L</code>, <code>PSR</code>, <code>ASR</code>, <code>PPR-L/R</code>, and <code>ATR-L/R</code>.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Metrics</h3>
+              <ul>
+                <li>Dense prediction metrics for temporal and compliance tasks.</li>
+                <li>Retrieval and classification metrics for cross-view tasks.</li>
+                <li>Task-specific forecasting, state, and procedural reasoning metrics.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h3>Evaluation protocol</h3>
+              <p>All splits are trial-level and co-assign synchronized views to prevent cross-view leakage. Full task definitions and reporting conventions are versioned with the benchmark code.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="resources" class="section reveal">
+          <div class="section-head">
+            <h2>Resources</h2>
+            <p>
+              The repository is the operational layer for reproducible
+              benchmarking and protocol inspection.
+            </p>
+          </div>
+          <div class="resource-grid">
+            <a class="resource-card" href="https://github.com/Kratos-Wen/IMPACT/tree/main/tasks">
+              <h3>Tasks</h3>
+              <p>Per-task launchers, configs, and usage instructions.</p>
+            </a>
+            <a class="resource-card" href="https://github.com/Kratos-Wen/IMPACT/tree/main/dataset">
+              <h3>Dataset Assets</h3>
+              <p>Protocol assets, split bundles, mappings, and reasoning metadata.</p>
+            </a>
+            <a class="resource-card" href="https://github.com/Kratos-Wen/IMPACT/tree/main/third_party">
+              <h3>External Methods</h3>
+              <p>Upstream provenance, licenses, and IMPACT-specific integration notes.</p>
+            </a>
+          </div>
+        </section>
+
+        <section id="paper" class="section reveal">
+          <div class="section-head">
+            <h2>Citation and License</h2>
+            <p>Stable citation metadata and release terms accompany the benchmark.</p>
+          </div>
+          <div class="two-column-grid">
+            <article class="panel">
+              <h3>Manuscript &amp; Citation</h3>
+              <p>The manuscript is under review at the ACM Multimedia 2026 Dataset Track. Versioned author and dataset metadata are available in <a href="https://github.com/Kratos-Wen/IMPACT/blob/main/CITATION.cff"><code>CITATION.cff</code></a>; proceedings metadata will replace it after publication.</p>
+            </article>
+            <article class="panel">
+              <h3>License</h3>
+              <ul>
+                <li>Repository-authored code: repository root <code>LICENSE</code>.</li>
+                <li>Dataset assets and documentation: <code>LICENSE-DATA</code>.</li>
+                <li><code>third_party/</code>: per-directory provenance and license notices.</li>
+              </ul>
+            </article>
+            <article class="panel full-span">
+              <h3>Acknowledgements</h3>
+              <p>
+                We gratefully acknowledge Lei Qi, Weitong Kong, Chen Zhang,
+                Haiwen Sun, and Yuwei Hu for their valuable support throughout
+                the data collection and annotation process for IMPACT.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          IMPACT is a unified benchmark for industrial procedural understanding
+          under multi-view partial observability.
+        </p>
+        <a href="https://github.com/Kratos-Wen/IMPACT">GitHub Repository</a>
+      </footer>
+    </div>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

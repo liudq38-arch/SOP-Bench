@@ -1,0 +1,445 @@
+{
+  "request_key": "29c66abd0cfcee31abedd17026d12dc357b1f88a5ff8a450cd9c9b5e57d05aa8",
+  "started_utc": "2026-09-19T14:30:22.860072+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "action_error_category",
+      "question_proposition": "What types of error occurred while I was picking up the combination wrench with my right hand?",
+      "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the combination wrench with my right hand?",
+      "canonical_answer": "Timing and wrong tool errors.",
+      "options": [
+        "Timing and wrong tool errors.",
+        "Timing and object handling errors.",
+        "Timing and spatial errors."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "action": "pick_up_combination_wrench",
+        "hand": "right",
+        "phase": "anomaly",
+        "error_attributes": [
+          "timing",
+          "wrong-tool"
+        ],
+        "target_interval": [
+          1631,
+          1708
+        ],
+        "error_mechanism": null,
+        "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 15,
+            "verb": 14,
+            "noun": 5,
+            "start_frame": 1631,
+            "end_frame": 1708,
+            "phase": "anomaly",
+            "anomaly_type": [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "entity": "right"
+          },
+          "pointer": "/segments/44"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 15,
+            "name": "pick_up_combination_wrench"
+          },
+          "pointer": "/action_labels/15"
+        },
+        {
+          "source_id": "s2",
+          "value": [
+            {
+              "id": 0,
+              "name": "error_temporal"
+            },
+            {
+              "id": 1,
+              "name": "error_spatial"
+            },
+            {
+              "id": 2,
+              "name": "error_handling"
+            },
+            {
+              "id": 3,
+              "name": "error_wrong_part"
+            },
+            {
+              "id": 4,
+              "name": "error_wrong_tool"
+            },
+            {
+              "id": 5,
+              "name": "error_procedural"
+            }
+          ],
+          "pointer": "/anomaly_types"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "context_1",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "target_10",
+        "context_2",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "target_15",
+        "context_3"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "What types of error occurred while I was picking up the combination wrench with my right hand?",
+        "answer": "Timing and wrong tool errors occurred during the action.",
+        "mcq_question": "Which option gives the complete set of error types while I was picking up the combination wrench with my right hand?",
+        "visual_grade": 2,
+        "limitation": "Frames show the hand reaching for tools, but specific error types like timing or wrong tool selection are not visually explicit without source data.",
+        "claims": [
+          {
+            "claim": "Timing and wrong tool errors occurred while picking up the combination wrench with the right hand.",
+            "source_ids": [
+              "s0",
+              "s1",
+              "s2"
+            ],
+            "image_ids": [
+              "target_0",
+              "target_1",
+              "target_2",
+              "target_3",
+              "target_4",
+              "target_5",
+              "target_6",
+              "target_7",
+              "target_8",
+              "target_9",
+              "target_10",
+              "target_11",
+              "target_12",
+              "target_13",
+              "target_14",
+              "target_15"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "No visible error occurred; the person reached for and grasped the combination wrench with their right hand.",
+        "visual_grade": 3,
+        "tool": "wrench",
+        "before_id": "context_0",
+        "after_id": "target_15",
+        "image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "context_1",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "context_2",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "target_15",
+          "context_3"
+        ],
+        "observation": "The right hand moves from the instruction sheet to the wrench on the table, grasps it, and lifts it. The action appears deliberate and successful.",
+        "limitation": "Cannot confirm if the grip was optimal or if the tool was the correct one for the next step, as only the pickup is shown."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "9d564427f17e0d6f7204ab99841e600f43e598b6d1fc4db1bf06e9f2059e76ac",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 3.4795355796813965,
+    "usage": {
+      "prompt_tokens": 1394,
+      "total_tokens": 1484,
+      "completion_tokens": 90,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": false,
+      "unsupported_claims": [],
+      "reason": "Source s0 explicitly lists timing and wrong-tool errors. Blind answer incorrectly claims no error occurred, contradicting the authoritative source data."
+    },
+    "raw_response": {
+      "id": "chatcmpl-90499aa32ff15114",
+      "object": "chat.completion",
+      "created": 1789827453,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":false,\"unsupported_claims\":[],\"reason\":\"Source s0 explicitly lists timing and wrong-tool errors. Blind answer incorrectly claims no error occurred, contradicting the authoritative source data.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1394,
+        "total_tokens": 1484,
+        "completion_tokens": 90,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "action_error_category",
+        "question_proposition": "What types of error occurred while I was picking up the combination wrench with my right hand?",
+        "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the combination wrench with my right hand?",
+        "canonical_answer": "Timing and wrong tool errors.",
+        "options": [
+          "Timing and wrong tool errors.",
+          "Timing and object handling errors.",
+          "Timing and spatial errors."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "action": "pick_up_combination_wrench",
+          "hand": "right",
+          "phase": "anomaly",
+          "error_attributes": [
+            "timing",
+            "wrong-tool"
+          ],
+          "target_interval": [
+            1631,
+            1708
+          ],
+          "error_mechanism": null,
+          "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 15,
+              "verb": 14,
+              "noun": 5,
+              "start_frame": 1631,
+              "end_frame": 1708,
+              "phase": "anomaly",
+              "anomaly_type": [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              "entity": "right"
+            },
+            "pointer": "/segments/44"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 15,
+              "name": "pick_up_combination_wrench"
+            },
+            "pointer": "/action_labels/15"
+          },
+          {
+            "source_id": "s2",
+            "value": [
+              {
+                "id": 0,
+                "name": "error_temporal"
+              },
+              {
+                "id": 1,
+                "name": "error_spatial"
+              },
+              {
+                "id": 2,
+                "name": "error_handling"
+              },
+              {
+                "id": 3,
+                "name": "error_wrong_part"
+              },
+              {
+                "id": 4,
+                "name": "error_wrong_tool"
+              },
+              {
+                "id": 5,
+                "name": "error_procedural"
+              }
+            ],
+            "pointer": "/anomaly_types"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "context_1",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "context_2",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "target_15",
+          "context_3"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "What types of error occurred while I was picking up the combination wrench with my right hand?",
+          "answer": "Timing and wrong tool errors occurred during the action.",
+          "mcq_question": "Which option gives the complete set of error types while I was picking up the combination wrench with my right hand?",
+          "visual_grade": 2,
+          "limitation": "Frames show the hand reaching for tools, but specific error types like timing or wrong tool selection are not visually explicit without source data.",
+          "claims": [
+            {
+              "claim": "Timing and wrong tool errors occurred while picking up the combination wrench with the right hand.",
+              "source_ids": [
+                "s0",
+                "s1",
+                "s2"
+              ],
+              "image_ids": [
+                "target_0",
+                "target_1",
+                "target_2",
+                "target_3",
+                "target_4",
+                "target_5",
+                "target_6",
+                "target_7",
+                "target_8",
+                "target_9",
+                "target_10",
+                "target_11",
+                "target_12",
+                "target_13",
+                "target_14",
+                "target_15"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "No visible error occurred; the person reached for and grasped the combination wrench with their right hand.",
+          "visual_grade": 3,
+          "tool": "wrench",
+          "before_id": "context_0",
+          "after_id": "target_15",
+          "image_ids": [
+            "context_0",
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "context_1",
+            "target_4",
+            "target_5",
+            "target_6",
+            "target_7",
+            "target_8",
+            "target_9",
+            "target_10",
+            "context_2",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "target_15",
+            "context_3"
+          ],
+          "observation": "The right hand moves from the instruction sheet to the wrench on the table, grasps it, and lifts it. The action appears deliberate and successful.",
+          "limitation": "Cannot confirm if the grip was optimal or if the tool was the correct one for the next step, as only the pickup is shown."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

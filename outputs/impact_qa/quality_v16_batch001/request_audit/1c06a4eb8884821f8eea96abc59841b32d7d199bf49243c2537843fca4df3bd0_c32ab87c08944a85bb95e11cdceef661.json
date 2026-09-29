@@ -1,0 +1,403 @@
+{
+  "request_key": "1c06a4eb8884821f8eea96abc59841b32d7d199bf49243c2537843fca4df3bd0",
+  "started_utc": "2026-09-19T14:28:48.413561+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "component_installed",
+      "question_proposition": "Had I correctly installed the anti-vibration handle by the end of this clip?",
+      "mcq_question_proposition": "What was the installation status of the anti-vibration handle at the end of this clip?",
+      "canonical_answer": "Yes, the anti-vibration handle was correctly installed by the end of the clip.",
+      "options": [
+        "Incorrectly installed.",
+        "Correctly installed.",
+        "Not installed."
+      ],
+      "correct_option_index": 1,
+      "facts": {
+        "component_state": {
+          "component": "anti_vibration_handle",
+          "frame": 5754,
+          "state": 1
+        },
+        "scope": "component state at cutoff; no larger assembly or receiver"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 0,
+            "name": "anti_vibration_handle"
+          },
+          "pointer": "/components/0"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "frame": 5739,
+            "state": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "pointer": "/state_sequence/14"
+        },
+        {
+          "source_id": "s2",
+          "value": {
+            "id": 36,
+            "label": "screw_on_anti_vibration_handle",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 5543,
+            "f_end": 5720
+          },
+          "pointer": "/segments/36"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_5528",
+        "frame_5560",
+        "frame_5593",
+        "frame_5625",
+        "frame_5657",
+        "frame_5689",
+        "frame_5722",
+        "frame_5754"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_5528",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/1d514f38e78e07eb8a68d4bd.jpg",
+        "requested_time_s": 184.26666666666668,
+        "frame_index": 5528,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "59dac425142a71f8747de134ab12653b91a00e1be5f93670d8a483386fe0b47e"
+      },
+      {
+        "evidence_id": "frame_5560",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/fbf505d7aa04b26273e4a52f.jpg",
+        "requested_time_s": 185.33333333333334,
+        "frame_index": 5560,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "7466f335a68b21321d5fd32029fce0a7116026d63dab6c1fa35fe5fa001d786e"
+      },
+      {
+        "evidence_id": "frame_5593",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/02f3308a5d82ed0c0f176ff8.jpg",
+        "requested_time_s": 186.43333333333334,
+        "frame_index": 5593,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "c1851c870e3e321d8de5d42a461890bc43631defe362419312ab21c85555fa1a"
+      },
+      {
+        "evidence_id": "frame_5625",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/84f43b98fdbf82be14a533ad.jpg",
+        "requested_time_s": 187.5,
+        "frame_index": 5625,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "a650d940cc76d07b04bee2550bbdf2e3c035d69c29858ff67b0de312e3d6aead"
+      },
+      {
+        "evidence_id": "frame_5657",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9f6646b18ce31cc595c58481.jpg",
+        "requested_time_s": 188.56666666666666,
+        "frame_index": 5657,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "240ae81245782520653f7eadb781f61e648a673478ac043455b5c177d753303a"
+      },
+      {
+        "evidence_id": "frame_5689",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2528f5b7e19a68be44ca7879.jpg",
+        "requested_time_s": 189.63333333333333,
+        "frame_index": 5689,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "cc073c05bd93167d0f3350ee9a2df475e028a96ec59dd2612ae60e2384ecf5ef"
+      },
+      {
+        "evidence_id": "frame_5722",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/062b4ef545386f734c6afedf.jpg",
+        "requested_time_s": 190.73333333333332,
+        "frame_index": 5722,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "5e1c97dd5d29f5316e654d10d3f8014a59675df53632087b83dac651de8a1635"
+      },
+      {
+        "evidence_id": "frame_5754",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b185d8682abea6f88d1cdd06.jpg",
+        "requested_time_s": 191.8,
+        "frame_index": 5754,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "d5d52e4daad69a1f122e77c65f27f850f38fbfd4dfd3d0f27a28d8212c6eeaf8"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "c74398500369d55e5a5811faf82a5d747cb8c27e7ef9971487ff8c2aed0f03f6",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 14.991123676300049,
+    "usage": {
+      "prompt_tokens": 8096,
+      "total_tokens": 8288,
+      "completion_tokens": 192,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Had I correctly installed the anti-vibration handle by the end of this clip?",
+      "answer": "Yes, the anti-vibration handle was correctly installed by the end of the clip.",
+      "mcq_question": "What was the installation status of the anti-vibration handle at the end of this clip?",
+      "visual_grade": 3,
+      "limitation": "No limitations; the handle is visibly attached to the tool in the final frames.",
+      "claims": [
+        {
+          "claim": "The anti-vibration handle was correctly installed by the end of the clip.",
+          "source_ids": [
+            "s0",
+            "s1",
+            "s2"
+          ],
+          "image_ids": [
+            "frame_5754"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-96a9d302f68a7407",
+      "object": "chat.completion",
+      "created": 1789828128,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Had I correctly installed the anti-vibration handle by the end of this clip?\",\n  \"answer\": \"Yes, the anti-vibration handle was correctly installed by the end of the clip.\",\n  \"mcq_question\": \"What was the installation status of the anti-vibration handle at the end of this clip?\",\n  \"visual_grade\": 3,\n  \"limitation\": \"No limitations; the handle is visibly attached to the tool in the final frames.\",\n  \"claims\": [\n    {\n      \"claim\": \"The anti-vibration handle was correctly installed by the end of the clip.\",\n      \"source_ids\": [\n        \"s0\",\n        \"s1\",\n        \"s2\"\n      ],\n      \"image_ids\": [\n        \"frame_5754\"\n      ]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8096,
+        "total_tokens": 8288,
+        "completion_tokens": 192,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "component_installed",
+        "question_proposition": "Had I correctly installed the anti-vibration handle by the end of this clip?",
+        "mcq_question_proposition": "What was the installation status of the anti-vibration handle at the end of this clip?",
+        "canonical_answer": "Yes, the anti-vibration handle was correctly installed by the end of the clip.",
+        "options": [
+          "Incorrectly installed.",
+          "Correctly installed.",
+          "Not installed."
+        ],
+        "correct_option_index": 1,
+        "facts": {
+          "component_state": {
+            "component": "anti_vibration_handle",
+            "frame": 5754,
+            "state": 1
+          },
+          "scope": "component state at cutoff; no larger assembly or receiver"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 0,
+              "name": "anti_vibration_handle"
+            },
+            "pointer": "/components/0"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "frame": 5739,
+              "state": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            "pointer": "/state_sequence/14"
+          },
+          {
+            "source_id": "s2",
+            "value": {
+              "id": 36,
+              "label": "screw_on_anti_vibration_handle",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 5543,
+              "f_end": 5720
+            },
+            "pointer": "/segments/36"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_5528",
+          "frame_5560",
+          "frame_5593",
+          "frame_5625",
+          "frame_5657",
+          "frame_5689",
+          "frame_5722",
+          "frame_5754"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_5528",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/1d514f38e78e07eb8a68d4bd.jpg",
+          "requested_time_s": 184.26666666666668,
+          "frame_index": 5528,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "59dac425142a71f8747de134ab12653b91a00e1be5f93670d8a483386fe0b47e"
+        },
+        {
+          "evidence_id": "frame_5560",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/fbf505d7aa04b26273e4a52f.jpg",
+          "requested_time_s": 185.33333333333334,
+          "frame_index": 5560,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "7466f335a68b21321d5fd32029fce0a7116026d63dab6c1fa35fe5fa001d786e"
+        },
+        {
+          "evidence_id": "frame_5593",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/02f3308a5d82ed0c0f176ff8.jpg",
+          "requested_time_s": 186.43333333333334,
+          "frame_index": 5593,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "c1851c870e3e321d8de5d42a461890bc43631defe362419312ab21c85555fa1a"
+        },
+        {
+          "evidence_id": "frame_5625",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/84f43b98fdbf82be14a533ad.jpg",
+          "requested_time_s": 187.5,
+          "frame_index": 5625,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "a650d940cc76d07b04bee2550bbdf2e3c035d69c29858ff67b0de312e3d6aead"
+        },
+        {
+          "evidence_id": "frame_5657",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9f6646b18ce31cc595c58481.jpg",
+          "requested_time_s": 188.56666666666666,
+          "frame_index": 5657,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "240ae81245782520653f7eadb781f61e648a673478ac043455b5c177d753303a"
+        },
+        {
+          "evidence_id": "frame_5689",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/2528f5b7e19a68be44ca7879.jpg",
+          "requested_time_s": 189.63333333333333,
+          "frame_index": 5689,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "cc073c05bd93167d0f3350ee9a2df475e028a96ec59dd2612ae60e2384ecf5ef"
+        },
+        {
+          "evidence_id": "frame_5722",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/062b4ef545386f734c6afedf.jpg",
+          "requested_time_s": 190.73333333333332,
+          "frame_index": 5722,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "5e1c97dd5d29f5316e654d10d3f8014a59675df53632087b83dac651de8a1635"
+        },
+        {
+          "evidence_id": "frame_5754",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/b185d8682abea6f88d1cdd06.jpg",
+          "requested_time_s": 191.8,
+          "frame_index": 5754,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "d5d52e4daad69a1f122e77c65f27f850f38fbfd4dfd3d0f27a28d8212c6eeaf8"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "request_key": "8ded3178e28bfa0b1cd26f3981707ac980102e7edc32e3ab55b3c8f2b4f70d62",
+  "started_utc": "2026-09-19T14:27:26.397255+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "action_error_category",
+      "question_proposition": "What types of error occurred while I was picking up the drive shaft with my left hand?",
+      "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the drive shaft with my left hand?",
+      "canonical_answer": "Procedural error.",
+      "options": [
+        "Procedural error.",
+        "Spatial error.",
+        "Timing error."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "action": "pick_up_drive_shaft",
+        "hand": "left",
+        "phase": "anomaly",
+        "error_attributes": [
+          "procedural"
+        ],
+        "target_interval": [
+          1044,
+          1059
+        ],
+        "error_mechanism": null,
+        "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 3,
+            "verb": 14,
+            "noun": 6,
+            "start_frame": 1044,
+            "end_frame": 1059,
+            "phase": "anomaly",
+            "anomaly_type": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "entity": "left"
+          },
+          "pointer": "/segments/6"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 3,
+            "name": "pick_up_drive_shaft"
+          },
+          "pointer": "/action_labels/3"
+        },
+        {
+          "source_id": "s2",
+          "value": [
+            {
+              "id": 0,
+              "name": "error_temporal"
+            },
+            {
+              "id": 1,
+              "name": "error_spatial"
+            },
+            {
+              "id": 2,
+              "name": "error_handling"
+            },
+            {
+              "id": 3,
+              "name": "error_wrong_part"
+            },
+            {
+              "id": 4,
+              "name": "error_wrong_tool"
+            },
+            {
+              "id": 5,
+              "name": "error_procedural"
+            }
+          ],
+          "pointer": "/anomaly_types"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_1029",
+        "frame_1035",
+        "frame_1042",
+        "frame_1048",
+        "frame_1055",
+        "frame_1061",
+        "frame_1068",
+        "frame_1074"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "What types of error occurred while I was picking up the drive shaft with my left hand?",
+        "answer": "A procedural error occurred during the action of picking up the drive shaft with the left hand.",
+        "mcq_question": "Which option gives the complete set of error types while I was picking up the drive shaft with my left hand?",
+        "visual_grade": 2,
+        "limitation": "The specific procedural deviation is not visually explicit in the frames; the error classification relies on the provided source metadata.",
+        "claims": [
+          {
+            "claim": "A procedural error occurred while picking up the drive shaft with the left hand.",
+            "source_ids": [
+              "s0",
+              "s2"
+            ],
+            "image_ids": [
+              "frame_1048",
+              "frame_1055"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "No visible error occurred; the person held a black component and a white ring, but did not pick up a drive shaft.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "frame_1029",
+          "frame_1035",
+          "frame_1042",
+          "frame_1048",
+          "frame_1055",
+          "frame_1061",
+          "frame_1068",
+          "frame_1074"
+        ],
+        "observation": "The person holds a black object and a white ring. No drive shaft is visible or picked up in the provided frames.",
+        "limitation": "Cannot confirm if a drive shaft was intended or if the action occurred outside the visible frames."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "33cfdd1dec3b2dee0b559ab44050fa2ead4be42645c00989d2a959f35a1de25b",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 6.782400846481323,
+    "usage": {
+      "prompt_tokens": 1207,
+      "total_tokens": 1304,
+      "completion_tokens": 97,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": false,
+      "unsupported_claims": [],
+      "reason": "Source s0 confirms procedural error (index 5) for left-hand drive shaft pickup. Blind answer denies the action and error, contradicting the authoritative source metadata."
+    },
+    "raw_response": {
+      "id": "chatcmpl-a92048cb07bc6877",
+      "object": "chat.completion",
+      "created": 1789828047,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":false,\"unsupported_claims\":[],\"reason\":\"Source s0 confirms procedural error (index 5) for left-hand drive shaft pickup. Blind answer denies the action and error, contradicting the authoritative source metadata.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1207,
+        "total_tokens": 1304,
+        "completion_tokens": 97,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8000/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "action_error_category",
+        "question_proposition": "What types of error occurred while I was picking up the drive shaft with my left hand?",
+        "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the drive shaft with my left hand?",
+        "canonical_answer": "Procedural error.",
+        "options": [
+          "Procedural error.",
+          "Spatial error.",
+          "Timing error."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "action": "pick_up_drive_shaft",
+          "hand": "left",
+          "phase": "anomaly",
+          "error_attributes": [
+            "procedural"
+          ],
+          "target_interval": [
+            1044,
+            1059
+          ],
+          "error_mechanism": null,
+          "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 3,
+              "verb": 14,
+              "noun": 6,
+              "start_frame": 1044,
+              "end_frame": 1059,
+              "phase": "anomaly",
+              "anomaly_type": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "entity": "left"
+            },
+            "pointer": "/segments/6"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 3,
+              "name": "pick_up_drive_shaft"
+            },
+            "pointer": "/action_labels/3"
+          },
+          {
+            "source_id": "s2",
+            "value": [
+              {
+                "id": 0,
+                "name": "error_temporal"
+              },
+              {
+                "id": 1,
+                "name": "error_spatial"
+              },
+              {
+                "id": 2,
+                "name": "error_handling"
+              },
+              {
+                "id": 3,
+                "name": "error_wrong_part"
+              },
+              {
+                "id": 4,
+                "name": "error_wrong_tool"
+              },
+              {
+                "id": 5,
+                "name": "error_procedural"
+              }
+            ],
+            "pointer": "/anomaly_types"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_1029",
+          "frame_1035",
+          "frame_1042",
+          "frame_1048",
+          "frame_1055",
+          "frame_1061",
+          "frame_1068",
+          "frame_1074"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "What types of error occurred while I was picking up the drive shaft with my left hand?",
+          "answer": "A procedural error occurred during the action of picking up the drive shaft with the left hand.",
+          "mcq_question": "Which option gives the complete set of error types while I was picking up the drive shaft with my left hand?",
+          "visual_grade": 2,
+          "limitation": "The specific procedural deviation is not visually explicit in the frames; the error classification relies on the provided source metadata.",
+          "claims": [
+            {
+              "claim": "A procedural error occurred while picking up the drive shaft with the left hand.",
+              "source_ids": [
+                "s0",
+                "s2"
+              ],
+              "image_ids": [
+                "frame_1048",
+                "frame_1055"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "No visible error occurred; the person held a black component and a white ring, but did not pick up a drive shaft.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "frame_1029",
+            "frame_1035",
+            "frame_1042",
+            "frame_1048",
+            "frame_1055",
+            "frame_1061",
+            "frame_1068",
+            "frame_1074"
+          ],
+          "observation": "The person holds a black object and a white ring. No drive shaft is visible or picked up in the provided frames.",
+          "limitation": "Cannot confirm if a drive shaft was intended or if the action occurred outside the visible frames."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

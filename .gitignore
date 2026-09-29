@@ -1,0 +1,103 @@
+# ============================================================
+# SOP-Bench
+# 上传策略：只发布「代码 + 配置 + 提示词 + 文档 + 自建数据集本体」，
+#          排除 Python 环境、第三方数据集、媒体副本、运行缓存。
+# ============================================================
+
+# ---------- Python 环境与缓存 ----------
+.venv*/
+venv/
+env/
+runtime/
+.cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------- 第三方数据集与文献 ----------
+# 体积大且各有独立许可，请按 docs/DATA.md 中的脚本自行下载
+annotations/
+datasets/
+papers/
+sources/
+archive/failed_downloads/
+
+# ---------- 媒体与二进制产物 ----------
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.flv
+*.jpg
+*.JPG
+*.jpeg
+*.png
+*.gif
+*.webp
+*.bmp
+*.ppm
+*.whl
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.sqlite3
+*.db
+*.npy
+*.npz
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+
+# ---------- 运行痕迹 ----------
+*.log
+*.pid
+*.lock
+nohup.out
+api_cache/
+api_cache_failures/
+service_logs/
+*.stdout
+*.stderr
+
+# ---------- outputs：保留数据集本体，剔除逐条目中间台账 ----------
+# 媒体副本
+outputs/**/media/
+outputs/**/review_media/
+outputs/**/render/
+outputs/**/*.mp4
+# 逐条目生成/审核台账
+outputs/impact_qa/*/inputs/
+outputs/impact_qa/*/plans/
+outputs/impact_qa/*/trials/
+outputs/impact_qa/*/media_manifests/
+outputs/impact_qa/*/results/
+outputs/impact_qa/*/runs/
+outputs/impact_qa/*/smoke/
+outputs/impact_qa/*/batch*/
+outputs/impact_qa/*/browser/
+outputs/impact_qa/*/inspection/
+outputs/impact_qa/*/revisions/
+outputs/impact_qa/*/guidance_browser/
+outputs/impact_qa/*/timeline_browser/
+outputs/impact_qa/*/human_reviews/
+outputs/impact_qa/*/review_archives/
+# 一次性压测/探针目录
+outputs/impact_qa/framebudget_test/
+outputs/impact_qa/framebudget_probe*.json
+
+# ---------- 放行：应用与审计报告所需的少量静态资源 ----------
+# （上面的全局 *.jpg/*.png 规则会误伤，这里按目录回补）
+!apps/impact_assembly_3d/assets/*.jpg
+!apps/impact_assembly_3d/assets/*.png
+!reports/**/*.png
+!cc4d_annotations/**/*.png
+!cc4d_annotations/**/*.jpg

@@ -1,0 +1,371 @@
+{
+  "request_key": "48b79bf71bc81867fcbb92476ec3387a5a0272a955cc04edd07867880e551cf4",
+  "started_utc": "2026-09-19T14:28:41.970318+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "action_phase",
+      "question_proposition": "Did I make an error while tightening the screw with my left hand?",
+      "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while tightening the screw with my left hand?",
+      "canonical_answer": "No, that action was performed normally.",
+      "options": [
+        "The action was a recovery.",
+        "The action was normal.",
+        "The action contained an error."
+      ],
+      "correct_option_index": 1,
+      "facts": {
+        "action": "tighten_screw",
+        "hand": "left",
+        "phase": "normal",
+        "scope": "this hand and action only; no whole-step or whole-video correctness"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 59,
+            "verb": 20,
+            "noun": 13,
+            "start_frame": 3283,
+            "end_frame": 3478,
+            "phase": "normal",
+            "anomaly_type": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "entity": "left"
+          },
+          "pointer": "/segments/23"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 59,
+            "name": "tighten_screw"
+          },
+          "pointer": "/action_labels/59"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_3283",
+        "frame_3311",
+        "frame_3339",
+        "frame_3367",
+        "frame_3394",
+        "frame_3422",
+        "frame_3450",
+        "frame_3478"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_3283",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/536178c63597a225c9d5e48a.jpg",
+        "requested_time_s": 109.43333333333334,
+        "frame_index": 3283,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "5424b41b9c39dfc47cf5ebfa62ceda4af9bcec7cb96a9c0f322ca3391820be83"
+      },
+      {
+        "evidence_id": "frame_3311",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/29c7822f7b6d2a956dc44333.jpg",
+        "requested_time_s": 110.36666666666666,
+        "frame_index": 3311,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "422bccac8cdd31767ebe2f3e0950f66e998ea619ab3efee1623c21396bd350c3"
+      },
+      {
+        "evidence_id": "frame_3339",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa7edce97c50a0dde521a800.jpg",
+        "requested_time_s": 111.3,
+        "frame_index": 3339,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "e98f7150a609e823a044be805b353958cded80e42c79fa7d36d465d7f2ba45d6"
+      },
+      {
+        "evidence_id": "frame_3367",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/91d46c2f7e3d1c76edc2b205.jpg",
+        "requested_time_s": 112.23333333333333,
+        "frame_index": 3367,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "a24cf2138c23eb3d2e05f12dc0bbd4ccde214809cd769988ca44a5641f85baf9"
+      },
+      {
+        "evidence_id": "frame_3394",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9f2e2bf8684ce36bc7f229dc.jpg",
+        "requested_time_s": 113.13333333333334,
+        "frame_index": 3394,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "e68aa0f1957f4fba2c5ca1eaf643a974379099d88df9ea41d67aa6f7ccfaa947"
+      },
+      {
+        "evidence_id": "frame_3422",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ecaaefb9ec3fe0f39d70eeb7.jpg",
+        "requested_time_s": 114.06666666666666,
+        "frame_index": 3422,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "29a2e205f3bc4f423cadacc4458a35e51b1fb1dc1b029b2e11a504109717d3f9"
+      },
+      {
+        "evidence_id": "frame_3450",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9e32a4c6e1926d2c29ce2ff1.jpg",
+        "requested_time_s": 115.0,
+        "frame_index": 3450,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "0a4f669a14926e5bc8b8d48e3b26a8e405a92b8faf2d232882dc228ff309a4f2"
+      },
+      {
+        "evidence_id": "frame_3478",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ea7ef1b4a66446d669aa7381.jpg",
+        "requested_time_s": 115.93333333333334,
+        "frame_index": 3478,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "30e1719124478bc1f3befa0ef15d7a9cf9972d1ec12fb9aad410b5b6ccb60fcb"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "bdd468751cff4702fa00a20ea7ca3f7dafce7ce6e1221951be4ef4b3909caad9",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 14.487971782684326,
+    "usage": {
+      "prompt_tokens": 8033,
+      "total_tokens": 8262,
+      "completion_tokens": 229,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Did I make an error while tightening the screw with my left hand?",
+      "answer": "No, the action was performed normally without any errors.",
+      "mcq_question": "Was I performing a normal action, making an error, or recovering while tightening the screw with my left hand?",
+      "visual_grade": 2,
+      "limitation": "The specific screw and hand are visible, but the exact torque or fine alignment cannot be confirmed from this distance.",
+      "claims": [
+        {
+          "claim": "The action of tightening the screw with the left hand was performed normally.",
+          "source_ids": [
+            "s0",
+            "s1"
+          ],
+          "image_ids": [
+            "frame_3283",
+            "frame_3311",
+            "frame_3339",
+            "frame_3367",
+            "frame_3394",
+            "frame_3422",
+            "frame_3450",
+            "frame_3478"
+          ]
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-acd99b55e167f535",
+      "object": "chat.completion",
+      "created": 1789828125,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Did I make an error while tightening the screw with my left hand?\",\n  \"answer\": \"No, the action was performed normally without any errors.\",\n  \"mcq_question\": \"Was I performing a normal action, making an error, or recovering while tightening the screw with my left hand?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"The specific screw and hand are visible, but the exact torque or fine alignment cannot be confirmed from this distance.\",\n  \"claims\": [\n    {\n      \"claim\": \"The action of tightening the screw with the left hand was performed normally.\",\n      \"source_ids\": [\"s0\", \"s1\"],\n      \"image_ids\": [\"frame_3283\", \"frame_3311\", \"frame_3339\", \"frame_3367\", \"frame_3394\", \"frame_3422\", \"frame_3450\", \"frame_3478\"]\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8033,
+        "total_tokens": 8262,
+        "completion_tokens": 229,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "action_phase",
+        "question_proposition": "Did I make an error while tightening the screw with my left hand?",
+        "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while tightening the screw with my left hand?",
+        "canonical_answer": "No, that action was performed normally.",
+        "options": [
+          "The action was a recovery.",
+          "The action was normal.",
+          "The action contained an error."
+        ],
+        "correct_option_index": 1,
+        "facts": {
+          "action": "tighten_screw",
+          "hand": "left",
+          "phase": "normal",
+          "scope": "this hand and action only; no whole-step or whole-video correctness"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 59,
+              "verb": 20,
+              "noun": 13,
+              "start_frame": 3283,
+              "end_frame": 3478,
+              "phase": "normal",
+              "anomaly_type": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "entity": "left"
+            },
+            "pointer": "/segments/23"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 59,
+              "name": "tighten_screw"
+            },
+            "pointer": "/action_labels/59"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_3283",
+          "frame_3311",
+          "frame_3339",
+          "frame_3367",
+          "frame_3394",
+          "frame_3422",
+          "frame_3450",
+          "frame_3478"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_3283",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/536178c63597a225c9d5e48a.jpg",
+          "requested_time_s": 109.43333333333334,
+          "frame_index": 3283,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "5424b41b9c39dfc47cf5ebfa62ceda4af9bcec7cb96a9c0f322ca3391820be83"
+        },
+        {
+          "evidence_id": "frame_3311",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/29c7822f7b6d2a956dc44333.jpg",
+          "requested_time_s": 110.36666666666666,
+          "frame_index": 3311,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "422bccac8cdd31767ebe2f3e0950f66e998ea619ab3efee1623c21396bd350c3"
+        },
+        {
+          "evidence_id": "frame_3339",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/aa7edce97c50a0dde521a800.jpg",
+          "requested_time_s": 111.3,
+          "frame_index": 3339,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "e98f7150a609e823a044be805b353958cded80e42c79fa7d36d465d7f2ba45d6"
+        },
+        {
+          "evidence_id": "frame_3367",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/91d46c2f7e3d1c76edc2b205.jpg",
+          "requested_time_s": 112.23333333333333,
+          "frame_index": 3367,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "a24cf2138c23eb3d2e05f12dc0bbd4ccde214809cd769988ca44a5641f85baf9"
+        },
+        {
+          "evidence_id": "frame_3394",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9f2e2bf8684ce36bc7f229dc.jpg",
+          "requested_time_s": 113.13333333333334,
+          "frame_index": 3394,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "e68aa0f1957f4fba2c5ca1eaf643a974379099d88df9ea41d67aa6f7ccfaa947"
+        },
+        {
+          "evidence_id": "frame_3422",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ecaaefb9ec3fe0f39d70eeb7.jpg",
+          "requested_time_s": 114.06666666666666,
+          "frame_index": 3422,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "29a2e205f3bc4f423cadacc4458a35e51b1fb1dc1b029b2e11a504109717d3f9"
+        },
+        {
+          "evidence_id": "frame_3450",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/9e32a4c6e1926d2c29ce2ff1.jpg",
+          "requested_time_s": 115.0,
+          "frame_index": 3450,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "0a4f669a14926e5bc8b8d48e3b26a8e405a92b8faf2d232882dc228ff309a4f2"
+        },
+        {
+          "evidence_id": "frame_3478",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/ea7ef1b4a66446d669aa7381.jpg",
+          "requested_time_s": 115.93333333333334,
+          "frame_index": 3478,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "30e1719124478bc1f3befa0ef15d7a9cf9972d1ec12fb9aad410b5b6ccb60fcb"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

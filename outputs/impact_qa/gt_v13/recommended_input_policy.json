@@ -1,0 +1,56 @@
+{
+  "status": "development_only_not_release",
+  "current_target_gt": "generation_only; visual review gets question, public reference and event images but no target labels/answers",
+  "sampling": "annotation-assisted; disclose in benchmark protocol",
+  "rules": {
+    "tool_identity": {
+      "input": "4 fixed context + 16 dense target crops",
+      "evidence": "7/7 short answer matches; no verified tip subtypes",
+      "release": false
+    },
+    "observed_order": {
+      "input": "dense event crops + five other-training-action references + unordered coarse/fine glossary",
+      "evidence": "6/8 matches; remaining two conflicts and one explanation identity risk",
+      "next": "Recognize atomic actions with frame IDs, attach coarse labels only when identity supported; compute observed order from recognized timestamps. Never substitute normative order.",
+      "release": false
+    },
+    "component_installed": {
+      "input": "endpoint dense crops, action references, short state-specific audit",
+      "evidence": "4 positive matches, but strict joint positive/negative test 5/6 and unsupported extra details",
+      "next": "Build component appearance references with visible attachment relations and matched negative controls; do not deploy strict prompt globally.",
+      "release": false
+    },
+    "component_unassembled": {
+      "input": "retain dense baseline pending component identity audit",
+      "evidence": "baseline2/2 matches; new strict prompt regressed to1/2",
+      "release": false
+    },
+    "ongoing_step": {
+      "input": "dense endpoint with context",
+      "evidence": "2/2 matches, small development subset",
+      "release": false
+    },
+    "action_error_category": {
+      "input": "hold for concrete source-backed error evidence",
+      "evidence": "6/6 abstain in every main condition",
+      "require": [
+        "source anomaly attributes",
+        "actual action/object/time interval",
+        "visible deviation",
+        "explicit expected behavior source for any normative assertion"
+      ],
+      "prohibit": [
+        "invent cause from broad error attributes",
+        "invent corrective action without source or verified procedure"
+      ],
+      "release": false
+    },
+    "action_phase": {
+      "input": "hold for visible and normative support",
+      "evidence": "4/4 abstain; absence of visible error does not prove correctness",
+      "release": false
+    }
+  },
+  "freeze_gate": "unchanged review_and_scale_protocol.md; severe defects zero and independent acceptance still required",
+  "next_cache_fix": "Coalesce identical in-flight requests before full runs; preserve per-run raw responses. Do not modify frozen v7 API."
+}

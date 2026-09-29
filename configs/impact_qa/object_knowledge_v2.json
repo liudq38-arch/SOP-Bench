@@ -1,0 +1,285 @@
+{
+  "schema_version": "impact_object_knowledge_v2",
+  "date": "2026-09-25",
+  "dataset": "IMPACT-v1.1",
+  "purpose": "Optional domain reference for grounded QA generation; not per-clip evidence.",
+  "sources": {
+    "paper": {
+      "url": "https://arxiv.org/html/2604.10409v1",
+      "local_path": "papers/IMPACT.txt",
+      "location": "Sections 3.1 and 3.2",
+      "excerpts": ["12 components and 4 tool types", "differs in component connectivity and required tool operations", "partial-order prerequisite graph"]
+    },
+    "official_figure": {
+      "url": "https://github.com/Kratos-Wen/IMPACT/blob/4fed5faa5f05f7aece55712e458defa1f372b248/website/assets/figures/2anglegrinderconfig.svg",
+      "local_path": "sources/impact_docs/2anglegrinderconfig.svg",
+      "render": "reports/impact_qa/object_knowledge/model_comparison.png",
+      "git_blob_sha1": "0a56f418588b92fadb923bf0b5d1bd0877ca4205",
+      "retrieval_url": "https://cdn.jsdelivr.net/gh/Kratos-Wen/IMPACT@4fed5faa5f05f7aece55712e458defa1f372b248/website/assets/figures/2anglegrinderconfig.svg"
+    },
+    "manual": {
+      "url": "https://github.com/Kratos-Wen/IMPACT/blob/4fed5faa5f05f7aece55712e458defa1f372b248/website/assets/figures/Manual_Book.svg",
+      "local_path": "sources/impact_docs/Manual_Book.svg",
+      "render": "reports/impact_qa/manual_book_render.png",
+      "scope": "The illustrated black-housing Model-A assembly. Not a verified universal order for Model-B."
+    },
+    "psr_names": {
+      "url": "https://huggingface.co/datasets/KratosWen/IMPACT",
+      "local_path": "annotations/impact/IMPACT-v1.1/annotations/PSR/labels/component_names.json"
+    },
+    "asr_example": {
+      "local_path": "annotations/impact/IMPACT-v1.1/annotations/ASR/annotations/AL07EJ17_Reassembly_A_002_front_asr.json",
+      "location": "components, meta_data.model_type, consecutive state_sequence vectors"
+    },
+    "visual_samples": {
+      "local_path": "reports/impact_qa/object_knowledge/visual_evidence.json",
+      "scope": "GT-selected front/top frames; segment-end and 1-second-later context are distinguished. Context frames are not assumed to retain the preceding action label."
+    }
+  },
+  "evidence_policy": {
+    "direct_source": "Explicit legend, annotation field or model name in an official source.",
+    "visual_supported": "Appearance or contact checked in official figures/manual and/or saved video frames.",
+    "mechanical_interpretation": "Conservative functional interpretation of geometry and assembly context, not an extra GT annotation.",
+    "unresolved": "Conflicting or insufficient evidence; do not turn into a per-clip answer.",
+    "confidence_note": "These are provenance categories, not calibrated numerical confidence scores."
+  },
+  "tools": [
+    {
+      "canonical_name": "combination_wrench",
+      "name_en": "combination wrench",
+      "name_zh": "两用扳手（开口／梅花组合扳手、小扳手）",
+      "figure_tool_code": "D",
+      "appearance_en": "Slim silver wrench, open jaw at one end and a closed ring at the other.",
+      "appearance_zh": "细长银色金属扳手，一端开口，另一端为封闭环形梅花口。",
+      "role_en": "Holds or turns a hexagonal nut. The A manual shows it at the internal shaft/gear nut; the nut size still requires clip-specific GT.",
+      "role_zh": "夹持、旋松或拧紧六角螺母。A 型手册展示它操作齿轮箱内的轴／齿轮紧固螺母；具体 M4/M6 身份仍须核对片段 GT。",
+      "evidence_kind": "visual_supported",
+      "source_ids": ["official_figure", "manual", "visual_samples"]
+    },
+    {
+      "canonical_name": "flat_head_screwdriver",
+      "name_en": "flat-head screwdriver",
+      "name_zh": "一字螺丝刀／平口改锥",
+      "figure_tool_code": "A",
+      "appearance_en": "Black/blue handle, long exposed shaft and flat blade tip in the reference setup.",
+      "appearance_zh": "参考工具为黑蓝手柄、较长裸露金属杆，工作端为一字平刃。",
+      "role_en": "Turns slotted screws. A checked B disassembly uses it on bearing-plate screws; do not assume it is needed in every clip.",
+      "role_zh": "操作一字槽螺丝。已核对的 B 型拆卸片段用它旋松轴承板螺丝；不表示每个片段都应使用它。",
+      "evidence_kind": "visual_supported",
+      "source_ids": ["official_figure", "visual_samples"]
+    },
+    {
+      "canonical_name": "phillips_screwdriver",
+      "name_en": "Phillips screwdriver",
+      "name_zh": "十字螺丝刀／十字改锥",
+      "figure_tool_code": "B",
+      "appearance_en": "Red/yellow handle and red-covered shaft with a short exposed cross-shaped tip in the reference setup.",
+      "appearance_zh": "参考工具为红黄手柄，杆身大段为红色包覆，末端露出十字批头。",
+      "role_en": "Turns cross-head screws. The A manual shows it fastening the adapter with the long screws and paired M4 nuts.",
+      "role_zh": "操作十字槽螺丝。A 型手册中用于适配板的长螺丝，与对应 M4 螺母形成紧固副。不能仅凭红色包覆推断本实验涉及带电作业。",
+      "evidence_kind": "visual_supported",
+      "source_ids": ["official_figure", "manual", "visual_samples"]
+    },
+    {
+      "canonical_name": "torx_screwdriver",
+      "name_en": "Torx screwdriver",
+      "name_zh": "Torx 六瓣梅花螺丝刀／改锥",
+      "figure_tool_code": "C",
+      "appearance_en": "Green/black handle, exposed metal shaft and six-lobed star tip in the reference setup.",
+      "appearance_zh": "参考工具为绿黑手柄、裸露金属杆，批头为六瓣星形；不同于内六角。",
+      "role_en": "Turns Torx screws. The A manual shows it on the bearing-plate screws and locking-lever screw.",
+      "role_zh": "操作 Torx 槽螺丝。A 型手册中用于轴承板的两颗螺丝和锁紧拨杆螺丝。",
+      "evidence_kind": "visual_supported",
+      "source_ids": ["official_figure", "manual", "visual_samples"]
+    }
+  ],
+  "component_groups": [
+    {
+      "canonical_name": "anti_vibration_handle", "figure_number": 1,
+      "name_en": "anti-vibration side handle", "name_zh": "防振侧手柄",
+      "appearance_en": "Black elongated grip with a threaded mounting stud; A has a bulkier patterned grip than B in the reference figure.",
+      "appearance_zh": "黑色长条握柄，连接端有螺纹柱；图中 A 握柄较粗且表面纹理明显，B 较细。",
+      "role_en": "Provides a supporting hand grip; screws into a side socket of the gearbox housing.",
+      "role_zh": "提供辅助握持位置，通过自身螺纹柱旋入齿轮箱侧面的螺纹孔。不是用表内五颗独立螺丝固定。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "visual_supported",
+      "instances": [{"id": "anti_vibration_handle", "name_zh": "防振侧手柄"}]
+    },
+    {
+      "canonical_name": "gearbox_housing", "figure_number": 2,
+      "name_en": "gearbox housing", "name_zh": "齿轮箱壳体",
+      "appearance_en": "Compact hollow casing with an open gear cavity, rim and mounting holes; black on reference A, silver/gray on reference B.",
+      "appearance_zh": "有齿轮腔、安装边缘和螺纹孔的壳体；官方 A 为黑色，B 为银灰色。",
+      "role_en": "Houses and supports the transmission and provides interfaces for the bearing plate, shaft assembly and side handle.",
+      "role_zh": "容纳和支撑传动组件，并提供轴承板、轴组件和侧手柄的连接界面。它是装配主体，不应笼统称作电机外壳。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "gearbox_housing", "name_zh": "齿轮箱壳体"}]
+    },
+    {
+      "canonical_name": "drive_shaft", "figure_number": 6,
+      "name_en": "drive shaft / rotor assembly in coarse steps", "name_zh": "传动轴／转子轴组件",
+      "appearance_en": "Long axial assembly with a pale fan wheel near one end; A has a mostly smooth metal cylinder, while B exposes rotor and copper-colored commutator sections.",
+      "appearance_zh": "长轴状组件，靠一端有浅色风扇轮；A 的中段外观较平整，B 可见转子及铜色换向器区域。",
+      "role_en": "Carries rotation toward the small bevel gear in the housing. TAS-S rotor assembly and TAS-B drive_shaft refer to related assembly granularity; this is not the separate output spindle on the bearing plate.",
+      "role_zh": "将旋转传到壳体内的小锥齿轮。粗粒度步骤称 rotor assembly，细粒度名词称 drive_shaft；不要与轴承板上伸出的输出轴混淆。",
+      "source_ids": ["official_figure", "manual", "asr_example"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "drive_shaft", "name_zh": "传动轴／转子轴组件"}]
+    },
+    {
+      "canonical_name": "bevel_gear", "figure_number": 5,
+      "name_en": "small bevel gear / pinion", "name_zh": "小锥齿轮／小伞齿轮",
+      "appearance_en": "Small toothed, roughly conical metal part on the housing-side end of the drive shaft.",
+      "appearance_zh": "套在传动轴入壳端的小型锥形带齿金属件；不要与轴承板组件背面的大齿轮混为一件。",
+      "role_en": "Meshes with the larger gear in the bearing-plate assembly to transmit rotation between the axes; hidden engagement still needs evidence.",
+      "role_zh": "与轴承板组件背面的较大齿轮啮合，传递并改变旋转轴方向。属于机械功能解释，不能据此断言某次已正确啮合。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "bevel_gear", "name_zh": "小锥齿轮"}]
+    },
+    {
+      "canonical_name": "adapter_plate", "figure_number": 3,
+      "name_en": "adapter plate (also spelled adaptor plate)", "name_zh": "适配板／环形转接件",
+      "appearance_en": "Dark ring-like part with a large central opening and model-dependent rim/ribs; not a generic flat silver plate.",
+      "appearance_zh": "深色环形件，有较大的中心孔，边缘或背面有肋条／安装结构；不能一律描述为银色金属平板。",
+      "role_en": "A locating/adapting part. In A it joins the housing at the rotor-entry side using the adapter screw/M4-nut pairs. B's figure places its adapter at the other end of the rotor assembly; do not reuse the A attachment graph for B.",
+      "role_zh": "起装配适配、定位作用。A 中位于转子进入齿轮箱的一侧，用适配板螺丝及 M4 螺母固定；B 的官方图将该件画在转子另一端。具体承载、绝缘或导风功能未由资料明确，不写成定论。",
+      "source_ids": ["official_figure", "manual", "visual_samples"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "adapter_plate", "name_zh": "适配板／环形转接件"}]
+    },
+    {
+      "canonical_name": "bearing_plate", "figure_number": 7,
+      "name_en": "bearing plate / bearing-plate assembly", "name_zh": "轴承板／轴承板组件",
+      "appearance_en": "Plate with a central bearing/output spindle and a larger gear on its inner side. A has a dark plate around a metal bearing ring; B is predominantly silver in the figure.",
+      "appearance_zh": "有中心轴承及输出轴、内侧带较大齿轮的板状组件。图中 A 为深色板体配金属环，B 主要为银色。",
+      "role_en": "Supports/locates the output spindle and closes the gear cavity. In A the two bearing screws retain this plate to the housing.",
+      "role_zh": "支撑、定位输出轴，并封合齿轮腔。A 的两颗 bearing_screw 将该组件固定到齿轮箱壳体。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "bearing_plate", "name_zh": "轴承板组件"}]
+    },
+    {
+      "canonical_name": "screw", "figure_number": 11,
+      "name_en": "screws (five individually tracked A-model instances)", "name_zh": "螺丝（A 型分别跟踪五颗）",
+      "appearance_en": "Threaded fasteners; the A adapter pair is long, while bearing and lever screws are separate instances. Position labels are annotation identities, not invariant screen coordinates.",
+      "appearance_zh": "带螺纹的紧固件；A 的适配板两颗较长，轴承板及拨杆螺丝另行标注。左上／右下属于标注身份，不能按任意视角的画面坐标直接认定。",
+      "role_en": "The adapter pair secures adapter to housing using matching M4 nuts; the bearing pair secures bearing plate to housing; the lever screw retains the lever/spring/washer subassembly at the bearing-plate area.",
+      "role_zh": "适配板两颗连接适配板与壳体并配 M4 螺母；轴承板两颗连接轴承板与壳体；拨杆螺丝固定轴承板区域的拨杆／弹簧／垫圈小组件。精确压紧层次以近景证据为准。",
+      "source_ids": ["official_figure", "manual", "psr_names", "asr_example"], "role_evidence_kind": "visual_supported",
+      "instances": [
+        {"id": "screw_lever", "name_zh": "锁紧拨杆螺丝", "name_en": "locking-lever screw", "fastens": ["lever", "spring", "washer"], "reference_tool_A": "torx_screwdriver"},
+        {"id": "screw_adaptor_topleft", "name_zh": "适配板左上螺丝", "name_en": "top-left adapter screw", "fastens": ["adapter_plate", "gearbox_housing"], "paired_nut_A": "M4_nut_plate_topleft", "reference_tool_A": "phillips_screwdriver"},
+        {"id": "screw_adaptor_lowright", "name_zh": "适配板右下螺丝", "name_en": "lower-right adapter screw", "fastens": ["adapter_plate", "gearbox_housing"], "paired_nut_A": "M4_nut_plate_lowright", "reference_tool_A": "phillips_screwdriver"},
+        {"id": "bearing_screw_topleft", "name_zh": "轴承板左上螺丝", "name_en": "top-left bearing-plate screw", "fastens": ["bearing_plate", "gearbox_housing"], "reference_tool_A": "torx_screwdriver"},
+        {"id": "bearing_screw_lowright", "name_zh": "轴承板右下螺丝", "name_en": "lower-right bearing-plate screw", "fastens": ["bearing_plate", "gearbox_housing"], "reference_tool_A": "torx_screwdriver"}
+      ]
+    },
+    {
+      "canonical_name": "M4_nut", "figure_number": 12,
+      "name_en": "M4 nuts for the adapter plate", "name_zh": "适配板的 M4 螺母",
+      "appearance_en": "Two small hexagonal nuts in the A figure; thread size is a GT identity, not a reliable pixel-size judgment.",
+      "appearance_zh": "A 图中两颗小型六角螺母；M4 应依据标注，不按像素大小估计。不是两块独立的螺母板。",
+      "role_en": "Receive the matching A adapter screws and retain that connection; B's exploded figure does not separately list these nuts.",
+      "role_zh": "与 A 适配板两颗螺丝配合形成螺栓紧固连接。B 爆炸图没有单独列出这两颗螺母，不能自动套用。",
+      "source_ids": ["official_figure", "manual", "psr_names"], "role_evidence_kind": "visual_supported",
+      "instances": [
+        {"id": "M4_nut_plate_topleft", "name_zh": "适配板左上 M4 螺母", "name_en": "top-left adapter-plate M4 nut"},
+        {"id": "M4_nut_plate_lowright", "name_zh": "适配板右下 M4 螺母", "name_en": "lower-right adapter-plate M4 nut"}
+      ]
+    },
+    {
+      "canonical_name": "lever", "figure_number": 8,
+      "name_en": "locking lever", "name_zh": "锁紧拨杆",
+      "appearance_en": "Small dark elongated, slightly curved lever with a mounting eye in A.",
+      "appearance_zh": "A 中的小型深色长条／略弯曲拨杆，一端有安装孔。",
+      "role_en": "Part of the A locking mechanism, assembled with the spring, washer and lever screw. The exact internal locking target is not established by the annotation names.",
+      "role_zh": "A 锁紧机构的一部分，与弹簧、垫圈及拨杆螺丝配套。不要进一步断言它锁住了哪一个隐藏内部结构，或锁紧动作已经成功。",
+      "source_ids": ["official_figure", "manual", "asr_example"], "role_evidence_kind": "visual_supported",
+      "instances": [{"id": "lever", "name_zh": "锁紧拨杆"}]
+    },
+    {
+      "canonical_name": "washer", "figure_number": 9,
+      "name_en": "washer", "name_zh": "垫圈",
+      "appearance_en": "Small thin ring beside the A lever fastener.",
+      "appearance_zh": "A 拨杆组件中的小型薄环状零件。",
+      "role_en": "Provides a spacing/bearing surface within the lever fastening stack; exact stacking order needs a clear view or explicit instruction.",
+      "role_zh": "在拨杆紧固组件中起垫隔、接触承压作用；不能在遮挡时编造具体上下叠放顺序。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "washer", "name_zh": "垫圈"}]
+    },
+    {
+      "canonical_name": "spring", "figure_number": 10,
+      "name_en": "spring", "name_zh": "弹簧",
+      "appearance_en": "Small helical coil spring in the A lever subassembly.",
+      "appearance_zh": "A 拨杆组件中的小型螺旋弹簧。",
+      "role_en": "Provides an elastic bias in the lever mechanism; spring force and successful return are not given by its presence.",
+      "role_zh": "为拨杆机构提供弹性作用／回位趋势。仅看见弹簧不能推断预紧力、力值或回位功能已经正常。",
+      "source_ids": ["official_figure", "manual"], "role_evidence_kind": "mechanical_interpretation",
+      "instances": [{"id": "spring", "name_zh": "弹簧"}]
+    },
+    {
+      "canonical_name": "M6_nut", "figure_number": 4,
+      "name_en": "M6 nut", "name_zh": "M6 螺母",
+      "appearance_en": "Hexagonal nut drawn at the small bevel gear/drive-shaft end, dark in the A reference.",
+      "appearance_zh": "图中位于小锥齿轮／传动轴端的六角螺母；A 参考图为深色。",
+      "role_en": "Retains the small bevel gear on the drive-shaft end in the illustrated assembly. Do not rename a conflicting TAS-B M4 label to M6 without review.",
+      "role_zh": "在图示装配中将小锥齿轮保持在传动轴端。若具体 TAS-B 将同段称为 M4，需记录冲突，不能自动替换答案。",
+      "source_ids": ["official_figure", "manual", "asr_example"], "role_evidence_kind": "visual_supported",
+      "instances": [{"id": "M6_nut", "name_zh": "M6 螺母"}]
+    }
+  ],
+  "annotation_aliases": [
+    {"id": "gearbox_housing_drive_shaft", "meaning_en": "Composite housing-plus-drive-shaft assembly, not a new independent component.", "meaning_zh": "壳体与传动轴的组合体，不是新增零件。"},
+    {"id": "spin_drive_shaft", "meaning_en": "A TAS-B noun used in shaft-spinning labels; not a second shaft.", "meaning_zh": "转动传动轴语境的标注名词，不是另一根传动轴。"},
+    {"id": "tool", "meaning_en": "Unspecified tool. Do not assign a screwdriver subtype unless GT or visual identity resolves it.", "meaning_zh": "未指明类别的工具，不能凭常识自动补成某类改锥。"},
+    {"id": "screw", "meaning_en": "Generic screw. Resolve a position-specific identity only from compatible GT or sufficiently clear evidence.", "meaning_zh": "泛称螺丝。不能从此名称直接判断是哪颗轴承板／适配板／拨杆螺丝。"},
+    {"id": "M4_nut", "meaning_en": "Generic M4 nut; does not itself identify the top-left or lower-right instance.", "meaning_zh": "泛称 M4 螺母，不含左上／右下身份。"}
+  ],
+  "legacy_asr_labels": [
+    {"id": "screw_plate_topleft", "index": 7, "candidate_canonical": "screw_adaptor_topleft"},
+    {"id": "screw_plate_lowright", "index": 8, "candidate_canonical": "screw_adaptor_lowright"},
+    {"id": "screw_bevel_topleft", "index": 9, "candidate_canonical": "bearing_screw_topleft"},
+    {"id": "screw_bevel_lowright", "index": 10, "candidate_canonical": "bearing_screw_lowright"}
+  ],
+  "legacy_policy": "Observed only in MA07LF04_Reassembly_A_001_front_asr.json. Index correspondence is a candidate alias, not an automatically approved semantic replacement.",
+  "model_variants": [
+    {
+      "marker": "A", "product": "Fein CG15-125BL", "paper_trials": 92,
+      "reference_en": "Black housing; adapter near the housing's rotor-entry side, retained by two long screws and paired M4 nuts; separate locking lever/spring/washer/lever-screw group. A manual: Phillips for adapter screws, Torx for bearing and lever screws. These are reference operations, not proof that this clip follows them.",
+      "reference_zh": "黑色壳体；适配板在转子入壳端附近，以两颗长螺丝及 M4 螺母连接；另有拨杆、弹簧、垫圈及拨杆螺丝。A 手册中十字改锥操作适配板，Torx 操作轴承板和拨杆。",
+      "source_ids": ["paper", "official_figure", "manual", "asr_example"]
+    },
+    {
+      "marker": "B", "product": "Fein WSG7-115A", "paper_trials": 20,
+      "reference_en": "Silver/gray housing, exposed rotor/commutator details, adapter shown at the other end of the rotor. The official exploded figure does not separately show the A lever/spring/washer group or paired M4 adapter nuts. A checked bearing-plate removal uses the flat-head screwdriver. No B ASR file is present locally; use B-specific TAS/ATR and video instead of the A state graph.",
+      "reference_zh": "银灰壳体，可见转子／换向器结构；适配板画在转子另一端。官方爆炸图未单列 A 的拨杆／弹簧／垫圈组或适配板 M4 螺母对。已核对的轴承板拆卸使用一字改锥。本地没有 B 的 ASR，不能复制 A 的 17 组件状态图。",
+      "source_ids": ["paper", "official_figure", "visual_samples"]
+    }
+  ],
+  "rules_en": [
+    "Use this reference for recognition and concise functional language. Ground what happened, completion, order, duration and anomaly answers in the current clip's GT and video. If sources conflict, flag the item for review instead of silently rewriting GT.",
+    "Tool handle colors are reference appearance cues, not universal identity rules. Holding, picking up or carrying a tool does not prove tool contact or correct use; idle holding alone is not an anomaly without task-specific GT and visual support.",
+    "Use position-specific screw/nut names only when the clip evidence resolves them. top-left/lower-right are annotation identities; do not map them directly to screen corners across views. Preserve adapter/adaptor spellings in raw IDs.",
+    "Model A/B, the figure's blue tool labels A/B/C/D, and its black lettered surface views are different naming systems. Prefer explicit model metadata; file A/B is a configuration cue. Do not confuse them with anomaly-choice letters.",
+    "A generic screw, tool or compound noun is not an additional physical component. Preserve legacy labels and flag conflicts. Do not invent hidden tip shape, thread size, engagement, tightening torque, exact material or successful fastening.",
+    "Do not assume every listed part occurs in this clip or in both models. ASR correctly-assembled state must be read from the actual clip interval. A tool being put down, a part being held or a coarse install label alone does not establish successful completion.",
+    "Reference assembly order is not a unique required order: IMPACT allows multiple valid paths. Use a supported prerequisite to judge correctness; use observed GT/video intervals to describe the order actually seen.",
+    "Summarize meaningful tool-part operations in natural language, without enumerating every hand movement. Keep overall action, detailed process and completion questions distinct. A correct negative completion answer needs evidence of the queried part's state, not merely its absence from a short clip."
+  ],
+  "known_issues": [
+    {
+      "id": "model_count_mismatch", "status": "unresolved",
+      "detail_zh": "论文 A=92/B=20，本地 TAS-B/front 文件名 A=93/B=19。缺少 ASR 的 A 文件为 KE03ER16_Disassembly_A_001_front；其首帧为黑壳 A 外观，不能仅凭差额将它改归 B。"
+    },
+    {
+      "id": "nut_identity_conflict", "status": "unresolved",
+      "annotation": "annotations/impact/IMPACT-v1.1/annotations/TAS-B/front/AL07EJ17_Reassembly_A_002_front.json",
+      "pointer": "/segments/67",
+      "detail_zh": "约 30.53s 时 TAS-B 是 tighten_M4_nut；同一装配的官方图及 ASR 将转子／锥齿轮紧固件关联到 M6_nut。可描述拧紧内部螺母，但需要精确规格的题应先复核。"
+    },
+    {
+      "id": "b_lever_label_conflict", "status": "unresolved",
+      "detail_zh": "B 爆炸图未单列拨杆组，但本地两个 B 视频的 TAS-S 共出现三段 remove_locking_lever_assembly。不能据共享词表或粗粒度标签断言 B 具备与 A 完全相同的组件。"
+    },
+    {
+      "id": "state_change_snapshot_trap", "status": "addressed_in_builder",
+      "detail_zh": "部分 state_changes 保存重复状态快照；本次统计复用 changes()，以相邻 state_sequence 向量真实差分计数。同帧变化仅为辅助证据，不代表直接机械连接或先决顺序。"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "version": "descriptive_v21",
+  "status": "pilot",
+  "runner_implemented": true,
+  "output_language": "en",
+  "model": "impact-qwen35-27b",
+  "model_revision_required": true,
+  "base_urls": [
+    "http://127.0.0.1:8000/v1",
+    "http://127.0.0.1:8001/v1",
+    "http://127.0.0.1:8002/v1"
+  ],
+  "per_service_concurrency": 1,
+  "output_root": "outputs/impact_qa/descriptive_v21",
+  "video_branch_config": "configs/impact_qa/video_v20.json",
+  "frame_branch": {
+    "target_mode": "all_native_decoded_frames",
+    "source": "original_video",
+    "interval_convention": "inclusive_source_frame_indices",
+    "timestamps": "original_pts",
+    "target_frames_per_batch": 8,
+    "previous_reference_frames": 1,
+    "max_long_edge": 960,
+    "preserve_aspect_ratio": true,
+    "context_mode": "actual_video_branch_samples",
+    "require_each_target_frame_card": true,
+    "allow_silent_subsampling": false
+  },
+  "prompts": {
+    "describe_frames": "prompts/impact_qa/v21/describe_frames_compact.txt",
+    "observe_video": "prompts/impact_qa/v21/observe_video.txt",
+    "reconcile_gt": "prompts/impact_qa/v21/reconcile_gt.txt",
+    "describe_event": "prompts/impact_qa/v21/describe_event.txt",
+    "generate_open_qa": "prompts/impact_qa/v21/generate_open_qa.txt",
+    "audit": "prompts/impact_qa/v21/audit.txt"
+  },
+  "few_shots": "prompts/impact_qa/v21/few_shots.json",
+  "few_shot_max_per_request": 2,
+  "schema": "prompts/impact_qa/v21/pilot_frame_compact.schema.json",
+  "max_output_tokens": {
+    "describe_frames": 3072,
+    "observe_video": 3072,
+    "reconcile_gt": 4096,
+    "describe_event": 4096,
+    "generate_open_qa": 4096,
+    "audit": 4096
+  },
+  "max_model_len": 32768,
+  "token_safety_margin": 1024,
+  "on_context_overflow": "split_preserving_coverage",
+  "temperature": 0.1,
+  "top_p": 0.8,
+  "seed": 20260920,
+  "enable_thinking": false,
+  "transport_attempts": 3,
+  "bounded_evidence_revision_rounds": 1,
+  "open_qa": {
+    "required_kind": "event_description",
+    "max_additional_items": 4,
+    "word_limit": null,
+    "paired_mcq": false,
+    "disallow_options": true
+  },
+  "fixed_mcq": {
+    "constructed_by": "deterministic_gt_builder",
+    "shuffle_options": false,
+    "correctness": {
+      "selection": "single",
+      "question": "How is the target-hand operation in the specified interval annotated?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Correct (no annotated anomaly in this scope)"
+        },
+        {
+          "id": "B",
+          "text": "Anomalous"
+        }
+      ],
+      "normal_source": "explicit_TAS-B_normal_without_same_hand_anomaly_or_recovery_overlap",
+      "exclude_phases": [
+        "recovery",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "anomaly_types": {
+      "selection": "multiple",
+      "question": "Which anomaly types are annotated for the target-hand operation in the specified interval? Select all that apply.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Temporal",
+          "attribute": "error_temporal"
+        },
+        {
+          "id": "B",
+          "text": "Spatial",
+          "attribute": "error_spatial"
+        },
+        {
+          "id": "C",
+          "text": "Handling",
+          "attribute": "error_handling"
+        },
+        {
+          "id": "D",
+          "text": "Wrong part",
+          "attribute": "error_wrong_part"
+        },
+        {
+          "id": "E",
+          "text": "Wrong tool",
+          "attribute": "error_wrong_tool"
+        },
+        {
+          "id": "F",
+          "text": "Procedural",
+          "attribute": "error_procedural"
+        }
+      ],
+      "require_anomalous": true
+    }
+  },
+  "public_export": {
+    "include": [
+      "question",
+      "video_reference",
+      "view",
+      "target_hand",
+      "scope_interval_s",
+      "options_if_fixed_mcq"
+    ],
+    "exclude": [
+      "answer",
+      "correct_option_ids",
+      "claims",
+      "gt",
+      "reconciliation",
+      "private_description"
+    ]
+  },
+  "acceptance": {
+    "target_native_frame_card_coverage": 1.0,
+    "valid_evidence_references": 1.0,
+    "allow_example_ids": false,
+    "require_visual_claim_audit": true,
+    "require_omission_audit": true,
+    "automatic_gold_release": false
+  },
+  "pilot_selection": {
+    "one_core_clip_per_case": true,
+    "clip_indices": {
+      "atr_403f880f747b22eb": 3
+    },
+    "default_clip_index": 0,
+    "reason": "Initial verbose 8-frame probe used 5444 output tokens and included unsupported grip/visibility claims; bounded pilot tests improved observational discipline before full native-frame expansion."
+  }
+}

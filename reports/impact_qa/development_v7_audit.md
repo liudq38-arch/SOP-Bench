@@ -1,0 +1,565 @@
+# development v7 自动审核
+
+
+
+{"ok": 20, "structural_issue_events": 1, "refined_events": 0, "conflict_events": 3, "strict_machine_pass": 10}
+
+
+
+{"revise": 4, "pass": 10, "reject": 6}
+
+
+
+Same-model independent-call audit; not human accuracy, not independent-model verification.
+
+
+
+## ER10WE06_Reassembly_A_004_ego__right__0059 / 0
+
+{
+  "event_id": "ER10WE06_Reassembly_A_004_ego__right__0059",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do with the orange-handled screwdriver against the black component?",
+  "answer": "I held the screwdriver against the component, maintaining a steady grip and applying pressure with the tip engaged.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Claim of 'applying pressure' and 'tip engaged' is not visually verifiable from static crops.",
+      "Specific action details exceed visible evidence."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## KI03AR28_Disassembly_A_002_ego__right__0070 / 0
+
+{
+  "event_id": "KI03AR28_Disassembly_A_002_ego__right__0070",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "How did I position the screwdriver tip relative to the motor housing?",
+  "answer": "I aligned the screwdriver tip with the central opening of the motor housing.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI03AR28_Disassembly_A_004_ego__right__0090 / 0
+
+{
+  "event_id": "KI03AR28_Disassembly_A_004_ego__right__0090",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What tool did I pick up with my right hand?",
+  "answer": "I picked up an orange-handled screwdriver, lifting it off the table surface.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI05KO01_Disassembly_A_002_ego__right__0084 / 0
+
+{
+  "event_id": "KI05KO01_Disassembly_A_002_ego__right__0084",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do to the silver metal ring to separate it from the black body?",
+  "answer": "I rotated the ring counter-clockwise to loosen it, then pulled it away from the black body.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Rotation direction and pulling action not visible in static frames.",
+      "Separation outcome not confirmed; ring remains attached in all crops."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## KJ03JM25_Disassembly_A_003_ego__right__0028 / 0
+
+{
+  "event_id": "KJ03JM25_Disassembly_A_003_ego__right__0028",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the small metallic component on the gray mat?",
+  "answer": "I reached for it, made contact, lifted it off the mat, and held it steady above the workspace.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "No visible lift or hold above workspace; component remains on mat.",
+      "Action claims unsupported by target interval frames."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## LE06AS03_Reassembly_A_001_ego__right__0346 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_001_ego__right__0346",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the Torx screwdriver tip on the instruction sheet?",
+  "answer": "I made contact with the 'Schritt 3' image and traced the diagram with the tool tip.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_002_ego__right__0208 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_002_ego__right__0208",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the screwdriver tip while holding it?",
+  "answer": "I touched the paper diagram with the screwdriver tip instead of physical tool parts.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_004_ego__right__0080 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_004_ego__right__0080",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_part"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the small black component held by my right hand?",
+  "answer": "I lowered it onto the table next to the motor and released it to rest there.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Video shows the right hand holding a white-handled tool, not a small black component.",
+      "Action of lowering and releasing a black component is not visible in the target interval."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## LE06AS03_Reassembly_B_005_ego__right__0174 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_B_005_ego__right__0174",
+  "phase": "anomaly",
+  "types": [
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the small metal fastener after picking it up?",
+  "answer": "I guided it into a hole on the metal housing and rotated it inside the opening.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE07UF17_Reassembly_A_002_ego__left__0018 / 0
+
+{
+  "event_id": "LE07UF17_Reassembly_A_002_ego__left__0018",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the angle grinder body using my left hand?",
+  "answer": "I held the angle grinder body steady and maintained a continuous grip without releasing it.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Disassembly_A_001_ego__left__0110 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_A_001_ego__left__0110",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my left hand do to the silver cylindrical shaft during the task?",
+  "answer": "It gripped the shaft to stabilize the tool body and provided counter-torque.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Gripping and counter-torque are inferred, not visually confirmed; motion is minimal.",
+      "No visible stabilization action or torque effect on the shaft."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## MA07LF04_Disassembly_A_003_ego__right__0088 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_A_003_ego__right__0088",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do with the small black component on the white surface?",
+  "answer": "I grasped it with my right hand and lifted it vertically off the table.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Action described as lifting vertically is not visible; hand remains on surface.",
+      "Outcome of removal cannot be confirmed from static frames."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## MA07LF04_Disassembly_B_005_ego__left__0044 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_B_005_ego__left__0044",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 0,
+  "question": "What did my left hand do to the gear shaft during the sequence?",
+  "answer": "I maintained a static grip on the gear shaft, keeping it stationary while the motor body rotated relative to it.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Static grip not visible; hand rotates gear shaft with motor body.",
+      "No evidence of motor body rotating relative to shaft; both move together."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [
+    "0:unsupported_continuous_motion_claim"
+  ],
+  "strict_machine_pass": false
+}
+
+## MA07LF04_Reassembly_A_001_ego__left__0134 / 0
+
+{
+  "event_id": "MA07LF04_Reassembly_A_001_ego__left__0134",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "How did I stabilize the black motor housing with my left hand?",
+  "answer": "I held the housing steady against the table and pressed my thumb against its side to maintain alignment.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Reassembly_B_005_ego__left__0101 / 0
+
+{
+  "event_id": "MA07LF04_Reassembly_B_005_ego__left__0101",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the black circular housing after pulling it away from the motor body?",
+  "answer": "I placed the detached black housing on the white surface to the left of the motor.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## NA07GE21_Disassembly_A_002_ego__left__0038 / 0
+
+{
+  "event_id": "NA07GE21_Disassembly_A_002_ego__left__0038",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do with the motor shaft assembly using my left hand?",
+  "answer": "I pulled the shaft assembly outward from the motor housing until it was fully extracted.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## NA07GE21_Reassembly_A_001_ego__left__0049 / 0
+
+{
+  "event_id": "NA07GE21_Reassembly_A_001_ego__left__0049",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do with the small metallic fastener on the instruction sheet?",
+  "answer": "I closed my left fingertips around it and lifted it from the paper surface.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Visual evidence shows the fastener remaining on the paper; no lifting action is visible.",
+      "Answer claims a completed lift which contradicts the static position of the object in all frames."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## SS07EL13_Disassembly_A_002_ego__right__0051 / 0
+
+{
+  "event_id": "SS07EL13_Disassembly_A_002_ego__right__0051",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "handling",
+    "wrong_tool"
+  ],
+  "qa_index": 0,
+  "question": "What did I do with the screwdriver to loosen the fastener?",
+  "answer": "I inserted the screwdriver into the motor housing and rotated the handle with my fingertips.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "No visible screwdriver insertion or rotation shown in target frames.",
+      "Action described cannot be confirmed from provided visual evidence."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## SS07EL13_Reassembly_A_001_ego__right__0132 / 0
+
+{
+  "event_id": "SS07EL13_Reassembly_A_001_ego__right__0132",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did I do to the fastener on the tool body?",
+  "answer": "I rotated the fastener counter-clockwise until it visibly loosened and moved outward.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Static crops show no visible rotation or loosening of the fastener.",
+      "Claim of counter-clockwise motion and outward movement lacks visual evidence."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## TO08CO25_Disassembly_B_005_ego__left__0009 / 0
+
+{
+  "event_id": "TO08CO25_Disassembly_B_005_ego__left__0009",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_tool"
+  ],
+  "qa_index": 0,
+  "question": "What object did I grasp and lift with my left hand?",
+  "answer": "I grasped the handle of the orange and yellow screwdriver and lifted it off the table.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}

@@ -1,0 +1,169 @@
+{
+  "generated_at": "2026-09-26T07:28:43.130860+00:00",
+  "scope": {
+    "config": "configs/impact_qa/component_v27_video_gt_r7p2_all_splits_clipfix4.json",
+    "fixed_candidate_clips": 141,
+    "qualifying_event_occurrences": 338,
+    "qualifying_unique_event_ids": 322
+  },
+  "observed_data": {
+    "candidate_clip_duration_s": {
+      "count": 141,
+      "min_s": 14.067,
+      "median_s": 59.8,
+      "mean_s": 94.021,
+      "max_s": 706.967
+    },
+    "pair_relations": {
+      "gap_gt_1s": 1055,
+      "overlap": 50,
+      "gap_0.5_1.0s": 13,
+      "gap_0.0_0.5s": 4
+    },
+    "event_id_occurrences_duplicated_across_clips": 16,
+    "duplicated_event_id_count": 16
+  },
+  "grouping_simulation": {
+    "rule": "Sort qualifying ATR intervals by source frame; merge intervals that overlap or have a gap <= 0.5s; retain original event_ids as subevents.",
+    "threshold_comparison": {
+      "0s_or_overlap": {
+        "1": 90,
+        "2": 27,
+        "3": 8,
+        "4": 7,
+        "5": 2,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 1,
+        "11": 2,
+        "26": 1
+      },
+      "0.5s_recommended": {
+        "1": 85,
+        "2": 28,
+        "3": 8,
+        "4": 5,
+        "5": 2,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 1,
+        "11": 2,
+        "24": 1
+      }
+    },
+    "raw_candidate_clip_group_distribution_at_0.5s": {
+      "1": 90,
+      "2": 27,
+      "3": 8,
+      "4": 7,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "11": 2,
+      "26": 1
+    },
+    "canonical_clip_group_distribution_at_0.5s": {
+      "1": 85,
+      "2": 28,
+      "3": 8,
+      "4": 5,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "11": 2,
+      "24": 1
+    },
+    "canonical_parent_clips": 135,
+    "canonical_parent_clips_removed_as_duplicate_only": 6,
+    "canonical_parent_clips_with_1_to_4_groups": 126,
+    "canonical_parent_clips_with_more_than_4_groups": 9,
+    "canonical_groups_total": 271,
+    "canonical_groups_in_long_clips": 86,
+    "recommended_release_units_before_visual_filter": 212,
+    "long_clip_group_rows": [
+      {
+        "video_id": "LE06AS03_Disassembly_A_001_front",
+        "clip_id": "v28_75f5d2b25139d8cf",
+        "clip_duration_s": 695.567,
+        "group_count": 24
+      },
+      {
+        "video_id": "LE07UF17_Reassembly_A_001_front",
+        "clip_id": "v28_bf23ecf42c2ca399",
+        "clip_duration_s": 706.967,
+        "group_count": 11
+      },
+      {
+        "video_id": "KI03AR28_Reassembly_B_005_front",
+        "clip_id": "v28_edd354e8bdeab15b",
+        "clip_duration_s": 582.433,
+        "group_count": 11
+      },
+      {
+        "video_id": "LE06AS03_Reassembly_A_001_front",
+        "clip_id": "v28_7f864acfec664bf7",
+        "clip_duration_s": 416.1,
+        "group_count": 9
+      },
+      {
+        "video_id": "LE06AS03_Reassembly_A_001_front",
+        "clip_id": "v28_f576af782d48a7e8",
+        "clip_duration_s": 216.4,
+        "group_count": 8
+      },
+      {
+        "video_id": "MA07LF04_Reassembly_A_001_front",
+        "clip_id": "v28_605b448f92c5b922",
+        "clip_duration_s": 158.4,
+        "group_count": 7
+      },
+      {
+        "video_id": "LE06AS03_Reassembly_B_005_front",
+        "clip_id": "v28_3dc723d88925eb45",
+        "clip_duration_s": 286.767,
+        "group_count": 6
+      },
+      {
+        "video_id": "MA07LF04_Reassembly_B_005_front",
+        "clip_id": "v28_bc2cbe73e58aff0a",
+        "clip_duration_s": 196.933,
+        "group_count": 5
+      },
+      {
+        "video_id": "LE06AS03_Reassembly_A_001_front",
+        "clip_id": "v28_f1216e2dc0b8e613",
+        "clip_duration_s": 177.4,
+        "group_count": 5
+      }
+    ]
+  },
+  "recommended_policy": {
+    "normalization": [
+      "继续过滤 ATR <1.5s；保留 >=5s 作为异常 MCQ 候选门槛。",
+      "先按 event_id 做跨重叠 disassembly clip 去重，优先选择异常时长/clip时长比例更高、且 clip 更短的 focused clip。"
+    ],
+    "episode_grouping": [
+      "同一 clip 中时间重叠或间隔 <=0.5s 的异常段合成一个 anomaly episode。",
+      "episode 保留原始 event_ids、每个子段区间和标签；合成区间只用于定位，不删除子段证据。",
+      "间隔 >0.5s 的异常段保持独立，不因为标签相同而合并。"
+    ],
+    "question_packaging": [
+      "1-4 个 episode：每个 parent clip 生成 1 道 clip-level 多选题；correct_option_ids 为 episode 标签并集，abnormal_segments 逐段保存时间和证据。",
+      "超过 4 个 episode：不把全部区间写成一条长答案；为每个 episode 建立 parent_clip_id 下的局部 evidence window，并以 episode-level MCQ 作为可发布题。",
+      "局部窗口时间仍映射回 parent clip 的 local_s；自然语言答案只描述类型和必要的区间，完整证据放结构化 abnormal_segments。"
+    ],
+    "visual_gate": [
+      "每个 episode 独立盲视觉核验；必须在该 episode 的局部窗口内看到直接错误行为并引用证据帧。",
+      "仅有 GT 标签、普通拿取/暂停/遮挡或意图推断时，标记 cannot_confirm，不进入最终 MCQ。",
+      "同一 episode 中多个重叠子段要求至少覆盖对应子段；保留未确认 event_ids，不能用一个模糊帧替代全部证据。"
+    ],
+    "normal_control": "Correct 只从无原始 ATR 相交且有明确正常操作证据的控制池生成；短异常、跨边界异常不能改标为 Correct。"
+  },
+  "implementation_status": "simulation_only_current_outputs_unchanged"
+}

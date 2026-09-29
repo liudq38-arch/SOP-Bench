@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "anomaly",
+        "normal",
+        "insufficient_evidence"
+      ]
+    },
+    "anomaly_type": {
+      "type": "string",
+      "enum": [
+        "temporal",
+        "spatial",
+        "operational",
+        "wrong_part",
+        "wrong_tool",
+        "procedural",
+        "redundant",
+        "none"
+      ]
+    },
+    "is_redundant_action": {
+      "type": "boolean"
+    },
+    "redundant_subtype": {
+      "type": "string",
+      "enum": [
+        "irrelevant_part_handling",
+        "repeated_attempt",
+        "inefficient_search",
+        "none"
+      ]
+    },
+    "matched_sop_step": {
+      "type": "string"
+    },
+    "expected_vs_observed": {
+      "type": "string"
+    },
+    "evidence_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "t_start": {
+            "type": "number"
+          },
+          "t_end": {
+            "type": "number"
+          },
+          "hand": {
+            "type": "string",
+            "enum": [
+              "L",
+              "R"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "t_start",
+          "t_end",
+          "hand",
+          "action",
+          "observation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "evidence_frames": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 80
+    }
+  },
+  "required": [
+    "verdict",
+    "anomaly_type",
+    "is_redundant_action",
+    "redundant_subtype",
+    "matched_sop_step",
+    "expected_vs_observed",
+    "evidence_actions",
+    "evidence_frames",
+    "confidence",
+    "reason"
+  ],
+  "additionalProperties": false
+}

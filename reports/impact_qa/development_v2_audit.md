@@ -1,0 +1,1007 @@
+# development v2 自动审核
+
+
+
+{"ok": 20, "structural_issue_events": 5, "refined_events": 0, "conflict_events": 7, "strict_machine_pass": 22}
+
+
+
+{"pass": 30, "reject": 4, "revise": 2}
+
+
+
+Same-model independent-call audit; not human accuracy, not independent-model verification.
+
+
+
+## ER10WE06_Reassembly_A_004_ego__right__0059 / 0
+
+{
+  "event_id": "ER10WE06_Reassembly_A_004_ego__right__0059",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What tool did my right hand pick up from the workbench?",
+  "answer": "The right hand picked up an orange-handled screwdriver from the workbench.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## ER10WE06_Reassembly_A_004_ego__right__0059 / 1
+
+{
+  "event_id": "ER10WE06_Reassembly_A_004_ego__right__0059",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 1,
+  "question": "How did my right hand manipulate the screwdriver against the black component?",
+  "answer": "The right hand positioned the screwdriver against the component and rotated the handle while maintaining contact.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI03AR28_Disassembly_A_002_ego__right__0070 / 0
+
+{
+  "event_id": "KI03AR28_Disassembly_A_002_ego__right__0070",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "How did I position the green-handled screwdriver relative to the black component?",
+  "answer": "I held the green-handled screwdriver vertically above the black cylindrical component, positioning the tip near its top center.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## KI03AR28_Disassembly_A_002_ego__right__0070 / 1
+
+{
+  "event_id": "KI03AR28_Disassembly_A_002_ego__right__0070",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 1,
+  "question": "Did I apply rotation or downward force with the screwdriver during this interval?",
+  "answer": "No visible rotation or downward force was applied by the right hand holding the screwdriver during the observed interval.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## KI03AR28_Disassembly_A_004_ego__right__0090 / 0
+
+{
+  "event_id": "KI03AR28_Disassembly_A_004_ego__right__0090",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my right hand do with the orange-handled screwdriver on the workbench?",
+  "answer": "The right hand reached for, grasped, and lifted the orange-handled screwdriver from the table surface.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI03AR28_Disassembly_A_004_ego__right__0090 / 1
+
+{
+  "event_id": "KI03AR28_Disassembly_A_004_ego__right__0090",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 1,
+  "question": "Where did I position the screwdriver tip after picking it up?",
+  "answer": "The right hand positioned the screwdriver tip against the black motor housing held by the left hand.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI05KO01_Disassembly_A_002_ego__right__0084 / 0
+
+{
+  "event_id": "KI05KO01_Disassembly_A_002_ego__right__0084",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my right hand do with the screwdriver on the black component?",
+  "answer": "My right hand held the screwdriver, engaged it with a screw, and rotated the handle to manipulate the screw on the component held by the left hand.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KI05KO01_Disassembly_A_002_ego__right__0084 / 1
+
+{
+  "event_id": "KI05KO01_Disassembly_A_002_ego__right__0084",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 1,
+  "question": "What action did my right hand perform after removing the screwdriver?",
+  "answer": "After removing the screwdriver, my right hand used fingers to unscrew a small nut from the component.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Visual evidence shows screwdriver use, not finger unscrewing of a nut.",
+      "Action described in answer is not visible in the provided frames."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## KJ03JM25_Disassembly_A_003_ego__right__0028 / 0
+
+{
+  "event_id": "KJ03JM25_Disassembly_A_003_ego__right__0028",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 0,
+  "question": "What did my right hand do with the small metal part over the work surface?",
+  "answer": "The right hand moved the small metal part toward and placed it into the orange bin labeled 'Box 2'.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## KJ03JM25_Disassembly_A_003_ego__right__0028 / 1
+
+{
+  "event_id": "KJ03JM25_Disassembly_A_003_ego__right__0028",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 1,
+  "question": "How does the visible placement of the part into the bin relate to the annotated action label?",
+  "answer": "The visual evidence shows the part being placed into a bin, which conflicts with the annotation labeling the action as 'pick_up_screw'.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_001_ego__right__0346 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_001_ego__right__0346",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "Where did I place the green-handled screwdriver with my right hand?",
+  "answer": "I placed the green-handled screwdriver onto the instruction sheet on the workbench.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## LE06AS03_Reassembly_A_001_ego__right__0346 / 1
+
+{
+  "event_id": "LE06AS03_Reassembly_A_001_ego__right__0346",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 1,
+  "question": "What did I do with the screwdriver after moving it away from the motor assembly?",
+  "answer": "I placed the screwdriver on the instruction sheet, released it, and moved my hand out of the assembly area.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## LE06AS03_Reassembly_A_002_ego__right__0208 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_002_ego__right__0208",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did my right hand do with the torx screwdriver before placing it on the table?",
+  "answer": "The right hand pointed the screwdriver at the instruction manual, then moved it toward the workbench surface before placing it down.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_002_ego__right__0208 / 1
+
+{
+  "event_id": "LE06AS03_Reassembly_A_002_ego__right__0208",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "procedural"
+  ],
+  "qa_index": 1,
+  "question": "What object did my right hand grasp after placing the screwdriver on the table?",
+  "answer": "After placing the screwdriver down, the right hand reached for and grasped a black component located near the main assembly.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_004_ego__right__0080 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_A_004_ego__right__0080",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_part"
+  ],
+  "qa_index": 0,
+  "question": "What did my right hand grasp and lift from the fourth orange compartment?",
+  "answer": "The right hand grasped and lifted a black circular component from the fourth orange compartment of the parts tray.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_A_004_ego__right__0080 / 1
+
+{
+  "event_id": "LE06AS03_Reassembly_A_004_ego__right__0080",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_part"
+  ],
+  "qa_index": 1,
+  "question": "How is the placement action of the black circular component characterized?",
+  "answer": "The placement action is characterized as an anomaly involving a spatial error and the use of a wrong part.",
+  "answerability": "annotation_only",
+  "review": {
+    "qa_index": 1,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Answer relies solely on annotation metadata, not visual evidence.",
+      "Question asks for label definition rather than visual anomaly observation."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## LE06AS03_Reassembly_B_005_ego__right__0174 / 0
+
+{
+  "event_id": "LE06AS03_Reassembly_B_005_ego__right__0174",
+  "phase": "anomaly",
+  "types": [
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did my right hand do with the small metal part relative to the silver housing?",
+  "answer": "The right hand picked up the small metal part, inserted it into the silver housing held by the left hand, manipulated it inside, and then withdrew, leaving the part inside.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## LE06AS03_Reassembly_B_005_ego__right__0174 / 1
+
+{
+  "event_id": "LE06AS03_Reassembly_B_005_ego__right__0174",
+  "phase": "anomaly",
+  "types": [
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 1,
+  "question": "Does the annotation indicate an anomaly during the insertion of the small metal part?",
+  "answer": "Yes, the annotation identifies the phase as an anomaly involving a wrong part and a procedural error, though the specific visual nature of these errors is not detailed.",
+  "answerability": "annotation_only",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for annotation data, not visual evidence.",
+      "Answer relies on metadata labels rather than frame content."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## LE07UF17_Reassembly_A_002_ego__left__0018 / 0
+
+{
+  "event_id": "LE07UF17_Reassembly_A_002_ego__left__0018",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did my left hand do to the angle grinder assembly during the target interval?",
+  "answer": "The left hand held the main body of the angle grinder assembly steady throughout the entire interval.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## LE07UF17_Reassembly_A_002_ego__left__0018 / 1
+
+{
+  "event_id": "LE07UF17_Reassembly_A_002_ego__left__0018",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "wrong_part",
+    "procedural"
+  ],
+  "qa_index": 1,
+  "question": "What did my right hand do with the small metal part retrieved from the orange bin?",
+  "answer": "The right hand inserted the small metal part into the front face of the grinder assembly.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## MA07LF04_Disassembly_A_001_ego__left__0110 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_A_001_ego__left__0110",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my left hand do to the silver cylindrical component during the interval?",
+  "answer": "The left hand held the silver cylindrical component steady against the black housing, maintaining a static grip position throughout the observed interval.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks about left hand action, but answer describes static holding while annotation claims 'loosening' action.",
+      "Visual evidence shows left hand holding component steady; no visible loosening motion of M4 nut."
+    ],
+    "decision": "revise"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## MA07LF04_Disassembly_A_001_ego__left__0110 / 1
+
+{
+  "event_id": "MA07LF04_Disassembly_A_001_ego__left__0110",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 1,
+  "question": "What tool did my right hand use on the black housing?",
+  "answer": "The right hand used an orange-handled screwdriver to turn a screw on the black housing.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Right hand tool and action are clearly visible and match the answer.",
+      "Orange-handled screwdriver is actively engaged on black housing as described."
+    ],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Disassembly_A_003_ego__right__0088 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_A_003_ego__right__0088",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my right hand do with the black circular component?",
+  "answer": "The right hand moved the black circular component towards the orange bin labeled 'Box 2' and placed it inside.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Disassembly_B_005_ego__left__0044 / 0
+
+{
+  "event_id": "MA07LF04_Disassembly_B_005_ego__left__0044",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 0,
+  "question": "What did my left hand do with the silver motor housing after separation?",
+  "answer": "The left hand rotated the silver housing to display the internal cavity and mounting holes, rather than spinning the drive shaft.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for action not explicitly in target label, avoiding leakage.",
+      "Visual evidence clearly shows housing rotation, supporting the answer."
+    ],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Disassembly_B_005_ego__left__0044 / 1
+
+{
+  "event_id": "MA07LF04_Disassembly_B_005_ego__left__0044",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling"
+  ],
+  "qa_index": 1,
+  "question": "How was the cylindrical motor body positioned relative to the housing after separation?",
+  "answer": "The separated motor body was held in the right hand, positioned below the housing which was held by the left hand.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for spatial relationship, not just a label.",
+      "Frames clearly show the relative positioning of the two parts."
+    ],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Reassembly_A_001_ego__left__0134 / 0
+
+{
+  "event_id": "MA07LF04_Reassembly_A_001_ego__left__0134",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my left hand do to the angle grinder housing during the target interval?",
+  "answer": "The left hand held the black housing steady against the workbench, maintaining a static grip on the tool body throughout the interval.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for left hand action, which is visually static holding, not the annotated 'attach_lever'."
+    ],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Reassembly_B_005_ego__left__0101 / 0
+
+{
+  "event_id": "MA07LF04_Reassembly_B_005_ego__left__0101",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling",
+    "procedural"
+  ],
+  "qa_index": 0,
+  "question": "What did my left hand do with the black circular ring after removing it from the motor housing?",
+  "answer": "The left hand placed the removed black circular ring onto the white work surface.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## MA07LF04_Reassembly_B_005_ego__left__0101 / 1
+
+{
+  "event_id": "MA07LF04_Reassembly_B_005_ego__left__0101",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "spatial",
+    "handling",
+    "procedural"
+  ],
+  "qa_index": 1,
+  "question": "How did my left hand interact with the silver motor housing while the right hand manipulated a small black component?",
+  "answer": "The left hand held the silver motor housing steady while the right hand manipulated the small black component.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## NA07GE21_Disassembly_A_002_ego__left__0038 / 0
+
+{
+  "event_id": "NA07GE21_Disassembly_A_002_ego__left__0038",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my left hand do to the silver motor shaft assembly during the extraction?",
+  "answer": "My left hand held the silver cylindrical motor shaft assembly steady while the housing was pulled away.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## NA07GE21_Disassembly_A_002_ego__left__0038 / 1
+
+{
+  "event_id": "NA07GE21_Disassembly_A_002_ego__left__0038",
+  "phase": "normal",
+  "types": [],
+  "qa_index": 1,
+  "question": "What was the visible outcome of the interaction between the black housing and the silver shaft?",
+  "answer": "The black housing was fully separated from the silver shaft assembly, completing the extraction.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## NA07GE21_Reassembly_A_001_ego__left__0049 / 0
+
+{
+  "event_id": "NA07GE21_Reassembly_A_001_ego__left__0049",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my left hand do during the target interval?",
+  "answer": "My left hand held the black motor housing steady while the right hand manipulated a small metal part inside the opening.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Answer contradicts target annotation: claims left hand held housing, but target action is left hand picking up M4 nut.",
+      "Visuals show right hand manipulating part; left hand picking up nut is not visible in provided frames."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [
+    "fact:F5:visual_without_observation"
+  ],
+  "strict_machine_pass": false
+}
+
+## SS07EL13_Disassembly_A_002_ego__right__0051 / 0
+
+{
+  "event_id": "SS07EL13_Disassembly_A_002_ego__right__0051",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "handling",
+    "wrong_tool"
+  ],
+  "qa_index": 0,
+  "question": "What tool did my right hand use to attempt loosening the screw on the motor housing?",
+  "answer": "My right hand used an orange-handled screwdriver to position against and rotate the screw on the motor housing.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation",
+    "1:fact_marked_unusable"
+  ],
+  "strict_machine_pass": false
+}
+
+## SS07EL13_Disassembly_A_002_ego__right__0051 / 1
+
+{
+  "event_id": "SS07EL13_Disassembly_A_002_ego__right__0051",
+  "phase": "anomaly",
+  "types": [
+    "temporal",
+    "handling",
+    "wrong_tool"
+  ],
+  "qa_index": 1,
+  "question": "Did my right hand successfully remove the screw after rotating the screwdriver handle?",
+  "answer": "It is visually uncertain whether the screw was fully removed or only loosened, as the final outcome is not clearly visible.",
+  "answerability": "insufficient",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for a definitive outcome not visible in frames.",
+      "Answer correctly identifies visual uncertainty rather than hallucinating success."
+    ],
+    "decision": "pass"
+  },
+  "structural_issues": [
+    "fact:F6:visual_without_observation",
+    "1:fact_marked_unusable"
+  ],
+  "strict_machine_pass": false
+}
+
+## SS07EL13_Reassembly_A_001_ego__right__0132 / 0
+
+{
+  "event_id": "SS07EL13_Reassembly_A_001_ego__right__0132",
+  "phase": "recovery",
+  "types": [],
+  "qa_index": 0,
+  "question": "What did my right hand do with the small metal part near the black component?",
+  "answer": "The right hand manipulated a small metal part near the base of the black cylindrical component, though the specific part type is not visually clear.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": false,
+    "visually_answerable": false,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [
+      "Question asks for action details not visually resolvable in frames.",
+      "Answer relies on annotation labels rather than visual evidence."
+    ],
+    "decision": "reject"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": false
+}
+
+## TO08CO25_Disassembly_B_005_ego__left__0009 / 0
+
+{
+  "event_id": "TO08CO25_Disassembly_B_005_ego__left__0009",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_tool"
+  ],
+  "qa_index": 0,
+  "question": "What tool did my left hand pick up and position over the silver component?",
+  "answer": "My left hand picked up an orange-handled screwdriver and positioned it above the silver component held by the right hand.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 0,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}
+
+## TO08CO25_Disassembly_B_005_ego__left__0009 / 1
+
+{
+  "event_id": "TO08CO25_Disassembly_B_005_ego__left__0009",
+  "phase": "anomaly",
+  "types": [
+    "spatial",
+    "wrong_tool"
+  ],
+  "qa_index": 1,
+  "question": "How did I use the screwdriver tip on the silver component?",
+  "answer": "I inserted the tip of the orange-handled screwdriver into a slot on the silver component and rotated the handle while maintaining contact.",
+  "answerability": "visible",
+  "review": {
+    "qa_index": 1,
+    "supported": true,
+    "visually_answerable": true,
+    "relevant_to_procedure": true,
+    "answer_leakage": false,
+    "duplicate": false,
+    "issues": [],
+    "decision": "pass"
+  },
+  "structural_issues": [],
+  "strict_machine_pass": true
+}

@@ -1,0 +1,381 @@
+{
+  "request_key": "4e4a0b46d196121160d60551ec9d9167913805d96bce7effa5b87015ad62a7fa",
+  "started_utc": "2026-09-19T14:31:23.971455+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "action_error_category",
+      "question_proposition": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+      "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+      "canonical_answer": "Spatial, object handling and wrong part errors.",
+      "options": [
+        "Spatial, object handling and wrong part errors.",
+        "Spatial, object handling and timing errors.",
+        "Spatial, object handling and wrong tool errors."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "action": "pick_up_adapter_plate",
+        "hand": "right",
+        "phase": "anomaly",
+        "error_attributes": [
+          "spatial",
+          "object-handling",
+          "wrong-part"
+        ],
+        "target_interval": [
+          156,
+          210
+        ],
+        "error_mechanism": null,
+        "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 5,
+            "verb": 14,
+            "noun": 1,
+            "start_frame": 156,
+            "end_frame": 210,
+            "phase": "anomaly",
+            "anomaly_type": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "entity": "right"
+          },
+          "pointer": "/segments/72"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 5,
+            "name": "pick_up_adapter_plate"
+          },
+          "pointer": "/action_labels/5"
+        },
+        {
+          "source_id": "s2",
+          "value": [
+            {
+              "id": 0,
+              "name": "error_temporal"
+            },
+            {
+              "id": 1,
+              "name": "error_spatial"
+            },
+            {
+              "id": 2,
+              "name": "error_handling"
+            },
+            {
+              "id": 3,
+              "name": "error_wrong_part"
+            },
+            {
+              "id": 4,
+              "name": "error_wrong_tool"
+            },
+            {
+              "id": 5,
+              "name": "error_procedural"
+            }
+          ],
+          "pointer": "/anomaly_types"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_141",
+        "frame_153",
+        "frame_165",
+        "frame_177",
+        "frame_189",
+        "frame_201",
+        "frame_213",
+        "frame_225"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+        "answer": "Spatial, object handling, and wrong part errors occurred during the action.",
+        "mcq_question": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+        "visual_grade": 2,
+        "limitation": "Frames show the hand reaching and grasping, but specific error mechanisms like spatial misalignment or wrong part selection are not visually explicit.",
+        "claims": [
+          {
+            "claim": "Spatial, object handling, and wrong part errors occurred during the action.",
+            "source_ids": [
+              "s0",
+              "s2"
+            ],
+            "image_ids": [
+              "frame_141",
+              "frame_153",
+              "frame_165",
+              "frame_177",
+              "frame_189",
+              "frame_201",
+              "frame_213",
+              "frame_225"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "No visible error occurred while picking up the adapter plate.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": "frame_141",
+        "after_id": "frame_225",
+        "image_ids": [
+          "frame_141",
+          "frame_153",
+          "frame_165",
+          "frame_177",
+          "frame_189",
+          "frame_201",
+          "frame_213",
+          "frame_225"
+        ],
+        "observation": "The person reaches into the red tray and lifts a black circular adapter plate with their right hand. The action appears smooth and deliberate.",
+        "limitation": "Cannot confirm if the grip was secure or if the correct part was selected without further context or close-up views."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "0e40be2bf4f4c97c9e9b1b2d3d71de181c0bcbcbdfc6cdab7cf9cf70536e7b79",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 5.898913860321045,
+    "usage": {
+      "prompt_tokens": 1254,
+      "total_tokens": 1358,
+      "completion_tokens": 104,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": false,
+      "unsupported_claims": [],
+      "reason": "Source s0 anomaly_type [0,1,1,1,0,0] maps to spatial, handling, wrong-part via s2. Blind answer denies errors, contradicting source data."
+    },
+    "raw_response": {
+      "id": "chatcmpl-a348cdbc65ea5af1",
+      "object": "chat.completion",
+      "created": 1789828284,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":false,\"unsupported_claims\":[],\"reason\":\"Source s0 anomaly_type [0,1,1,1,0,0] maps to spatial, handling, wrong-part via s2. Blind answer denies errors, contradicting source data.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1254,
+        "total_tokens": 1358,
+        "completion_tokens": 104,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "action_error_category",
+        "question_proposition": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+        "mcq_question_proposition": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+        "canonical_answer": "Spatial, object handling and wrong part errors.",
+        "options": [
+          "Spatial, object handling and wrong part errors.",
+          "Spatial, object handling and timing errors.",
+          "Spatial, object handling and wrong tool errors."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "action": "pick_up_adapter_plate",
+          "hand": "right",
+          "phase": "anomaly",
+          "error_attributes": [
+            "spatial",
+            "object-handling",
+            "wrong-part"
+          ],
+          "target_interval": [
+            156,
+            210
+          ],
+          "error_mechanism": null,
+          "scope": "all source ATR attributes for this hand/action only; no physical mechanism inferred"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 5,
+              "verb": 14,
+              "noun": 1,
+              "start_frame": 156,
+              "end_frame": 210,
+              "phase": "anomaly",
+              "anomaly_type": [
+                0,
+                1,
+                1,
+                1,
+                0,
+                0
+              ],
+              "entity": "right"
+            },
+            "pointer": "/segments/72"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 5,
+              "name": "pick_up_adapter_plate"
+            },
+            "pointer": "/action_labels/5"
+          },
+          {
+            "source_id": "s2",
+            "value": [
+              {
+                "id": 0,
+                "name": "error_temporal"
+              },
+              {
+                "id": 1,
+                "name": "error_spatial"
+              },
+              {
+                "id": 2,
+                "name": "error_handling"
+              },
+              {
+                "id": 3,
+                "name": "error_wrong_part"
+              },
+              {
+                "id": 4,
+                "name": "error_wrong_tool"
+              },
+              {
+                "id": 5,
+                "name": "error_procedural"
+              }
+            ],
+            "pointer": "/anomaly_types"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_141",
+          "frame_153",
+          "frame_165",
+          "frame_177",
+          "frame_189",
+          "frame_201",
+          "frame_213",
+          "frame_225"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "What types of error occurred while I was picking up the adapter plate with my right hand?",
+          "answer": "Spatial, object handling, and wrong part errors occurred during the action.",
+          "mcq_question": "Which option gives the complete set of error types while I was picking up the adapter plate with my right hand?",
+          "visual_grade": 2,
+          "limitation": "Frames show the hand reaching and grasping, but specific error mechanisms like spatial misalignment or wrong part selection are not visually explicit.",
+          "claims": [
+            {
+              "claim": "Spatial, object handling, and wrong part errors occurred during the action.",
+              "source_ids": [
+                "s0",
+                "s2"
+              ],
+              "image_ids": [
+                "frame_141",
+                "frame_153",
+                "frame_165",
+                "frame_177",
+                "frame_189",
+                "frame_201",
+                "frame_213",
+                "frame_225"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "No visible error occurred while picking up the adapter plate.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": "frame_141",
+          "after_id": "frame_225",
+          "image_ids": [
+            "frame_141",
+            "frame_153",
+            "frame_165",
+            "frame_177",
+            "frame_189",
+            "frame_201",
+            "frame_213",
+            "frame_225"
+          ],
+          "observation": "The person reaches into the red tray and lifts a black circular adapter plate with their right hand. The action appears smooth and deliberate.",
+          "limitation": "Cannot confirm if the grip was secure or if the correct part was selected without further context or close-up views."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

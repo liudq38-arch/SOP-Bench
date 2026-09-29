@@ -1,0 +1,323 @@
+{
+  "request_key": "64dd8e7c09903744c42acfc960784ebc4e062231461b795603d8160ea6252c1f",
+  "started_utc": "2026-09-19T14:27:16.731183+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "action_phase",
+      "question_proposition": "Did I make an error while inserting the drive shaft with my left hand?",
+      "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while inserting the drive shaft with my left hand?",
+      "canonical_answer": "No, that action was performed normally.",
+      "options": [
+        "The action contained an error.",
+        "The action was a recovery.",
+        "The action was normal."
+      ],
+      "correct_option_index": 2,
+      "facts": {
+        "action": "insert_drive_shaft",
+        "hand": "left",
+        "phase": "normal",
+        "scope": "this hand and action only; no whole-step or whole-video correctness"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 38,
+            "verb": 11,
+            "noun": 6,
+            "start_frame": 1060,
+            "end_frame": 1091,
+            "phase": "normal",
+            "anomaly_type": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "entity": "left"
+          },
+          "pointer": "/segments/7"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 38,
+            "name": "insert_drive_shaft"
+          },
+          "pointer": "/action_labels/38"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "context_1",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "context_2",
+        "target_10",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "context_3",
+        "target_15"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "Did I make an error while inserting the drive shaft with my left hand?",
+        "answer": "No, the action was performed normally.",
+        "mcq_question": "Was I performing a normal action, making an error, or recovering while inserting the drive shaft with my left hand?",
+        "visual_grade": 2,
+        "limitation": "The specific insertion of the drive shaft is obscured by the operator's hands and the component's orientation, preventing direct visual confirmation of the action's success or failure.",
+        "claims": [
+          {
+            "claim": "The action of inserting the drive shaft with the left hand was performed normally.",
+            "source_ids": [
+              "s0",
+              "s1"
+            ],
+            "image_ids": []
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "No visible error occurred.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "target_15"
+        ],
+        "observation": "The person inserts a component into a black housing. No dropped parts, misalignment, or tool misuse is visible in the frames.",
+        "limitation": "Internal fit quality and torque are hidden; only external hand movements and component positions are observable."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "b5172310ce6fe0940f98b298d96735e37ecfc16f7d1500222ece170cf74a4ac8",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 5.8638834953308105,
+    "usage": {
+      "prompt_tokens": 1102,
+      "total_tokens": 1201,
+      "completion_tokens": 99,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 2,
+      "blind_matches_gt": true,
+      "unsupported_claims": [],
+      "reason": "Source s0 explicitly labels phase as 'normal' for left hand insertion. Blind answer 'No visible error' semantically matches 'normal'. No forbidden claims or leaks detected."
+    },
+    "raw_response": {
+      "id": "chatcmpl-91576b0e96938976",
+      "object": "chat.completion",
+      "created": 1789828040,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":2,\"blind_matches_gt\":true,\"unsupported_claims\":[],\"reason\":\"Source s0 explicitly labels phase as 'normal' for left hand insertion. Blind answer 'No visible error' semantically matches 'normal'. No forbidden claims or leaks detected.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1102,
+        "total_tokens": 1201,
+        "completion_tokens": 99,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "action_phase",
+        "question_proposition": "Did I make an error while inserting the drive shaft with my left hand?",
+        "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while inserting the drive shaft with my left hand?",
+        "canonical_answer": "No, that action was performed normally.",
+        "options": [
+          "The action contained an error.",
+          "The action was a recovery.",
+          "The action was normal."
+        ],
+        "correct_option_index": 2,
+        "facts": {
+          "action": "insert_drive_shaft",
+          "hand": "left",
+          "phase": "normal",
+          "scope": "this hand and action only; no whole-step or whole-video correctness"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 38,
+              "verb": 11,
+              "noun": 6,
+              "start_frame": 1060,
+              "end_frame": 1091,
+              "phase": "normal",
+              "anomaly_type": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "entity": "left"
+            },
+            "pointer": "/segments/7"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 38,
+              "name": "insert_drive_shaft"
+            },
+            "pointer": "/action_labels/38"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "context_1",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "context_2",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_3",
+          "target_15"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "Did I make an error while inserting the drive shaft with my left hand?",
+          "answer": "No, the action was performed normally.",
+          "mcq_question": "Was I performing a normal action, making an error, or recovering while inserting the drive shaft with my left hand?",
+          "visual_grade": 2,
+          "limitation": "The specific insertion of the drive shaft is obscured by the operator's hands and the component's orientation, preventing direct visual confirmation of the action's success or failure.",
+          "claims": [
+            {
+              "claim": "The action of inserting the drive shaft with the left hand was performed normally.",
+              "source_ids": [
+                "s0",
+                "s1"
+              ],
+              "image_ids": []
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "No visible error occurred.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "target_4",
+            "target_5",
+            "target_6",
+            "target_7",
+            "target_8",
+            "target_9",
+            "target_10",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "target_15"
+          ],
+          "observation": "The person inserts a component into a black housing. No dropped parts, misalignment, or tool misuse is visible in the frames.",
+          "limitation": "Internal fit quality and torque are hidden; only external hand movements and component positions are observable."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

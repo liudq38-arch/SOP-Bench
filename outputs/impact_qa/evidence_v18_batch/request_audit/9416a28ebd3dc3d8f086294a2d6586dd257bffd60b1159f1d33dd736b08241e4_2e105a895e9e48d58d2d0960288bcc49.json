@@ -1,0 +1,1188 @@
+{
+  "request_key": "9416a28ebd3dc3d8f086294a2d6586dd257bffd60b1159f1d33dd736b08241e4",
+  "started_utc": "2026-09-19T15:54:32.672913+00:00",
+  "stage": "evidence_v17_qualify",
+  "request": {
+    "prompt": "Determine whether the supplied data are sufficient to answer the target procedural-video question. This is visual qualification BEFORE QA generation. You do not receive the target GT answer, states, or anomaly labels. You receive the complete PUBLIC illustrated procedure, labelled examples from another training execution when available, and target-video frames including boundary context.\n\nThe illustrated sequence is an example, NOT a mandatory dependency graph. Never infer correctness from matching it. REFERENCE images are composite examples from another execution; their placeholder time zero is NOT target-video time. They help identify actions, not prove what happened in the target. Only TARGET images can support the target answer. The target interval is explicitly given in original frame numbers with fps=30. Additional earlier/later context images are not other target actions; focus on the queried event/cutoff.\n\nFor tool pickup, track the same object on the surface then lifted away; observe its shape, not a nearby tool or printed drawing. For installation, identify the component AND relevant connection/cutoff state; holding/adjusting a part alone does not prove unfinished installation, and lack of visible torque does not itself prove incorrect installation. For actual order, identify both named operations and whether their starts are captured; do not silently replace start order with completion order. For anomaly/normality, identify observable evidence of the requested property; do not invent a physical error from the question. A reference example alone never proves the target state. Do not invent a component-to-receiver mapping.\n\nReturn exactly {\"answerable\":boolean,\"visual_grade\":integer 0..3,\"answer\":string,\"observations\":[{\"fact\":string,\"target_image_ids\":[string],\"reference_image_ids\":[string]}],\"needs\":[\"boundary\"|\"identity_reference\"|\"wider_context\"|\"synchronized_view\"|\"normative_source\"|\"none\"],\"limitation\":string}.\nGrade0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible without a material unresolved issue. answerable=true requires grade3, needs=[\"none\"], and at least one observation citing TARGET images. If there is a material limitation, answerable=false and grade<=2. At most 3 observations; concise facts, not chain-of-thought. Answer and limitation <=60 words each; observation facts <=40 words. Cite only IDs allowed by the payload. Preserve uncertainty even when a familiar procedure suggests an answer.\n",
+    "payload": {
+      "question": "Which tool did I pick up with my right hand in this clip?",
+      "kind": "tool_identity",
+      "reference_procedure": {
+        "procedure_id": "impact_model_a_illustrated_reference_v10",
+        "variant": "CG15-125BL development; illustration variant association is research-agent interpretation",
+        "workflow": "assemble",
+        "coverage": "all_five_displayed_coarse_assembly_stages; partial_engineering_constraints",
+        "procedure_text": "The supplied official reassembly illustration shows the rotor and gearbox operation first, followed by fitting and fastening the adapter plate, inserting and fastening the bearing plate assembly, installing the locking lever assembly, and screwing on the anti-vibration handle. Retrieve the needed parts and store tools as appropriate. This describes the full displayed example, not a uniquely mandatory ordering. The diagram shows component placement and screw operations, but gives no explicit torque, duration, or exhaustive prerequisite specification. Component state 1 refers to correct assembly of that component at the stated time, not completion of the whole device. The ordered stages may be used to compare the observed sequence with this supplied guide; a difference alone must not be called an operator error.",
+        "steps": [
+          {
+            "id": "rotor",
+            "name": "Install the rotor assembly",
+            "action_classes": [
+              "install_rotor_assembly"
+            ],
+            "component_group_candidate": [
+              "gearbox_housing",
+              "drive_shaft",
+              "bevel_gear",
+              "M6_nut"
+            ],
+            "receiver": null,
+            "expected_result": "Install the rotor assembly completed",
+            "requirement": "shown_in_reference",
+            "source_ids": [
+              "official_manual",
+              "official_step_dictionary"
+            ],
+            "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+          },
+          {
+            "id": "adapter",
+            "name": "Attach the adapter plate",
+            "action_classes": [
+              "attach_adapter_plate"
+            ],
+            "component_group_candidate": [
+              "adapter_plate",
+              "screw_adaptor_topleft",
+              "screw_adaptor_lowright",
+              "M4_nut_plate_topleft",
+              "M4_nut_plate_lowright"
+            ],
+            "receiver": null,
+            "expected_result": "Attach the adapter plate completed",
+            "requirement": "shown_in_reference",
+            "source_ids": [
+              "official_manual",
+              "official_step_dictionary"
+            ],
+            "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+          },
+          {
+            "id": "bearing",
+            "name": "Insert the bearing plate assembly",
+            "action_classes": [
+              "insert_bearing_plate_assembly"
+            ],
+            "component_group_candidate": [
+              "bearing_plate",
+              "bearing_screw_topleft",
+              "bearing_screw_lowright"
+            ],
+            "receiver": null,
+            "expected_result": "Insert the bearing plate assembly completed",
+            "requirement": "shown_in_reference",
+            "source_ids": [
+              "official_manual",
+              "official_step_dictionary"
+            ],
+            "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+          },
+          {
+            "id": "lever",
+            "name": "Install the locking lever assembly",
+            "action_classes": [
+              "install_locking_lever_assembly"
+            ],
+            "component_group_candidate": [
+              "screw_lever",
+              "spring",
+              "lever",
+              "washer"
+            ],
+            "receiver": null,
+            "expected_result": "Install the locking lever assembly completed",
+            "requirement": "shown_in_reference",
+            "source_ids": [
+              "official_manual",
+              "official_step_dictionary"
+            ],
+            "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+          },
+          {
+            "id": "handle",
+            "name": "Screw on the anti-vibration handle",
+            "action_classes": [
+              "screw_on_anti_vibration_handle"
+            ],
+            "component_group_candidate": [
+              "anti_vibration_handle"
+            ],
+            "receiver": null,
+            "expected_result": "Screw on the anti-vibration handle completed",
+            "requirement": "shown_in_reference",
+            "source_ids": [
+              "official_manual",
+              "official_step_dictionary"
+            ],
+            "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+          }
+        ],
+        "state_mappings": [],
+        "source_catalog": [
+          {
+            "id": "official_manual",
+            "path": "sources/impact_docs/Manual_Book.svg",
+            "sha256": "632b04632b106c95767abd18734f14d3bf532d2487c7fd9ccdd992bae8bbe194",
+            "url": "https://github.com/Kratos-Wen/IMPACT/blob/4fed5faa5f05f7aece55712e458defa1f372b248/website/assets/figures/Manual_Book.svg",
+            "location": "bottom Reassembly row, left to right; all three rendered panels inspected by research agent",
+            "authority": "official_illustration_with_agent_transcription"
+          },
+          {
+            "id": "official_step_dictionary",
+            "path": "annotations/impact/IMPACT-v1.1/annotations/TAS-S/mapping_TAS-S.txt",
+            "location": "assembly action labels 13-25; dictionary order is not normative order",
+            "sha256": "95773ee14c4c7375bac667017732a1676987f102541735dc20c04df16c30d355"
+          }
+        ],
+        "unresolved": [
+          "No authoritative exhaustive AND/OR prerequisite graph has been located.",
+          "No source-verified component-to-receiver mapping supplied.",
+          "Do not promote an illustrated sequence or mined edge to a mandatory constraint."
+        ],
+        "illustrated_sequence_edges": [
+          {
+            "id": "illustrated_rotor_before_adapter",
+            "before": "rotor",
+            "after": "adapter",
+            "authority": "illustrated_reference_only",
+            "provenance": "research_agent_transcription_of_official_illustration",
+            "condition": "comparison_with_displayed_sequence_only",
+            "source_ids": [
+              "official_manual"
+            ]
+          },
+          {
+            "id": "illustrated_adapter_before_bearing",
+            "before": "adapter",
+            "after": "bearing",
+            "authority": "illustrated_reference_only",
+            "provenance": "research_agent_transcription_of_official_illustration",
+            "condition": "comparison_with_displayed_sequence_only",
+            "source_ids": [
+              "official_manual"
+            ]
+          },
+          {
+            "id": "illustrated_bearing_before_lever",
+            "before": "bearing",
+            "after": "lever",
+            "authority": "illustrated_reference_only",
+            "provenance": "research_agent_transcription_of_official_illustration",
+            "condition": "comparison_with_displayed_sequence_only",
+            "source_ids": [
+              "official_manual"
+            ]
+          },
+          {
+            "id": "illustrated_lever_before_handle",
+            "before": "lever",
+            "after": "handle",
+            "authority": "illustrated_reference_only",
+            "provenance": "research_agent_transcription_of_official_illustration",
+            "condition": "comparison_with_displayed_sequence_only",
+            "source_ids": [
+              "official_manual"
+            ]
+          }
+        ],
+        "mandatory_prerequisite_edges": []
+      },
+      "reference_examples": [],
+      "target_original_frame_interval_inclusive": [
+        3103,
+        3175
+      ],
+      "fps": 30.0,
+      "allowed_target_image_ids": [
+        "anchor_3088",
+        "context_0",
+        "anchor_3117",
+        "anchor_3118",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "context_1",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "anchor_3139",
+        "target_8",
+        "target_9",
+        "target_10",
+        "target_11",
+        "context_2",
+        "target_12",
+        "target_13",
+        "target_14",
+        "anchor_3160",
+        "target_15",
+        "context_3",
+        "anchor_3176",
+        "anchor_3191"
+      ],
+      "allowed_reference_image_ids": []
+    },
+    "images": [
+      {
+        "evidence_id": "anchor_3088",
+        "frame_index": 3088,
+        "requested_time_s": 102.93333333333334,
+        "role": "context_before",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/21b77248793f973b9cf03f90.jpg",
+        "sha256": "8de2c2ba17e37fd7b0ab8d960789d4a64712dfc0d0ec107120b9c4072c4e37f6",
+        "time_scope": "TARGET EXECUTION, original recording clock. context_before"
+      },
+      {
+        "evidence_id": "context_0",
+        "frame_index": 3103,
+        "requested_time_s": 103.43333333333334,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/3bf121eef36c2828a6817d5f.jpg",
+        "sha256": "dc039174605ea99e4bda4175aa4b2c26988284d13371c95f726a57ba2d971195"
+      },
+      {
+        "evidence_id": "anchor_3117",
+        "frame_index": 3117,
+        "requested_time_s": 103.9,
+        "role": "target_boundary",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/b6a9ae3494a968726713020b.jpg",
+        "sha256": "35196131d999f320486bcb1ae72f291328f6822698fea77d7ca3b9792b8b864c",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+      },
+      {
+        "evidence_id": "anchor_3118",
+        "frame_index": 3118,
+        "requested_time_s": 103.93333333333334,
+        "role": "target_boundary",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/25b35015a21b2b9961fc1a6e.jpg",
+        "sha256": "053ca1e498d5b69e8c49dc6b38873c2fd17ebdfb871a81347b34b42a8c8e4707",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+      },
+      {
+        "evidence_id": "target_0",
+        "frame_index": 3118,
+        "requested_time_s": 103.93333333333334,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/199370493c31f8556bfe7e25.jpg",
+        "sha256": "053ca1e498d5b69e8c49dc6b38873c2fd17ebdfb871a81347b34b42a8c8e4707"
+      },
+      {
+        "evidence_id": "target_1",
+        "frame_index": 3121,
+        "requested_time_s": 104.03333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/ce7f5d452837c93ad8f9805b.jpg",
+        "sha256": "eadd480df074b9b53523d1c06c52d2affd2925d08bfa28f31099f04767cb3c5b"
+      },
+      {
+        "evidence_id": "target_2",
+        "frame_index": 3124,
+        "requested_time_s": 104.13333333333334,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/be42dfad6e4b21c0767a9465.jpg",
+        "sha256": "bd55838dc68acaf8b3ebc8067260b4c58087db579ab36070371f746ebafb1488"
+      },
+      {
+        "evidence_id": "target_3",
+        "frame_index": 3126,
+        "requested_time_s": 104.2,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/9e73cdfa21fec30fd1237156.jpg",
+        "sha256": "8a11c1193c159f1b018ef81d39495f8498b1e2a9415b7693cc8262a18a269061"
+      },
+      {
+        "evidence_id": "context_1",
+        "frame_index": 3127,
+        "requested_time_s": 104.23333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/efa47e1f8d6ba26b760f3304.jpg",
+        "sha256": "f1e1e92c0a9f3a7d9e9acb1551e2a909a9e561cc3101439491db2eade6d5c137"
+      },
+      {
+        "evidence_id": "target_4",
+        "frame_index": 3129,
+        "requested_time_s": 104.3,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/4447077347b6dc551b66cf5b.jpg",
+        "sha256": "8aaec017079e6bbf80a762c7742cff0d4a4cc68ba3e2fc349659a400c6c8b678"
+      },
+      {
+        "evidence_id": "target_5",
+        "frame_index": 3132,
+        "requested_time_s": 104.4,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/9cf2de421df9b0b85939be9e.jpg",
+        "sha256": "a3bbaf41ef74a712916e696b8c015297d79e1f7b25dc79eb17120dca02ce2405"
+      },
+      {
+        "evidence_id": "target_6",
+        "frame_index": 3135,
+        "requested_time_s": 104.5,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/6488bef2925542a252ba10c5.jpg",
+        "sha256": "acfee71f14b67fbce934da7d6460e2abd1e36338655f3ccbbe000d9b871b1351"
+      },
+      {
+        "evidence_id": "target_7",
+        "frame_index": 3138,
+        "requested_time_s": 104.6,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/78e90e4eef42755dd018688f.jpg",
+        "sha256": "70d0685ec1de8459291ad3bf0489dd0220bad63d42915c674d1db51d3e9c3be0"
+      },
+      {
+        "evidence_id": "anchor_3139",
+        "frame_index": 3139,
+        "requested_time_s": 104.63333333333334,
+        "role": "target_boundary",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/1d61240060ae3cc30b1fbd9d.jpg",
+        "sha256": "8386a559bc75ea5c18f4fcd88e6d490967eff5534649eef2f41061a2666e4179",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+      },
+      {
+        "evidence_id": "target_8",
+        "frame_index": 3140,
+        "requested_time_s": 104.66666666666667,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/50683f21876256149c37b491.jpg",
+        "sha256": "bb12222ae9548ee50f44571cbc3f3a23c9a121a003205d616c47105ea9e6d623"
+      },
+      {
+        "evidence_id": "target_9",
+        "frame_index": 3143,
+        "requested_time_s": 104.76666666666667,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/99692c87c01e9b0b5897a01a.jpg",
+        "sha256": "525ce06300edeead6e6b68772e696b4b95bf8ea17507c5bf10c84b336ffa25fa"
+      },
+      {
+        "evidence_id": "target_10",
+        "frame_index": 3146,
+        "requested_time_s": 104.86666666666666,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/cf060d47ce244257d92bd760.jpg",
+        "sha256": "ab15338b84801b01be51868a22f108c092833a45533e17201a02cf13c03cfff5"
+      },
+      {
+        "evidence_id": "target_11",
+        "frame_index": 3149,
+        "requested_time_s": 104.96666666666667,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/48f3cd62b960771091ec6259.jpg",
+        "sha256": "30f1ebb64c9a208a6ec77c60711ca07cc1b3929950a6ffb20b9b0d6523bb57af"
+      },
+      {
+        "evidence_id": "context_2",
+        "frame_index": 3151,
+        "requested_time_s": 105.03333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/6f369b9d44f787a6733da76b.jpg",
+        "sha256": "6376d02c0a6c8fa7271cc215de0e95b896012453e301aa861b4b56f49fd57e77"
+      },
+      {
+        "evidence_id": "target_12",
+        "frame_index": 3152,
+        "requested_time_s": 105.06666666666666,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/21cfe22d46fdefeb46d57af2.jpg",
+        "sha256": "90a3910415ba6bdaa1cca6bdf4e3c1767bc9b3ed4619d9f52a071fc90352d509"
+      },
+      {
+        "evidence_id": "target_13",
+        "frame_index": 3154,
+        "requested_time_s": 105.13333333333334,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/91be3dc7916b10be21ceffed.jpg",
+        "sha256": "a11ac3b41ebd7fa7f6d93621370d2cb384bfb72d7f0a2c36d5dad7371ba95892"
+      },
+      {
+        "evidence_id": "target_14",
+        "frame_index": 3157,
+        "requested_time_s": 105.23333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/12aba723a49c3ad1623ce3e4.jpg",
+        "sha256": "7f53d3f6c9c55790f9ea20cba55add1e36e7a4e390024c264eec6f3d14e58b05"
+      },
+      {
+        "evidence_id": "anchor_3160",
+        "frame_index": 3160,
+        "requested_time_s": 105.33333333333333,
+        "role": "target_boundary",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/ade8c7d5996ea8e364caa201.jpg",
+        "sha256": "74fb2dc04e96f2017be5e4f537fd656575e6a3f564170dbae0c12a8dccb71904",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+      },
+      {
+        "evidence_id": "target_15",
+        "frame_index": 3160,
+        "requested_time_s": 105.33333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/71c03d05ad2a0114ff35010f.jpg",
+        "sha256": "74fb2dc04e96f2017be5e4f537fd656575e6a3f564170dbae0c12a8dccb71904"
+      },
+      {
+        "evidence_id": "context_3",
+        "frame_index": 3175,
+        "requested_time_s": 105.83333333333333,
+        "view": "front",
+        "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/ea3f735c71d6e34caf47e87a.jpg",
+        "sha256": "934849f05f4ff4e3bc56270b62fc1af888ba99a66352d56eaad7003ce3a2048f"
+      },
+      {
+        "evidence_id": "anchor_3176",
+        "frame_index": 3176,
+        "requested_time_s": 105.86666666666666,
+        "role": "context_after",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/067b3c2d0b3318d79ad51daa.jpg",
+        "sha256": "2fa2ed7fd508969119e91131657a284f95f6a217c47b65a7fc3f4ac668a89793",
+        "time_scope": "TARGET EXECUTION, original recording clock. context_after"
+      },
+      {
+        "evidence_id": "anchor_3191",
+        "frame_index": 3191,
+        "requested_time_s": 106.36666666666666,
+        "role": "context_after",
+        "view": "front",
+        "roi_xyxy": [
+          280,
+          270,
+          1020,
+          700
+        ],
+        "canvas": [
+          960,
+          560
+        ],
+        "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/048a9e31af3fde8332301c3e.jpg",
+        "sha256": "362f21b4c3732a99d5859392990677e4091838bfc3bae935b6ac93a31a0e0280",
+        "time_scope": "TARGET EXECUTION, original recording clock. context_after"
+      }
+    ],
+    "max_tokens": 850
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "ae4c32da25249f5b70a488a896347783b0cec5652e6c2355c8474a0549a85d52",
+    "status": "ok",
+    "stage": "evidence_v17_qualify",
+    "seconds": 26.004512548446655,
+    "usage": {
+      "prompt_tokens": 16065,
+      "total_tokens": 16268,
+      "completion_tokens": 203,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "answerable": true,
+      "visual_grade": 3,
+      "answer": "A screwdriver with a black handle.",
+      "observations": [
+        {
+          "fact": "The person's right hand reaches for and grasps a screwdriver with a black handle lying on the table.",
+          "target_image_ids": [
+            "target_10",
+            "target_11",
+            "target_12"
+          ],
+          "reference_image_ids": []
+        },
+        {
+          "fact": "The person lifts the black-handled screwdriver from the table surface.",
+          "target_image_ids": [
+            "target_13",
+            "target_14",
+            "target_15"
+          ],
+          "reference_image_ids": []
+        },
+        {
+          "fact": "The person brings the screwdriver to the device held in their left hand.",
+          "target_image_ids": [
+            "context_3",
+            "anchor_3176"
+          ],
+          "reference_image_ids": []
+        }
+      ],
+      "needs": [
+        "none"
+      ],
+      "limitation": ""
+    },
+    "raw_response": {
+      "id": "chatcmpl-b1a91cd986a4dc46",
+      "object": "chat.completion",
+      "created": 1789833278,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n\"answerable\": true,\n\"visual_grade\": 3,\n\"answer\": \"A screwdriver with a black handle.\",\n\"observations\": [\n{\"fact\": \"The person's right hand reaches for and grasps a screwdriver with a black handle lying on the table.\", \"target_image_ids\": [\"target_10\", \"target_11\", \"target_12\"], \"reference_image_ids\": []},\n{\"fact\": \"The person lifts the black-handled screwdriver from the table surface.\", \"target_image_ids\": [\"target_13\", \"target_14\", \"target_15\"], \"reference_image_ids\": []},\n{\"fact\": \"The person brings the screwdriver to the device held in their left hand.\", \"target_image_ids\": [\"context_3\", \"anchor_3176\"], \"reference_image_ids\": []}\n],\n\"needs\": [\"none\"],\n\"limitation\": \"\"\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 16065,
+        "total_tokens": 16268,
+        "completion_tokens": 203,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "Determine whether the supplied data are sufficient to answer the target procedural-video question. This is visual qualification BEFORE QA generation. You do not receive the target GT answer, states, or anomaly labels. You receive the complete PUBLIC illustrated procedure, labelled examples from another training execution when available, and target-video frames including boundary context.\n\nThe illustrated sequence is an example, NOT a mandatory dependency graph. Never infer correctness from matching it. REFERENCE images are composite examples from another execution; their placeholder time zero is NOT target-video time. They help identify actions, not prove what happened in the target. Only TARGET images can support the target answer. The target interval is explicitly given in original frame numbers with fps=30. Additional earlier/later context images are not other target actions; focus on the queried event/cutoff.\n\nFor tool pickup, track the same object on the surface then lifted away; observe its shape, not a nearby tool or printed drawing. For installation, identify the component AND relevant connection/cutoff state; holding/adjusting a part alone does not prove unfinished installation, and lack of visible torque does not itself prove incorrect installation. For actual order, identify both named operations and whether their starts are captured; do not silently replace start order with completion order. For anomaly/normality, identify observable evidence of the requested property; do not invent a physical error from the question. A reference example alone never proves the target state. Do not invent a component-to-receiver mapping.\n\nReturn exactly {\"answerable\":boolean,\"visual_grade\":integer 0..3,\"answer\":string,\"observations\":[{\"fact\":string,\"target_image_ids\":[string],\"reference_image_ids\":[string]}],\"needs\":[\"boundary\"|\"identity_reference\"|\"wider_context\"|\"synchronized_view\"|\"normative_source\"|\"none\"],\"limitation\":string}.\nGrade0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible without a material unresolved issue. answerable=true requires grade3, needs=[\"none\"], and at least one observation citing TARGET images. If there is a material limitation, answerable=false and grade<=2. At most 3 observations; concise facts, not chain-of-thought. Answer and limitation <=60 words each; observation facts <=40 words. Cite only IDs allowed by the payload. Preserve uncertainty even when a familiar procedure suggests an answer.\n",
+      "payload": {
+        "question": "Which tool did I pick up with my right hand in this clip?",
+        "kind": "tool_identity",
+        "reference_procedure": {
+          "procedure_id": "impact_model_a_illustrated_reference_v10",
+          "variant": "CG15-125BL development; illustration variant association is research-agent interpretation",
+          "workflow": "assemble",
+          "coverage": "all_five_displayed_coarse_assembly_stages; partial_engineering_constraints",
+          "procedure_text": "The supplied official reassembly illustration shows the rotor and gearbox operation first, followed by fitting and fastening the adapter plate, inserting and fastening the bearing plate assembly, installing the locking lever assembly, and screwing on the anti-vibration handle. Retrieve the needed parts and store tools as appropriate. This describes the full displayed example, not a uniquely mandatory ordering. The diagram shows component placement and screw operations, but gives no explicit torque, duration, or exhaustive prerequisite specification. Component state 1 refers to correct assembly of that component at the stated time, not completion of the whole device. The ordered stages may be used to compare the observed sequence with this supplied guide; a difference alone must not be called an operator error.",
+          "steps": [
+            {
+              "id": "rotor",
+              "name": "Install the rotor assembly",
+              "action_classes": [
+                "install_rotor_assembly"
+              ],
+              "component_group_candidate": [
+                "gearbox_housing",
+                "drive_shaft",
+                "bevel_gear",
+                "M6_nut"
+              ],
+              "receiver": null,
+              "expected_result": "Install the rotor assembly completed",
+              "requirement": "shown_in_reference",
+              "source_ids": [
+                "official_manual",
+                "official_step_dictionary"
+              ],
+              "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+            },
+            {
+              "id": "adapter",
+              "name": "Attach the adapter plate",
+              "action_classes": [
+                "attach_adapter_plate"
+              ],
+              "component_group_candidate": [
+                "adapter_plate",
+                "screw_adaptor_topleft",
+                "screw_adaptor_lowright",
+                "M4_nut_plate_topleft",
+                "M4_nut_plate_lowright"
+              ],
+              "receiver": null,
+              "expected_result": "Attach the adapter plate completed",
+              "requirement": "shown_in_reference",
+              "source_ids": [
+                "official_manual",
+                "official_step_dictionary"
+              ],
+              "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+            },
+            {
+              "id": "bearing",
+              "name": "Insert the bearing plate assembly",
+              "action_classes": [
+                "insert_bearing_plate_assembly"
+              ],
+              "component_group_candidate": [
+                "bearing_plate",
+                "bearing_screw_topleft",
+                "bearing_screw_lowright"
+              ],
+              "receiver": null,
+              "expected_result": "Insert the bearing plate assembly completed",
+              "requirement": "shown_in_reference",
+              "source_ids": [
+                "official_manual",
+                "official_step_dictionary"
+              ],
+              "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+            },
+            {
+              "id": "lever",
+              "name": "Install the locking lever assembly",
+              "action_classes": [
+                "install_locking_lever_assembly"
+              ],
+              "component_group_candidate": [
+                "screw_lever",
+                "spring",
+                "lever",
+                "washer"
+              ],
+              "receiver": null,
+              "expected_result": "Install the locking lever assembly completed",
+              "requirement": "shown_in_reference",
+              "source_ids": [
+                "official_manual",
+                "official_step_dictionary"
+              ],
+              "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+            },
+            {
+              "id": "handle",
+              "name": "Screw on the anti-vibration handle",
+              "action_classes": [
+                "screw_on_anti_vibration_handle"
+              ],
+              "component_group_candidate": [
+                "anti_vibration_handle"
+              ],
+              "receiver": null,
+              "expected_result": "Screw on the anti-vibration handle completed",
+              "requirement": "shown_in_reference",
+              "source_ids": [
+                "official_manual",
+                "official_step_dictionary"
+              ],
+              "mapping_status": "research_agent_interpretation_of_illustration_and_names"
+            }
+          ],
+          "state_mappings": [],
+          "source_catalog": [
+            {
+              "id": "official_manual",
+              "path": "sources/impact_docs/Manual_Book.svg",
+              "sha256": "632b04632b106c95767abd18734f14d3bf532d2487c7fd9ccdd992bae8bbe194",
+              "url": "https://github.com/Kratos-Wen/IMPACT/blob/4fed5faa5f05f7aece55712e458defa1f372b248/website/assets/figures/Manual_Book.svg",
+              "location": "bottom Reassembly row, left to right; all three rendered panels inspected by research agent",
+              "authority": "official_illustration_with_agent_transcription"
+            },
+            {
+              "id": "official_step_dictionary",
+              "path": "annotations/impact/IMPACT-v1.1/annotations/TAS-S/mapping_TAS-S.txt",
+              "location": "assembly action labels 13-25; dictionary order is not normative order",
+              "sha256": "95773ee14c4c7375bac667017732a1676987f102541735dc20c04df16c30d355"
+            }
+          ],
+          "unresolved": [
+            "No authoritative exhaustive AND/OR prerequisite graph has been located.",
+            "No source-verified component-to-receiver mapping supplied.",
+            "Do not promote an illustrated sequence or mined edge to a mandatory constraint."
+          ],
+          "illustrated_sequence_edges": [
+            {
+              "id": "illustrated_rotor_before_adapter",
+              "before": "rotor",
+              "after": "adapter",
+              "authority": "illustrated_reference_only",
+              "provenance": "research_agent_transcription_of_official_illustration",
+              "condition": "comparison_with_displayed_sequence_only",
+              "source_ids": [
+                "official_manual"
+              ]
+            },
+            {
+              "id": "illustrated_adapter_before_bearing",
+              "before": "adapter",
+              "after": "bearing",
+              "authority": "illustrated_reference_only",
+              "provenance": "research_agent_transcription_of_official_illustration",
+              "condition": "comparison_with_displayed_sequence_only",
+              "source_ids": [
+                "official_manual"
+              ]
+            },
+            {
+              "id": "illustrated_bearing_before_lever",
+              "before": "bearing",
+              "after": "lever",
+              "authority": "illustrated_reference_only",
+              "provenance": "research_agent_transcription_of_official_illustration",
+              "condition": "comparison_with_displayed_sequence_only",
+              "source_ids": [
+                "official_manual"
+              ]
+            },
+            {
+              "id": "illustrated_lever_before_handle",
+              "before": "lever",
+              "after": "handle",
+              "authority": "illustrated_reference_only",
+              "provenance": "research_agent_transcription_of_official_illustration",
+              "condition": "comparison_with_displayed_sequence_only",
+              "source_ids": [
+                "official_manual"
+              ]
+            }
+          ],
+          "mandatory_prerequisite_edges": []
+        },
+        "reference_examples": [],
+        "target_original_frame_interval_inclusive": [
+          3103,
+          3175
+        ],
+        "fps": 30.0,
+        "allowed_target_image_ids": [
+          "anchor_3088",
+          "context_0",
+          "anchor_3117",
+          "anchor_3118",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "context_1",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "anchor_3139",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "context_2",
+          "target_12",
+          "target_13",
+          "target_14",
+          "anchor_3160",
+          "target_15",
+          "context_3",
+          "anchor_3176",
+          "anchor_3191"
+        ],
+        "allowed_reference_image_ids": []
+      },
+      "image_refs": [
+        {
+          "evidence_id": "anchor_3088",
+          "frame_index": 3088,
+          "requested_time_s": 102.93333333333334,
+          "role": "context_before",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/21b77248793f973b9cf03f90.jpg",
+          "sha256": "8de2c2ba17e37fd7b0ab8d960789d4a64712dfc0d0ec107120b9c4072c4e37f6",
+          "time_scope": "TARGET EXECUTION, original recording clock. context_before"
+        },
+        {
+          "evidence_id": "context_0",
+          "frame_index": 3103,
+          "requested_time_s": 103.43333333333334,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/3bf121eef36c2828a6817d5f.jpg",
+          "sha256": "dc039174605ea99e4bda4175aa4b2c26988284d13371c95f726a57ba2d971195"
+        },
+        {
+          "evidence_id": "anchor_3117",
+          "frame_index": 3117,
+          "requested_time_s": 103.9,
+          "role": "target_boundary",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/b6a9ae3494a968726713020b.jpg",
+          "sha256": "35196131d999f320486bcb1ae72f291328f6822698fea77d7ca3b9792b8b864c",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+        },
+        {
+          "evidence_id": "anchor_3118",
+          "frame_index": 3118,
+          "requested_time_s": 103.93333333333334,
+          "role": "target_boundary",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/25b35015a21b2b9961fc1a6e.jpg",
+          "sha256": "053ca1e498d5b69e8c49dc6b38873c2fd17ebdfb871a81347b34b42a8c8e4707",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+        },
+        {
+          "evidence_id": "target_0",
+          "frame_index": 3118,
+          "requested_time_s": 103.93333333333334,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/199370493c31f8556bfe7e25.jpg",
+          "sha256": "053ca1e498d5b69e8c49dc6b38873c2fd17ebdfb871a81347b34b42a8c8e4707"
+        },
+        {
+          "evidence_id": "target_1",
+          "frame_index": 3121,
+          "requested_time_s": 104.03333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/ce7f5d452837c93ad8f9805b.jpg",
+          "sha256": "eadd480df074b9b53523d1c06c52d2affd2925d08bfa28f31099f04767cb3c5b"
+        },
+        {
+          "evidence_id": "target_2",
+          "frame_index": 3124,
+          "requested_time_s": 104.13333333333334,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/be42dfad6e4b21c0767a9465.jpg",
+          "sha256": "bd55838dc68acaf8b3ebc8067260b4c58087db579ab36070371f746ebafb1488"
+        },
+        {
+          "evidence_id": "target_3",
+          "frame_index": 3126,
+          "requested_time_s": 104.2,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/9e73cdfa21fec30fd1237156.jpg",
+          "sha256": "8a11c1193c159f1b018ef81d39495f8498b1e2a9415b7693cc8262a18a269061"
+        },
+        {
+          "evidence_id": "context_1",
+          "frame_index": 3127,
+          "requested_time_s": 104.23333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/efa47e1f8d6ba26b760f3304.jpg",
+          "sha256": "f1e1e92c0a9f3a7d9e9acb1551e2a909a9e561cc3101439491db2eade6d5c137"
+        },
+        {
+          "evidence_id": "target_4",
+          "frame_index": 3129,
+          "requested_time_s": 104.3,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/4447077347b6dc551b66cf5b.jpg",
+          "sha256": "8aaec017079e6bbf80a762c7742cff0d4a4cc68ba3e2fc349659a400c6c8b678"
+        },
+        {
+          "evidence_id": "target_5",
+          "frame_index": 3132,
+          "requested_time_s": 104.4,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/9cf2de421df9b0b85939be9e.jpg",
+          "sha256": "a3bbaf41ef74a712916e696b8c015297d79e1f7b25dc79eb17120dca02ce2405"
+        },
+        {
+          "evidence_id": "target_6",
+          "frame_index": 3135,
+          "requested_time_s": 104.5,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/6488bef2925542a252ba10c5.jpg",
+          "sha256": "acfee71f14b67fbce934da7d6460e2abd1e36338655f3ccbbe000d9b871b1351"
+        },
+        {
+          "evidence_id": "target_7",
+          "frame_index": 3138,
+          "requested_time_s": 104.6,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/78e90e4eef42755dd018688f.jpg",
+          "sha256": "70d0685ec1de8459291ad3bf0489dd0220bad63d42915c674d1db51d3e9c3be0"
+        },
+        {
+          "evidence_id": "anchor_3139",
+          "frame_index": 3139,
+          "requested_time_s": 104.63333333333334,
+          "role": "target_boundary",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/1d61240060ae3cc30b1fbd9d.jpg",
+          "sha256": "8386a559bc75ea5c18f4fcd88e6d490967eff5534649eef2f41061a2666e4179",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+        },
+        {
+          "evidence_id": "target_8",
+          "frame_index": 3140,
+          "requested_time_s": 104.66666666666667,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/50683f21876256149c37b491.jpg",
+          "sha256": "bb12222ae9548ee50f44571cbc3f3a23c9a121a003205d616c47105ea9e6d623"
+        },
+        {
+          "evidence_id": "target_9",
+          "frame_index": 3143,
+          "requested_time_s": 104.76666666666667,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/99692c87c01e9b0b5897a01a.jpg",
+          "sha256": "525ce06300edeead6e6b68772e696b4b95bf8ea17507c5bf10c84b336ffa25fa"
+        },
+        {
+          "evidence_id": "target_10",
+          "frame_index": 3146,
+          "requested_time_s": 104.86666666666666,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/cf060d47ce244257d92bd760.jpg",
+          "sha256": "ab15338b84801b01be51868a22f108c092833a45533e17201a02cf13c03cfff5"
+        },
+        {
+          "evidence_id": "target_11",
+          "frame_index": 3149,
+          "requested_time_s": 104.96666666666667,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/48f3cd62b960771091ec6259.jpg",
+          "sha256": "30f1ebb64c9a208a6ec77c60711ca07cc1b3929950a6ffb20b9b0d6523bb57af"
+        },
+        {
+          "evidence_id": "context_2",
+          "frame_index": 3151,
+          "requested_time_s": 105.03333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/6f369b9d44f787a6733da76b.jpg",
+          "sha256": "6376d02c0a6c8fa7271cc215de0e95b896012453e301aa861b4b56f49fd57e77"
+        },
+        {
+          "evidence_id": "target_12",
+          "frame_index": 3152,
+          "requested_time_s": 105.06666666666666,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/21cfe22d46fdefeb46d57af2.jpg",
+          "sha256": "90a3910415ba6bdaa1cca6bdf4e3c1767bc9b3ed4619d9f52a071fc90352d509"
+        },
+        {
+          "evidence_id": "target_13",
+          "frame_index": 3154,
+          "requested_time_s": 105.13333333333334,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/91be3dc7916b10be21ceffed.jpg",
+          "sha256": "a11ac3b41ebd7fa7f6d93621370d2cb384bfb72d7f0a2c36d5dad7371ba95892"
+        },
+        {
+          "evidence_id": "target_14",
+          "frame_index": 3157,
+          "requested_time_s": 105.23333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/12aba723a49c3ad1623ce3e4.jpg",
+          "sha256": "7f53d3f6c9c55790f9ea20cba55add1e36e7a4e390024c264eec6f3d14e58b05"
+        },
+        {
+          "evidence_id": "anchor_3160",
+          "frame_index": 3160,
+          "requested_time_s": 105.33333333333333,
+          "role": "target_boundary",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/ade8c7d5996ea8e364caa201.jpg",
+          "sha256": "74fb2dc04e96f2017be5e4f537fd656575e6a3f564170dbae0c12a8dccb71904",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_boundary"
+        },
+        {
+          "evidence_id": "target_15",
+          "frame_index": 3160,
+          "requested_time_s": 105.33333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/detail/frames/71c03d05ad2a0114ff35010f.jpg",
+          "sha256": "74fb2dc04e96f2017be5e4f537fd656575e6a3f564170dbae0c12a8dccb71904"
+        },
+        {
+          "evidence_id": "context_3",
+          "frame_index": 3175,
+          "requested_time_s": 105.83333333333333,
+          "view": "front",
+          "time_scope": "TARGET EXECUTION, original recording clock. target_original_frame",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/quality_v16_training_inputs/NA07GE21_Reassembly_A_004_front/base/frames/ea3f735c71d6e34caf47e87a.jpg",
+          "sha256": "934849f05f4ff4e3bc56270b62fc1af888ba99a66352d56eaad7003ce3a2048f"
+        },
+        {
+          "evidence_id": "anchor_3176",
+          "frame_index": 3176,
+          "requested_time_s": 105.86666666666666,
+          "role": "context_after",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/067b3c2d0b3318d79ad51daa.jpg",
+          "sha256": "2fa2ed7fd508969119e91131657a284f95f6a217c47b65a7fc3f4ac668a89793",
+          "time_scope": "TARGET EXECUTION, original recording clock. context_after"
+        },
+        {
+          "evidence_id": "anchor_3191",
+          "frame_index": 3191,
+          "requested_time_s": 106.36666666666666,
+          "role": "context_after",
+          "view": "front",
+          "roi_xyxy": [
+            280,
+            270,
+            1020,
+            700
+          ],
+          "canvas": [
+            960,
+            560
+          ],
+          "path": "/home/ldq/project/sop/outputs/impact_qa/evidence_v17_inputs/frames/048a9e31af3fde8332301c3e.jpg",
+          "sha256": "362f21b4c3732a99d5859392990677e4091838bfc3bae935b6ac93a31a0e0280",
+          "time_scope": "TARGET EXECUTION, original recording clock. context_after"
+        }
+      ],
+      "max_tokens": 850,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

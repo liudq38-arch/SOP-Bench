@@ -1,0 +1,357 @@
+{
+  "request_key": "1127be6c1c9c085c0eedd2774a1aaf759bc17ff31291043b2928f2b90fb450c9",
+  "started_utc": "2026-09-19T14:30:13.197122+00:00",
+  "stage": "quality_v16_generate",
+  "request": {
+    "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+      "mcq_question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+      "canonical_answer": "I started installing the locking lever assembly first.",
+      "options": [
+        "Both started at the same time.",
+        "Screwing on the anti-vibration handle.",
+        "Installing the locking lever assembly."
+      ],
+      "correct_option_index": 2,
+      "facts": {
+        "first_action": "install_locking_lever_assembly",
+        "second_action": "screw_on_anti_vibration_handle",
+        "first_onsets": [
+          5246,
+          6654
+        ],
+        "scope": "first observed starts within the clip, not completion or mandatory ordering"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 27,
+            "label": "install_locking_lever_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 5246,
+            "f_end": 5386
+          },
+          "pointer": "/segments/27"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 32,
+            "label": "screw_on_anti_vibration_handle",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 6654,
+            "f_end": 6962
+          },
+          "pointer": "/segments/32"
+        }
+      ],
+      "allowed_image_ids": [
+        "frame_5246",
+        "frame_5460",
+        "frame_5674",
+        "frame_5888",
+        "frame_6102",
+        "frame_6316",
+        "frame_6530",
+        "frame_6744"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ]
+    },
+    "images": [
+      {
+        "evidence_id": "frame_5246",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/6ca5f855d3d2cff452197d1e.jpg",
+        "requested_time_s": 174.86666666666667,
+        "frame_index": 5246,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "a012f93231445cdeeccf6bf2b5b2dda605a3244a5a0471a40a386aa783e316c9"
+      },
+      {
+        "evidence_id": "frame_5460",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/8e6b1b390acb66413070ff50.jpg",
+        "requested_time_s": 182.0,
+        "frame_index": 5460,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "fb779036689d34d4e7d160320822f2da78e22a1d37b5c69f2343b5ffb2d3f234"
+      },
+      {
+        "evidence_id": "frame_5674",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/8a6f9fdc4fc17fcec90504f6.jpg",
+        "requested_time_s": 189.13333333333333,
+        "frame_index": 5674,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "ba631bdc87ec16dab7df4aefe5af3c5033b9de09c03be4cfcdbb3bb7b4602b7d"
+      },
+      {
+        "evidence_id": "frame_5888",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/70bfd0146c3bbb5958062c94.jpg",
+        "requested_time_s": 196.26666666666668,
+        "frame_index": 5888,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "4c82343b5d493a3cd1c7fe0c3d9c26c9b985864baeafdc06589919b415b4d30c"
+      },
+      {
+        "evidence_id": "frame_6102",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/4865df6506441d4f75d3dd7e.jpg",
+        "requested_time_s": 203.4,
+        "frame_index": 6102,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "5c19a56c86fa850fd9dedeed33f3ef64cf0762aedf15ff3585bf811256cbf7f6"
+      },
+      {
+        "evidence_id": "frame_6316",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c3e43cfea8ed203cc10d1ee8.jpg",
+        "requested_time_s": 210.53333333333333,
+        "frame_index": 6316,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "e015ce8a687fcd7bbb0d1f571b3b08c6e417b5a55ba50aee3cdcaed55f68e5bc"
+      },
+      {
+        "evidence_id": "frame_6530",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/7f7770f07ee1834e0d02604f.jpg",
+        "requested_time_s": 217.66666666666666,
+        "frame_index": 6530,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "9f48dafddc40509c1f8efb8dcd24f4dc06a080946a6af7106b5a7500070b3d16"
+      },
+      {
+        "evidence_id": "frame_6744",
+        "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/08ea42c95297d2f9cd2da95a.jpg",
+        "requested_time_s": 224.8,
+        "frame_index": 6744,
+        "view": "front",
+        "time_scope": "within target cutoff",
+        "sha256": "81378e72478a03dbaec554919aabbdb005a9b41ac8fc23a93ccf3afbe44eb2d3"
+      }
+    ],
+    "max_tokens": 800
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "f5f2f270aad6e465fda0ee06d009da64719ef37e288b96b9924752a2be0b85e4",
+    "status": "ok",
+    "stage": "quality_v16_generate",
+    "seconds": 11.901479721069336,
+    "usage": {
+      "prompt_tokens": 8082,
+      "total_tokens": 8252,
+      "completion_tokens": 170,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "open_question": "Which action did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+      "answer": "I started installing the locking lever assembly first.",
+      "mcq_question": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+      "visual_grade": 2,
+      "limitation": "The specific start of the locking lever assembly is not directly visible in the provided frames, which show later stages of manipulation.",
+      "claims": [
+        {
+          "claim": "I started installing the locking lever assembly first.",
+          "source_ids": [
+            "s0"
+          ],
+          "image_ids": []
+        }
+      ]
+    },
+    "raw_response": {
+      "id": "chatcmpl-bcf0bc4b0bce923f",
+      "object": "chat.completion",
+      "created": 1789828216,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\n  \"open_question\": \"Which action did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?\",\n  \"answer\": \"I started installing the locking lever assembly first.\",\n  \"mcq_question\": \"Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?\",\n  \"visual_grade\": 2,\n  \"limitation\": \"The specific start of the locking lever assembly is not directly visible in the provided frames, which show later stages of manipulation.\",\n  \"claims\": [\n    {\n      \"claim\": \"I started installing the locking lever assembly first.\",\n      \"source_ids\": [\n        \"s0\"\n      ],\n      \"image_ids\": []\n    }\n  ]\n}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 8082,
+        "total_tokens": 8252,
+        "completion_tokens": 170,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8002/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You write first-person procedural video QA, constrained by the supplied source contract AND visible frames. Return JSON only. Write natural English open_question, answer, mcq_question. Preserve the exact requested proposition, hand, component, cutoff, and all anomaly attributes. MCQ options are fixed externally; its question must test the same proposition as the open question. Never mention annotations, GT, category IDs, evidence IDs or hidden metadata in public QA. Do not ask for an answer already disclosed in the question. Do not infer mandatory ordering from observed ordering, causes/corrections from anomaly categories, successful completion from an active interval, an operator mistake from state -1, or fine alignment/torque from a distant view. Generic screwdriver/wrench identity only. If frames cannot establish the proposition, still write the source-constrained QA but set visual_grade <=2 and explain the missing evidence. Do not invent visible details to match GT.\nReturn exactly {\"open_question\":string,\"answer\":string,\"mcq_question\":string,\"visual_grade\":integer 0..3,\"limitation\":string,\"claims\":[{\"claim\":string,\"source_ids\":[string],\"image_ids\":[string]}]}.\nUse 1-3 atomic answer claims, each <=35 words. Cite ONLY source_ids and image_ids listed in the payload. A source ID says where a fact comes from, not that it is visible. Use no image IDs when not visible. Grade 0=absent/contradicted,1=guess,2=partial or ambiguous,3=directly visible with no material ambiguity. Do not provide chain-of-thought. Maximum answer length 45 words; question <=40 words; limitation <=45 words.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+        "mcq_question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+        "canonical_answer": "I started installing the locking lever assembly first.",
+        "options": [
+          "Both started at the same time.",
+          "Screwing on the anti-vibration handle.",
+          "Installing the locking lever assembly."
+        ],
+        "correct_option_index": 2,
+        "facts": {
+          "first_action": "install_locking_lever_assembly",
+          "second_action": "screw_on_anti_vibration_handle",
+          "first_onsets": [
+            5246,
+            6654
+          ],
+          "scope": "first observed starts within the clip, not completion or mandatory ordering"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 27,
+              "label": "install_locking_lever_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 5246,
+              "f_end": 5386
+            },
+            "pointer": "/segments/27"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 32,
+              "label": "screw_on_anti_vibration_handle",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 6654,
+              "f_end": 6962
+            },
+            "pointer": "/segments/32"
+          }
+        ],
+        "allowed_image_ids": [
+          "frame_5246",
+          "frame_5460",
+          "frame_5674",
+          "frame_5888",
+          "frame_6102",
+          "frame_6316",
+          "frame_6530",
+          "frame_6744"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ]
+      },
+      "image_refs": [
+        {
+          "evidence_id": "frame_5246",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/6ca5f855d3d2cff452197d1e.jpg",
+          "requested_time_s": 174.86666666666667,
+          "frame_index": 5246,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "a012f93231445cdeeccf6bf2b5b2dda605a3244a5a0471a40a386aa783e316c9"
+        },
+        {
+          "evidence_id": "frame_5460",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/8e6b1b390acb66413070ff50.jpg",
+          "requested_time_s": 182.0,
+          "frame_index": 5460,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "fb779036689d34d4e7d160320822f2da78e22a1d37b5c69f2343b5ffb2d3f234"
+        },
+        {
+          "evidence_id": "frame_5674",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/8a6f9fdc4fc17fcec90504f6.jpg",
+          "requested_time_s": 189.13333333333333,
+          "frame_index": 5674,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "ba631bdc87ec16dab7df4aefe5af3c5033b9de09c03be4cfcdbb3bb7b4602b7d"
+        },
+        {
+          "evidence_id": "frame_5888",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/70bfd0146c3bbb5958062c94.jpg",
+          "requested_time_s": 196.26666666666668,
+          "frame_index": 5888,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "4c82343b5d493a3cd1c7fe0c3d9c26c9b985864baeafdc06589919b415b4d30c"
+        },
+        {
+          "evidence_id": "frame_6102",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/4865df6506441d4f75d3dd7e.jpg",
+          "requested_time_s": 203.4,
+          "frame_index": 6102,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "5c19a56c86fa850fd9dedeed33f3ef64cf0762aedf15ff3585bf811256cbf7f6"
+        },
+        {
+          "evidence_id": "frame_6316",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/c3e43cfea8ed203cc10d1ee8.jpg",
+          "requested_time_s": 210.53333333333333,
+          "frame_index": 6316,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "e015ce8a687fcd7bbb0d1f571b3b08c6e417b5a55ba50aee3cdcaed55f68e5bc"
+        },
+        {
+          "evidence_id": "frame_6530",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/7f7770f07ee1834e0d02604f.jpg",
+          "requested_time_s": 217.66666666666666,
+          "frame_index": 6530,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "9f48dafddc40509c1f8efb8dcd24f4dc06a080946a6af7106b5a7500070b3d16"
+        },
+        {
+          "evidence_id": "frame_6744",
+          "path": "/home/ldq/project/sop/outputs/impact_qa/gt_v12_inputs/frames/08ea42c95297d2f9cd2da95a.jpg",
+          "requested_time_s": 224.8,
+          "frame_index": 6744,
+          "view": "front",
+          "time_scope": "within target cutoff",
+          "sha256": "81378e72478a03dbaec554919aabbdb005a9b41ac8fc23a93ccf3afbe44eb2d3"
+        }
+      ],
+      "max_tokens": 800,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

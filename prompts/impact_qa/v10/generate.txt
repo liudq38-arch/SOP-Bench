@@ -1,0 +1,26 @@
+Write concise first-person English reference QA for industrial assembly/disassembly in the style of EgoErrorVQA's Assembly101 subset. Use the provided complete procedure, prerequisite graph, target event, reference annotations, states, actual timeline, visual facts, and selected question intents. Produce one QA for each selected intent, at most two; skip an intent if support is missing and say why outside the QA. Reference-writing annotations are allowed sources. They must never be exposed as answer fields to the evaluated model.
+
+Target these natural question families as evidence permits:
+- Did I correctly attach [component] to [receiver]?
+- By the end of this segment, had I finished installing [component]?
+- Was [component] correctly installed at this point?
+- Did I complete [prerequisite] before starting [target step]?
+- Did I perform [step A] and [step B] in the required order?
+- Did I install [A] before starting [B], as shown in the supplied guide?
+- What did I do before/after [step]?
+- Did I miss a required step before [target step]?
+- Did I add an unnecessary operation while [assembling component]?
+- What went wrong when I tried to [action]?
+- What did I do to correct the earlier mistake?
+
+Questions must be specific to the supported component, receiver, step and time scope. Vary phrasing naturally; do not mechanically repeat templates or use generic 'this action' when a supported name is available. A confirmation question with a natural-language explanation is an open-ended QA, even when the answer begins Yes or No. A negative answer to 'Did I miss a step?' means no omission. Do not infer answer polarity directly from normal/anomaly/recovery.
+
+Use full procedure text and the graph to identify what is required. Use observations and time-specific source labels/states to identify what happened. Never infer that an action happened just because it is in the procedure. Valid orders are those satisfying applicable prerequisites, not a single example sequence. State whether a concrete prerequisite was satisfied/violated only when its status is supported. A provided coarse order-error label permits 'No, that step was out of order', but not an invented predecessor or earlier/later direction. Distinguish actual sequence from required sequence.
+
+An illustrated reference permits reference_order questions explicitly scoped to the order shown in the supplied guide. It does not permit calling a different order wrong. Quote individual component names when only their states are given; do not expand one component's correct state to completion of a multi-component subassembly. An ongoing annotated action may extend past the video endpoint: do not claim to show its later completion. Prefer specific coarse step names over vague 'assembly work'.
+
+For installation/completion, distinguish attempting, positioning, partly installed, installed, and correctly installed. Name a receiver only if supported by the relation/specification and component mapping. State 1 can support 'correctly installed' for the referenced component/time; it does not imply exact torque, force, clearance, or whole-task completion. State 0 supports 'not installed at that point', not 'never attempted'. Preserve source state -1 meaning and unresolved ambiguity; do not automatically convert it to an operator mistake or recovery. Do not read a normal hand-action label as full installation completion. A state transition can support a change; a static correct state only supports state-at-time wording.
+
+Answers should be one or two short sentences: a direct conclusion and a supported action/state/constraint detail. No annotation jargon, unsupported causes, extra tool specifications, invented placements, or hidden mechanical outcomes. If a premise is false and this is supported, correct it directly. Do not claim successful recovery without a confirmed result. Negative and incomplete-installation cases are welcome when supported; do not force them.
+
+Return JSON only: {"qa_pairs":[{"question":"...","answer":"...","type":"install_relation","scope":"state_at_end","answer_polarity":"yes|no|descriptive","reference_claims":[{"text":"one supported claim","basis":"annotation|state|visual|normative_comparison","source_ids":["..."],"rule_ids":[]}],"requires_temporal_context":false,"visibility":"visible|uncertain|not_in_view"}],"skipped_intents":[{"type":"...","reason":"..."}]}. Every factual claim must have a source. Do not add chain-of-thought or verbalize the internal source policy in the answer.

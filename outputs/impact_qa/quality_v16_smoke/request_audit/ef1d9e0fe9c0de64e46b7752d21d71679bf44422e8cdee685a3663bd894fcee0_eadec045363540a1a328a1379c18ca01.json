@@ -1,0 +1,365 @@
+{
+  "request_key": "ef1d9e0fe9c0de64e46b7752d21d71679bf44422e8cdee685a3663bd894fcee0",
+  "started_utc": "2026-09-19T14:17:28.763785+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "action_phase",
+      "question_proposition": "Did I make an error while tightening the anti-vibration handle by hand with my left hand?",
+      "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while tightening the anti-vibration handle by hand with my left hand?",
+      "canonical_answer": "No, that action was performed normally.",
+      "options": [
+        "The action was a recovery.",
+        "The action contained an error.",
+        "The action was normal."
+      ],
+      "correct_option_index": 2,
+      "facts": {
+        "action": "hand_tighten_anti_vibration_handle",
+        "hand": "left",
+        "phase": "normal",
+        "scope": "this hand and action only; no whole-step or whole-video correctness"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "action_label": 60,
+            "verb": 9,
+            "noun": 2,
+            "start_frame": 6696,
+            "end_frame": 6816,
+            "phase": "normal",
+            "anomaly_type": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "entity": "left"
+          },
+          "pointer": "/segments/19"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 60,
+            "name": "hand_tighten_anti_vibration_handle"
+          },
+          "pointer": "/action_labels/60"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "context_1",
+        "target_5",
+        "target_6",
+        "target_7",
+        "target_8",
+        "target_9",
+        "context_2",
+        "target_10",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "context_3",
+        "target_15"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "Did I make an error while tightening the anti-vibration handle by hand with my left hand?",
+        "answer": "No, that action was performed normally.",
+        "mcq_question": "Was I performing a normal action, making an error, or recovering while tightening the anti-vibration handle by hand with my left hand?",
+        "visual_grade": 2,
+        "limitation": "The specific hand-tightening motion is partially obscured by the operator's body and the object itself, preventing a clear view of the exact grip and rotation.",
+        "claims": [
+          {
+            "claim": "The action of tightening the anti-vibration handle by hand with the left hand was performed normally.",
+            "source_ids": [
+              "s0",
+              "s1"
+            ],
+            "image_ids": [
+              "target_0",
+              "target_1",
+              "target_2",
+              "target_3",
+              "target_4",
+              "target_5",
+              "target_6",
+              "target_7",
+              "target_8",
+              "target_9",
+              "target_10",
+              "target_11",
+              "target_12",
+              "target_13",
+              "target_14",
+              "target_15"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "No visible error occurred while tightening the handle.",
+        "visual_grade": 2,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "context_1",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "context_2",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_3",
+          "target_15"
+        ],
+        "observation": "The person holds the black object with both hands, rotating the orange handle. No visible misalignment or dropped parts are seen.",
+        "limitation": "Internal tightness or torque cannot be verified visually; only external hand movements are observed."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "c5e66e34612bf72bab218afbb5596797a11b6a722126773b2ab11518c34fde08",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 7.333472490310669,
+    "usage": {
+      "prompt_tokens": 1238,
+      "total_tokens": 1337,
+      "completion_tokens": 99,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 2,
+      "blind_matches_gt": true,
+      "unsupported_claims": [],
+      "reason": "Source s0 explicitly labels phase as 'normal' with zero anomalies. Blind answer 'No visible error' semantically matches 'normal'. No unsupported claims or scope violations found."
+    },
+    "raw_response": {
+      "id": "chatcmpl-936d0b2f624e06a4",
+      "object": "chat.completion",
+      "created": 1789827457,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":2,\"blind_matches_gt\":true,\"unsupported_claims\":[],\"reason\":\"Source s0 explicitly labels phase as 'normal' with zero anomalies. Blind answer 'No visible error' semantically matches 'normal'. No unsupported claims or scope violations found.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1238,
+        "total_tokens": 1337,
+        "completion_tokens": 99,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "action_phase",
+        "question_proposition": "Did I make an error while tightening the anti-vibration handle by hand with my left hand?",
+        "mcq_question_proposition": "Was I performing a normal action, making an error, or recovering while tightening the anti-vibration handle by hand with my left hand?",
+        "canonical_answer": "No, that action was performed normally.",
+        "options": [
+          "The action was a recovery.",
+          "The action contained an error.",
+          "The action was normal."
+        ],
+        "correct_option_index": 2,
+        "facts": {
+          "action": "hand_tighten_anti_vibration_handle",
+          "hand": "left",
+          "phase": "normal",
+          "scope": "this hand and action only; no whole-step or whole-video correctness"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "action_label": 60,
+              "verb": 9,
+              "noun": 2,
+              "start_frame": 6696,
+              "end_frame": 6816,
+              "phase": "normal",
+              "anomaly_type": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "entity": "left"
+            },
+            "pointer": "/segments/19"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 60,
+              "name": "hand_tighten_anti_vibration_handle"
+            },
+            "pointer": "/action_labels/60"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "context_1",
+          "target_5",
+          "target_6",
+          "target_7",
+          "target_8",
+          "target_9",
+          "context_2",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_3",
+          "target_15"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "Did I make an error while tightening the anti-vibration handle by hand with my left hand?",
+          "answer": "No, that action was performed normally.",
+          "mcq_question": "Was I performing a normal action, making an error, or recovering while tightening the anti-vibration handle by hand with my left hand?",
+          "visual_grade": 2,
+          "limitation": "The specific hand-tightening motion is partially obscured by the operator's body and the object itself, preventing a clear view of the exact grip and rotation.",
+          "claims": [
+            {
+              "claim": "The action of tightening the anti-vibration handle by hand with the left hand was performed normally.",
+              "source_ids": [
+                "s0",
+                "s1"
+              ],
+              "image_ids": [
+                "target_0",
+                "target_1",
+                "target_2",
+                "target_3",
+                "target_4",
+                "target_5",
+                "target_6",
+                "target_7",
+                "target_8",
+                "target_9",
+                "target_10",
+                "target_11",
+                "target_12",
+                "target_13",
+                "target_14",
+                "target_15"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "No visible error occurred while tightening the handle.",
+          "visual_grade": 2,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "context_0",
+            "target_0",
+            "target_1",
+            "target_2",
+            "target_3",
+            "target_4",
+            "context_1",
+            "target_5",
+            "target_6",
+            "target_7",
+            "target_8",
+            "target_9",
+            "context_2",
+            "target_10",
+            "target_11",
+            "target_12",
+            "target_13",
+            "target_14",
+            "context_3",
+            "target_15"
+          ],
+          "observation": "The person holds the black object with both hands, rotating the orange handle. No visible misalignment or dropped parts are seen.",
+          "limitation": "Internal tightness or torque cannot be verified visually; only external hand movements are observed."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}

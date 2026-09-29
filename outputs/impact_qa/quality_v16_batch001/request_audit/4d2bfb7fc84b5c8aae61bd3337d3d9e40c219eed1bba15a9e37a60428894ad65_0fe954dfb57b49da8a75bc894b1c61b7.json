@@ -1,0 +1,339 @@
+{
+  "request_key": "4d2bfb7fc84b5c8aae61bd3337d3d9e40c219eed1bba15a9e37a60428894ad65",
+  "started_utc": "2026-09-19T14:29:14.228819+00:00",
+  "stage": "quality_v16_source_audit",
+  "request": {
+    "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+    "payload": {
+      "kind": "observed_order",
+      "question_proposition": "Did I start installing the locking lever assembly before screwing on the anti-vibration handle?",
+      "mcq_question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+      "canonical_answer": "Yes, I started installing the locking lever assembly first.",
+      "options": [
+        "Installing the locking lever assembly.",
+        "Both started at the same time.",
+        "Screwing on the anti-vibration handle."
+      ],
+      "correct_option_index": 0,
+      "facts": {
+        "first_action": "install_locking_lever_assembly",
+        "second_action": "screw_on_anti_vibration_handle",
+        "first_onsets": [
+          4309,
+          4946
+        ],
+        "scope": "first observed starts within the clip, not completion or mandatory ordering"
+      },
+      "sources": [
+        {
+          "source_id": "s0",
+          "value": {
+            "id": 22,
+            "label": "install_locking_lever_assembly",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 4309,
+            "f_end": 4887
+          },
+          "pointer": "/segments/18"
+        },
+        {
+          "source_id": "s1",
+          "value": {
+            "id": 23,
+            "label": "screw_on_anti_vibration_handle",
+            "has_anomaly": false,
+            "meta_activity": "none",
+            "f_start": 4946,
+            "f_end": 5253
+          },
+          "pointer": "/segments/21"
+        }
+      ],
+      "allowed_image_ids": [
+        "context_0",
+        "target_0",
+        "target_1",
+        "target_2",
+        "target_3",
+        "target_4",
+        "target_5",
+        "target_6",
+        "target_7",
+        "context_1",
+        "context_2",
+        "target_8",
+        "target_9",
+        "target_10",
+        "target_11",
+        "target_12",
+        "target_13",
+        "target_14",
+        "context_3",
+        "target_15"
+      ],
+      "forbidden_claims": [
+        "A unique mandatory order inferred from illustration",
+        "An operator mistake inferred from ASR=-1",
+        "Unsourced cause, correction, receiver, torque or fine alignment",
+        "Dropping any GT anomaly attribute from a multi-label answer"
+      ],
+      "proposed_qa": {
+        "open_question": "Did I start installing the locking lever assembly before screwing on the anti-vibration handle?",
+        "answer": "Yes, I started installing the locking lever assembly first.",
+        "mcq_question": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+        "visual_grade": 2,
+        "limitation": "Frames show the actions occurring sequentially, but the exact start timestamps are not visible in the images themselves.",
+        "claims": [
+          {
+            "claim": "I started installing the locking lever assembly first.",
+            "source_ids": [
+              "s0"
+            ],
+            "image_ids": [
+              "target_0",
+              "target_1",
+              "target_2",
+              "target_3",
+              "target_4",
+              "target_5",
+              "target_6",
+              "target_7"
+            ]
+          },
+          {
+            "claim": "I started screwing on the anti-vibration handle second.",
+            "source_ids": [
+              "s1"
+            ],
+            "image_ids": [
+              "target_8",
+              "target_9",
+              "target_10",
+              "target_11",
+              "target_12",
+              "target_13",
+              "target_14",
+              "target_15"
+            ]
+          }
+        ]
+      },
+      "blind_answer": {
+        "answer": "yes",
+        "visual_grade": 3,
+        "tool": "not_applicable",
+        "before_id": null,
+        "after_id": null,
+        "image_ids": [
+          "target_0",
+          "target_15"
+        ],
+        "observation": "In target_0, the person is installing the locking lever assembly. In target_15, the person is screwing on the anti-vibration handle. The lever assembly installation visibly precedes the handle screwing.",
+        "limitation": "The exact start of the lever assembly installation is not shown, only the ongoing action. The handle screwing is shown in progress."
+      }
+    },
+    "images": [],
+    "max_tokens": 600
+  },
+  "status": "ok",
+  "response": {
+    "cache_key": "5fec56c960d3b059e9b1ebfa28d0b2acf15d56c4fd6ad24fb541dfacb0a5beec",
+    "status": "ok",
+    "stage": "quality_v16_source_audit",
+    "seconds": 10.055888652801514,
+    "usage": {
+      "prompt_tokens": 1194,
+      "total_tokens": 1296,
+      "completion_tokens": 102,
+      "prompt_tokens_details": null
+    },
+    "result": {
+      "source_entails_answer": true,
+      "claims_entailed": true,
+      "question_preserves_scope": true,
+      "open_mcq_equivalent": true,
+      "no_answer_leakage": true,
+      "unique_correct_option": true,
+      "correct_option_index": 0,
+      "blind_matches_gt": true,
+      "unsupported_claims": [],
+      "reason": "Sources confirm start times: lever (4309) precedes handle (4946). Blind answer correctly identifies order based on observed segments without inferring completion or mandatory rules."
+    },
+    "raw_response": {
+      "id": "chatcmpl-a39f1614780cf187",
+      "object": "chat.completion",
+      "created": 1789828154,
+      "model": "impact-qwen35-27b",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"source_entails_answer\":true,\"claims_entailed\":true,\"question_preserves_scope\":true,\"open_mcq_equivalent\":true,\"no_answer_leakage\":true,\"unique_correct_option\":true,\"correct_option_index\":0,\"blind_matches_gt\":true,\"unsupported_claims\":[],\"reason\":\"Sources confirm start times: lever (4309) precedes handle (4946). Blind answer correctly identifies order based on observed segments without inferring completion or mandatory rules.\"}",
+            "refusal": null,
+            "annotations": null,
+            "audio": null,
+            "function_call": null,
+            "tool_calls": [],
+            "reasoning": null
+          },
+          "logprobs": null,
+          "finish_reason": "stop",
+          "stop_reason": null,
+          "token_ids": null
+        }
+      ],
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "prompt_tokens": 1194,
+        "total_tokens": 1296,
+        "completion_tokens": 102,
+        "prompt_tokens_details": null
+      },
+      "prompt_logprobs": null,
+      "prompt_token_ids": null,
+      "kv_transfer_params": null
+    },
+    "request_metadata": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "media_io_kwargs": null,
+      "mm_processor_kwargs": null,
+      "prompt": "You are a text-only source-entailment auditor. The source records are authoritative about their limited annotation meanings, NOT proof that the video visibly shows a fact. Compare the proposed QA and the separate blind answer with the exact source contract. Return JSON only. Verify every claim against its cited source_ids. Reject added receivers, causes, required corrections, tool-tip subtype, torque, whole-device completion, or mandatory order not explicitly sourced. Observed starts do not establish completion or prescribed order. ASR=-1 does not imply operator anomaly; an active segment alone may not prove unfinished physical installation. Keep ALL anomaly attributes in a multi-label answer. Questions must not leak their answer, must agree with the MCQ proposition, and each option must be mutually exclusive at the requested scope. A negative yes/no answer may be semantically equivalent to a positive description; compare meaning, not phrasing. If blind answer is uncertain or omits a requested attribute, blind_matches_gt=false. Never infer visual quality yourself.\nReturn exactly {\"source_entails_answer\":boolean,\"claims_entailed\":boolean,\"question_preserves_scope\":boolean,\"open_mcq_equivalent\":boolean,\"no_answer_leakage\":boolean,\"unique_correct_option\":boolean,\"correct_option_index\":integer,\"blind_matches_gt\":boolean,\"unsupported_claims\":[string],\"reason\":string}.\ncorrect_option_index is zero based. reason <=60 words; unsupported_claims list the precise unsupported claims, empty only if none. No chain-of-thought.\n",
+      "payload": {
+        "kind": "observed_order",
+        "question_proposition": "Did I start installing the locking lever assembly before screwing on the anti-vibration handle?",
+        "mcq_question_proposition": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+        "canonical_answer": "Yes, I started installing the locking lever assembly first.",
+        "options": [
+          "Installing the locking lever assembly.",
+          "Both started at the same time.",
+          "Screwing on the anti-vibration handle."
+        ],
+        "correct_option_index": 0,
+        "facts": {
+          "first_action": "install_locking_lever_assembly",
+          "second_action": "screw_on_anti_vibration_handle",
+          "first_onsets": [
+            4309,
+            4946
+          ],
+          "scope": "first observed starts within the clip, not completion or mandatory ordering"
+        },
+        "sources": [
+          {
+            "source_id": "s0",
+            "value": {
+              "id": 22,
+              "label": "install_locking_lever_assembly",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 4309,
+              "f_end": 4887
+            },
+            "pointer": "/segments/18"
+          },
+          {
+            "source_id": "s1",
+            "value": {
+              "id": 23,
+              "label": "screw_on_anti_vibration_handle",
+              "has_anomaly": false,
+              "meta_activity": "none",
+              "f_start": 4946,
+              "f_end": 5253
+            },
+            "pointer": "/segments/21"
+          }
+        ],
+        "allowed_image_ids": [
+          "context_0",
+          "target_0",
+          "target_1",
+          "target_2",
+          "target_3",
+          "target_4",
+          "target_5",
+          "target_6",
+          "target_7",
+          "context_1",
+          "context_2",
+          "target_8",
+          "target_9",
+          "target_10",
+          "target_11",
+          "target_12",
+          "target_13",
+          "target_14",
+          "context_3",
+          "target_15"
+        ],
+        "forbidden_claims": [
+          "A unique mandatory order inferred from illustration",
+          "An operator mistake inferred from ASR=-1",
+          "Unsourced cause, correction, receiver, torque or fine alignment",
+          "Dropping any GT anomaly attribute from a multi-label answer"
+        ],
+        "proposed_qa": {
+          "open_question": "Did I start installing the locking lever assembly before screwing on the anti-vibration handle?",
+          "answer": "Yes, I started installing the locking lever assembly first.",
+          "mcq_question": "Which did I start first: installing the locking lever assembly or screwing on the anti-vibration handle?",
+          "visual_grade": 2,
+          "limitation": "Frames show the actions occurring sequentially, but the exact start timestamps are not visible in the images themselves.",
+          "claims": [
+            {
+              "claim": "I started installing the locking lever assembly first.",
+              "source_ids": [
+                "s0"
+              ],
+              "image_ids": [
+                "target_0",
+                "target_1",
+                "target_2",
+                "target_3",
+                "target_4",
+                "target_5",
+                "target_6",
+                "target_7"
+              ]
+            },
+            {
+              "claim": "I started screwing on the anti-vibration handle second.",
+              "source_ids": [
+                "s1"
+              ],
+              "image_ids": [
+                "target_8",
+                "target_9",
+                "target_10",
+                "target_11",
+                "target_12",
+                "target_13",
+                "target_14",
+                "target_15"
+              ]
+            }
+          ]
+        },
+        "blind_answer": {
+          "answer": "yes",
+          "visual_grade": 3,
+          "tool": "not_applicable",
+          "before_id": null,
+          "after_id": null,
+          "image_ids": [
+            "target_0",
+            "target_15"
+          ],
+          "observation": "In target_0, the person is installing the locking lever assembly. In target_15, the person is screwing on the anti-vibration handle. The lever assembly installation visibly precedes the handle screwing.",
+          "limitation": "The exact start of the lever assembly installation is not shown, only the ongoing action. The handle screwing is shown in progress."
+        }
+      },
+      "image_refs": [],
+      "max_tokens": 600,
+      "model": "impact-qwen35-27b",
+      "model_revision": "3ffe582cbe0b77aa215fd936f1e92ba445ae929d6c8e20ce671914d3b410a300"
+    }
+  }
+}
