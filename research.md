@@ -1,3 +1,8 @@
+> **阅读指引**：本文件按时间**倒序**记录调研与结论（最新在最前）。
+> §1–§5 梳理 EgoErrorVQA / CaptainCook4D / IMPACT 三篇工作的身份、数据、方法与复现边界；
+> §6 之后按版本（v10 → v28）记录本项目的判据研究与实证结论。
+> 当前状态速览见 [`PROGRESS.md`](PROGRESS.md)。
+
 # EgoErrorVQA、CaptainCook4D、IMPACT 调研
 
 ## 2026-09-28 当前判据研究更新：GT可错，Spatial完成首轮独立约束审查
