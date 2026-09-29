@@ -1,11 +1,11 @@
 # MCQ时长过滤与SOP盲视觉核验
 
 输入 1977；保留 1196；丢弃 781；丢弃原因 {'too_short': 781}。
-已返回 8/1196，有效JSON与证据合同通过 8，待处理 1188。
-Verdict: {'insufficient_evidence': 5, 'normal': 3}
-模型异常类型: {'none': 8}
+已返回 352/1196，有效JSON与证据合同通过 352，待处理 844。
+Verdict: {'insufficient_evidence': 171, 'normal': 181}
+模型异常类型: {'none': 352}
 执行失败: {}
-GT异常但模型normal: 2，详见normal_but_gt_anomaly.jsonl。
+GT异常但模型normal: 151，详见normal_but_gt_anomaly.jsonl。
 
 ## 过滤后的类型构成
 

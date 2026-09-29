@@ -21,10 +21,14 @@ exec env CUDA_VISIBLE_DEVICES="$DEVICES" "$VLLM" serve "$MODEL" \
   --served-model-name impact-qwen38-27b \
   --tensor-parallel-size 2 \
   --dtype bfloat16 \
-  --max-model-len 32768 \
+  --max-model-len 65536 \
   --max-num-seqs 8 \
+  --max-num-batched-tokens 8192 \
   --gpu-memory-utilization 0.85 \
   --limit-mm-per-prompt '{"image":32,"video":1}' \
+  --media-io-kwargs '{"video":{"video_backend":"opencv","fps":8,"num_frames":256}}' \
+  --mm-processor-kwargs '{"do_sample_frames":false}' \
+  --mm-processor-cache-gb 0 \
   --reasoning-parser qwen3 \
   --compilation-config '{"mode":0,"cudagraph_mode":"FULL_DECODE_ONLY","cudagraph_capture_sizes":[1,2,4,8]}' \
   --disable-custom-all-reduce \
