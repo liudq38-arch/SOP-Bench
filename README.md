@@ -112,6 +112,6 @@ python scripts/serve_component_v27_review.py
 
 ## 7. 许可与引用
 
-- 本仓库代码与文档：许可尚未确定（暂未附加 `LICENSE` 文件，公开引用前请先确认）。
+- 本仓库代码与文档：**MIT License**，见 [`LICENSE`](LICENSE)。
 - `cc4d_annotations/` 来自 CaptainCook4D 官方仓库，遵循其 MIT 许可（见该目录下 `LICENSE`）。
 - 引用的数据集与论文版权归各自作者所有，仓库不再分发其原始媒体与 PDF。

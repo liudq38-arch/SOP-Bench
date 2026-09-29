@@ -1,0 +1,299 @@
+{
+  "model": "impact-qwen38-27b",
+  "temperature": 0,
+  "top_p": 1,
+  "seed": 20260929,
+  "max_tokens": 1800,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "segment_visual_verification",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "anomaly",
+              "normal",
+              "insufficient_evidence"
+            ]
+          },
+          "anomaly_type": {
+            "type": "string",
+            "enum": [
+              "temporal",
+              "spatial",
+              "operational",
+              "wrong_part",
+              "wrong_tool",
+              "procedural",
+              "redundant",
+              "none"
+            ]
+          },
+          "is_redundant_action": {
+            "type": "boolean"
+          },
+          "redundant_subtype": {
+            "type": "string",
+            "enum": [
+              "irrelevant_part_handling",
+              "repeated_attempt",
+              "inefficient_search",
+              "none"
+            ]
+          },
+          "matched_sop_step": {
+            "type": "string",
+            "enum": [
+              "A_D_HANDLE",
+              "A_D_LEVER_FIX",
+              "A_D_LEVER",
+              "A_D_BEARING_FIX1",
+              "A_D_BEARING_FIX2",
+              "A_D_BEARING",
+              "A_D_ADAPTER_FIX1",
+              "A_D_ADAPTER_FIX2",
+              "A_D_NUT",
+              "A_D_GEAR",
+              "A_D_ROTOR",
+              "A_D_ADAPTER",
+              "A_D_CHECK",
+              "unknown"
+            ]
+          },
+          "expected_vs_observed": {
+            "type": "string"
+          },
+          "evidence_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "t_start": {
+                  "type": "number",
+                  "minimum": 35.6,
+                  "maximum": 43.666667
+                },
+                "t_end": {
+                  "type": "number",
+                  "minimum": 35.6,
+                  "maximum": 43.666667
+                },
+                "hand": {
+                  "type": "string",
+                  "enum": [
+                    "L",
+                    "R"
+                  ]
+                },
+                "action": {
+                  "type": "string"
+                },
+                "observation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "t_start",
+                "t_end",
+                "hand",
+                "action",
+                "observation"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "evidence_frames": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "required": [
+          "verdict",
+          "anomaly_type",
+          "is_redundant_action",
+          "redundant_subtype",
+          "matched_sop_step",
+          "expected_vs_observed",
+          "evidence_actions",
+          "evidence_frames",
+          "confidence",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    }
+  },
+  "mm_processor_kwargs": {
+    "size": {
+      "shortest_edge": 65536,
+      "longest_edge": 589824
+    }
+  },
+  "system": "你是工业拆装视频的独立视觉核验员。判断一个目标片段和指定手在画面中是否有明显错误或多余动作，不预设该片段一定异常。输出严格JSON，不输出推理草稿。\n\nRULES / 判断流程\n1. 先依据图像、双手TAS-B与阶段提示定位片段开始时的SOP步骤，matched_sop_step原样引用给定ID；跨步骤可在reason说明，无法定位用unknown。TAS-S仅提示，不压过可见对象与动作。\n2. 在内部依次核查：\n   - 顺序/程序性：违反一条明确硬前置、漏必需步骤或重复完成步骤。必须能看见当前前置缺失/错误终态，不用编号顺序推断。顺序错误输出procedural。\n   - wrong_part/wrong_tool：实际对象与当前有效步骤的部件/工具要求不适配。属于后续步骤、手里拿着、或标注有某个名词只是检查线索；先排除合法预取、转交、支撑、归置和另一手并行操作。工具颜色不能替代槽口与接触；未核验工具规则不能当硬标准。\n   - spatial：装到错误配合位，或违反已明确的工位/朝向要求。未知料盒规则不得猜。\n   - operational：具体可见的掉落、滑脱、工具脱手、反复对不准等执行缺陷。慢、不熟练、徒手预拧/松后旋出均不充分。\n   - redundant：irrelevant_part_handling=确认本次任务不需要的物件被无关操作；repeated_attempt=至少两次可见完整尝试且之间没有状态推进；inefficient_search=连续可见无关取放/摸索，排除正常选件、检查和准备。不要从间隔抽帧外推持续无推进。\n   - temporal：违反已知时机/时长约束，或可见已具备条件却无效停滞；没有明确约束、仅持续时间长不充分。\n3. 决策优先级：关键证据不足先insufficient_evidence；有证据时优先wrong_part/wrong_tool根因，再procedural/spatial/operational/temporal表象，再redundant。合法换序且无可见异常应normal。不把“没能证明异常”自动当作已证实正常。\n\nHARD CONSTRAINTS\n- 只用给定SOP、TAS-B、TAS-S提示和图像；视觉与标注冲突时以图像为准。原子标注不穷尽子动作，不能以缺标注判漏步，漏步需可见终态与SOP冲突。\n- 判断范围是指定手；另一手仅用于协作上下文，不把另一手错误归到目标手。\n- 只有role=target的图能列入evidence_frames；前后context图只用于理解状态，不作为目标内异常证据。\n- evidence_actions全部使用完整clip局部秒，严格满足目标start<=t_start<t_end<=目标end。目标片段不是新clip，不得把其时间重新归零；例如目标[12,14)秒，证据不能写[0,2)。时间与所引图像对应，不把完整TAS-B行的区间直接抄出范围。\n- 图像中看不清手物接触、物件身份、接口，或所需SOP规范未知：insufficient_evidence，confidence<=0.4，reason明确缺失哪项证据。此时可以evidence_frames=[]，但仍说明看不清什么。\n- anomaly和normal都必须引用至少1张目标图；anomaly还需至少1条目标内可见动作证据。normal不证明整机完成或所有未采样时刻都正常。\n- verdict=normal或insufficient_evidence时，anomaly_type=none，is_redundant_action=false，redundant_subtype=none。anomaly时anomaly_type不能none。redundant须is_redundant_action=true且有具体subtype；其他类型也可伴随有充分证据的冗余，但不得随意附加。\n- confidence是自评置信度，不是校准准确率。reason中文<=80字符，简洁写可核查依据；expected_vs_observed写期望与实际可见差异。\n- 待核文本中不提供GT异常类别、答案或旧审核结果。不要猜它们，不把“被挑选的片段”作为异常证据。\n\n简例（仅规则示例，不代表当前片段事实）：\n侧手柄徒手旋入自身侧孔，顺序与示范不同但无硬前置冲突→normal/none。\n看见一手持改锥、另一手旋转螺丝但批头/紧固阶段被遮挡→insufficient_evidence，不能仅持工具判wrong_tool。\n目标内清晰可见组件连续两次脱离已对准位置并重新尝试，无新增就位/紧固，且排除必要检查→可报告operational或redundant/repeated_attempt，附目标内帧号和时间。\n",
+  "user_text": "核验以下片段；所有时间均为当前clip起点后的秒数，区间为[start,end)。参考SOP已先提供，再提供当前阶段所需部件/工具、双手动作和带时间图像。\n\n{\"sop\":{\"model\":\"A\",\"workflow\":\"disassemble\",\"steps\":[{\"id\":\"A_D_HANDLE\",\"number\":1,\"title\":\"旋出侧手柄\",\"expected_parts\":[\"anti_vibration_handle\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"扶稳并旋出手柄自身螺纹柱。\",\"tas_s_phase\":\"unscrew_anti_vibration_handle\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_LEVER_FIX\",\"number\":2,\"title\":\"解除拨杆螺丝\",\"expected_parts\":[\"screw_lever\",\"lever\",\"spring\",\"washer\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"绿黑Torx松开拨杆螺丝，控制小件。\",\"tas_s_phase\":\"remove_locking_lever_assembly\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_LEVER\",\"number\":3,\"title\":\"取下拨杆小组件\",\"expected_parts\":[\"lever\",\"spring\",\"washer\",\"screw_lever\"],\"expected_tools\":[\"hands\"],\"expected\":\"紧固解除后取下并保管小件，不指定未经核实的叠放。\",\"tas_s_phase\":\"remove_locking_lever_assembly\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"精确叠放未知。\"]},{\"id\":\"A_D_BEARING_FIX1\",\"number\":4,\"title\":\"解除轴承板螺丝1\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\",\"bearing_screw\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"解除对应连接，松后徒手旋出合法；A绿黑Torx。\",\"tas_s_phase\":\"extract_bearing_plate_assembly\",\"requirement_certainty\":\"manual_A\",\"unknown\":[]},{\"id\":\"A_D_BEARING_FIX2\",\"number\":5,\"title\":\"解除轴承板螺丝2\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\",\"bearing_screw\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"解除对应连接，松后徒手旋出合法；A绿黑Torx。\",\"tas_s_phase\":\"extract_bearing_plate_assembly\",\"requirement_certainty\":\"manual_A\",\"unknown\":[]},{\"id\":\"A_D_BEARING\",\"number\":6,\"title\":\"取下轴承板\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"两处连接解除后移出板组件，使内部可接近。\",\"tas_s_phase\":\"extract_bearing_plate_assembly\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER_FIX1\",\"number\":7,\"title\":\"解除适配板连接1\",\"expected_parts\":[\"adapter_plate\",\"gearbox_housing\",\"adapter_screw\",\"M4_nut\"],\"expected_tools\":[\"hands\",\"phillips_screwdriver\"],\"expected\":\"红黄十字松长螺丝并保管配套M4螺母；可手指旋出已松螺丝。\",\"tas_s_phase\":\"detach_adapter_plate\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER_FIX2\",\"number\":8,\"title\":\"解除适配板连接2\",\"expected_parts\":[\"adapter_plate\",\"gearbox_housing\",\"adapter_screw\",\"M4_nut\"],\"expected_tools\":[\"hands\",\"phillips_screwdriver\"],\"expected\":\"红黄十字松长螺丝并保管配套M4螺母；可手指旋出已松螺丝。\",\"tas_s_phase\":\"detach_adapter_plate\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_NUT\",\"number\":9,\"title\":\"松开内部保持螺母\",\"expected_parts\":[\"drive_shaft\",\"bevel_gear\",\"internal_retaining_nut\"],\"expected_tools\":[\"hands\",\"combination_wrench\"],\"expected\":\"内部可接近后解除螺母保持；松后手指旋出允许。\",\"tas_s_phase\":\"remove_rotor_assembly\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"M4/M6命名冲突，B扳手规格与止转方法未核验。\"]},{\"id\":\"A_D_GEAR\",\"number\":10,\"title\":\"取下小锥齿轮\",\"expected_parts\":[\"drive_shaft\",\"bevel_gear\"],\"expected_tools\":[\"hands\"],\"expected\":\"保持螺母解除后分离轴端小锥齿轮。\",\"tas_s_phase\":\"remove_rotor_assembly\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ROTOR\",\"number\":11,\"title\":\"分离轴组件和壳体\",\"expected_parts\":[\"drive_shaft\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"相关保持连接解除后支撑并分离轴组件。\",\"tas_s_phase\":\"remove_rotor_assembly\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER\",\"number\":12,\"title\":\"整理适配板\",\"expected_parts\":[\"adapter_plate\",\"drive_shaft\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"相关阻挡连接解除后分离与归置适配板。\",\"tas_s_phase\":\"detach_adapter_plate\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"确切取下时点可随实际连接解除而不同。\"]},{\"id\":\"A_D_CHECK\",\"number\":13,\"title\":\"归置和检查\",\"expected_parts\":[\"all_removed_parts\",\"tools\"],\"expected_tools\":[\"hands\"],\"expected\":\"有已知工位规则才判断放置违规；暂放桌面不自动错误。\",\"tas_s_phase\":\"finish_angle_grinder_assembly\",\"requirement_certainty\":\"reference\",\"unknown\":[\"确切料盒位置/朝向规则未知。\"]}],\"hard_prerequisites\":[{\"before\":\"A_D_BEARING_FIX1\",\"after\":\"A_D_BEARING\",\"requirement\":\"取下板前必须解除该固定连接。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_ADAPTER_FIX1\",\"after\":\"A_D_ROTOR\",\"requirement\":\"分离轴组件/壳体前必须解除仍约束二者的该连接。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_BEARING_FIX2\",\"after\":\"A_D_BEARING\",\"requirement\":\"取下板前必须解除该固定连接。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_ADAPTER_FIX2\",\"after\":\"A_D_ROTOR\",\"requirement\":\"分离轴组件/壳体前必须解除仍约束二者的该连接。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_NUT\",\"after\":\"A_D_GEAR\",\"requirement\":\"轴端保持螺母解除后取齿轮。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_GEAR\",\"after\":\"A_D_ROTOR\",\"requirement\":\"小齿轮仍在腔内形成阻挡时，先解除再分离轴组件。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"},{\"before\":\"A_D_LEVER_FIX\",\"after\":\"A_D_LEVER\",\"requirement\":\"取下小组件前解除拨杆紧固。\",\"provenance\":\"component_connection_requirement\",\"applicability\":\"只有相关操作/连接身份在图像中确认，才能用于当前目标\"}],\"interchangeable_step_groups\":[{\"steps\":[\"A_D_BEARING_FIX1\",\"A_D_BEARING_FIX2\"],\"condition\":\"两颗对应螺丝的先后可交换；遵守对位或解除后分离的共同前置。\"},{\"steps\":[\"A_D_HANDLE\",\"A_D_ROTOR\"],\"condition\":\"侧手柄与内部操作可换序，只要不妨碍支撑和实际可接近性。\"},{\"steps\":[\"A_D_ADAPTER_FIX1\",\"A_D_ADAPTER_FIX2\"],\"condition\":\"两处对应连接操作先后可交换。\"}],\"order_policy\":\"编号是参考组织，不是完整刚性全序；未列硬边不代表已知必须先后。图像中未见历史前置状态不能推断前置未完成。\",\"tools\":[{\"name\":\"combination_wrench\",\"appearance\":\"细长银色金属扳手，一端开口，另一端为封闭环形梅花口。\"},{\"name\":\"flat_head_screwdriver\",\"appearance\":\"参考工具为黑蓝手柄、较长裸露金属杆，工作端为一字平刃。\"},{\"name\":\"phillips_screwdriver\",\"appearance\":\"参考工具为红黄手柄，杆身大段为红色包覆，末端露出十字批头。\"},{\"name\":\"torx_screwdriver\",\"appearance\":\"参考工具为绿黑手柄、裸露金属杆，批头为六瓣星形；不同于内六角。\"}],\"parts_scope\":\"A按手册；B官方图未单列A拨杆/弹簧/垫圈或适配板M4螺母对，但这不是证明每个B样本绝无这些件。\",\"handling_scope\":\"每步清单描述当前操作对象，不禁止合理预取、转交、归置或另一手并行操作。确认与当前任务无关且排除合法准备/协作后才能判多余。\",\"unknowns\":[\"实际螺丝槽口/规格/扭矩与装配公差\",\"工位/料盒的唯一位置和朝向规则\",\"仅凭静态抽帧无法确认长间隔内没有状态推进\"],\"source_policy\":\"步骤由手册/部件图重建，PSR仅校核组件词表，不是PSR官方偏序图。\"}}\n\n{\"model\":\"A\",\"workflow\":\"disassemble\",\"view\":\"front\",\"clip_duration_s\":77.033333,\"target\":{\"start_s\":35.6,\"end_s\":43.666667,\"duration_s\":8.066667,\"hand\":\"L\"},\"current_step_candidates\":[{\"id\":\"A_D_HANDLE\",\"expected_parts\":[\"anti_vibration_handle\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"扶稳并旋出手柄自身螺纹柱。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_LEVER_FIX\",\"expected_parts\":[\"screw_lever\",\"lever\",\"spring\",\"washer\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"绿黑Torx松开拨杆螺丝，控制小件。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_LEVER\",\"expected_parts\":[\"lever\",\"spring\",\"washer\",\"screw_lever\"],\"expected_tools\":[\"hands\"],\"expected\":\"紧固解除后取下并保管小件，不指定未经核实的叠放。\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"精确叠放未知。\"]},{\"id\":\"A_D_BEARING_FIX1\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\",\"bearing_screw\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"解除对应连接，松后徒手旋出合法；A绿黑Torx。\",\"requirement_certainty\":\"manual_A\",\"unknown\":[]},{\"id\":\"A_D_BEARING_FIX2\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\",\"bearing_screw\"],\"expected_tools\":[\"hands\",\"torx_screwdriver\"],\"expected\":\"解除对应连接，松后徒手旋出合法；A绿黑Torx。\",\"requirement_certainty\":\"manual_A\",\"unknown\":[]},{\"id\":\"A_D_BEARING\",\"expected_parts\":[\"bearing_plate\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"两处连接解除后移出板组件，使内部可接近。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER_FIX1\",\"expected_parts\":[\"adapter_plate\",\"gearbox_housing\",\"adapter_screw\",\"M4_nut\"],\"expected_tools\":[\"hands\",\"phillips_screwdriver\"],\"expected\":\"红黄十字松长螺丝并保管配套M4螺母；可手指旋出已松螺丝。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER_FIX2\",\"expected_parts\":[\"adapter_plate\",\"gearbox_housing\",\"adapter_screw\",\"M4_nut\"],\"expected_tools\":[\"hands\",\"phillips_screwdriver\"],\"expected\":\"红黄十字松长螺丝并保管配套M4螺母；可手指旋出已松螺丝。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_NUT\",\"expected_parts\":[\"drive_shaft\",\"bevel_gear\",\"internal_retaining_nut\"],\"expected_tools\":[\"hands\",\"combination_wrench\"],\"expected\":\"内部可接近后解除螺母保持；松后手指旋出允许。\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"M4/M6命名冲突，B扳手规格与止转方法未核验。\"]},{\"id\":\"A_D_GEAR\",\"expected_parts\":[\"drive_shaft\",\"bevel_gear\"],\"expected_tools\":[\"hands\"],\"expected\":\"保持螺母解除后分离轴端小锥齿轮。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ROTOR\",\"expected_parts\":[\"drive_shaft\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"相关保持连接解除后支撑并分离轴组件。\",\"requirement_certainty\":\"documented\",\"unknown\":[]},{\"id\":\"A_D_ADAPTER\",\"expected_parts\":[\"adapter_plate\",\"drive_shaft\",\"gearbox_housing\"],\"expected_tools\":[\"hands\"],\"expected\":\"相关阻挡连接解除后分离与归置适配板。\",\"requirement_certainty\":\"manual_A\",\"unknown\":[\"确切取下时点可随实际连接解除而不同。\"]},{\"id\":\"A_D_CHECK\",\"expected_parts\":[\"all_removed_parts\",\"tools\"],\"expected_tools\":[\"hands\"],\"expected\":\"有已知工位规则才判断放置违规；暂放桌面不自动错误。\",\"requirement_certainty\":\"reference\",\"unknown\":[\"确切料盒位置/朝向规则未知。\"]}],\"current_step_candidates_are_hints\":true,\"tas_b_hands\":{\"L\":[{\"t_start\":0.0,\"t_end\":0.866667,\"action\":\"flip_gearbox_housing_drive_shaft\",\"verb\":\"flip\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":0.866667,\"t_end\":2.066667,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":2.066667,\"t_end\":7.1,\"action\":\"hold_torx_screwdriver\",\"verb\":\"hold\",\"object\":\"torx_screwdriver\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":7.1,\"t_end\":8.133333,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":8.133333,\"t_end\":23.7,\"action\":\"hold_gearbox_housing_drive_shaft\",\"verb\":\"hold\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":23.7,\"t_end\":28.533333,\"action\":\"hold_screw\",\"verb\":\"hold\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":28.533333,\"t_end\":29.833333,\"action\":\"remove_screw\",\"verb\":\"remove\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":29.833333,\"t_end\":30.833333,\"action\":\"store_screw\",\"verb\":\"store\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":30.833333,\"t_end\":31.6,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":31.6,\"t_end\":35.6,\"action\":\"hold_gearbox_housing_drive_shaft\",\"verb\":\"hold\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":true,\"target_overlap_s\":[35.6,35.6]},{\"t_start\":35.6,\"t_end\":43.666667,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":true,\"target_overlap_s\":[35.6,43.666667]},{\"t_start\":43.666667,\"t_end\":52.833333,\"action\":\"hold_gearbox_housing_drive_shaft\",\"verb\":\"hold\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":52.833333,\"t_end\":57.633333,\"action\":\"hold_screw\",\"verb\":\"hold\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":57.633333,\"t_end\":61.7,\"action\":\"hold_gearbox_housing_drive_shaft\",\"verb\":\"hold\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":61.7,\"t_end\":66.433333,\"action\":\"hold_screw\",\"verb\":\"hold\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":66.433333,\"t_end\":71.633333,\"action\":\"hold_gearbox_housing_drive_shaft\",\"verb\":\"hold\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":71.633333,\"t_end\":72.766667,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":72.766667,\"t_end\":77.033333,\"action\":\"hold_M4_nut\",\"verb\":\"hold\",\"object\":\"M4_nut\",\"in_target\":false,\"target_overlap_s\":null}],\"R\":[{\"t_start\":0.0,\"t_end\":0.333333,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":0.333333,\"t_end\":1.933333,\"action\":\"align_tool\",\"verb\":\"align\",\"object\":\"tool\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":1.933333,\"t_end\":15.0,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":15.0,\"t_end\":18.0,\"action\":\"hand_loosen_screw\",\"verb\":\"hand_loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":18.0,\"t_end\":29.266667,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":29.266667,\"t_end\":30.466667,\"action\":\"hold_torx_screwdriver\",\"verb\":\"hold\",\"object\":\"torx_screwdriver\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":30.466667,\"t_end\":31.533333,\"action\":\"store_torx_screwdriver\",\"verb\":\"store\",\"object\":\"torx_screwdriver\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":31.533333,\"t_end\":33.7,\"action\":\"extract_bearing_plate\",\"verb\":\"extract\",\"object\":\"bearing_plate\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":33.7,\"t_end\":35.433333,\"action\":\"store_bearing_plate\",\"verb\":\"store\",\"object\":\"bearing_plate\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":35.433333,\"t_end\":43.533333,\"action\":\"null\",\"verb\":\"null\",\"object\":\"null\",\"in_target\":true,\"target_overlap_s\":[35.6,43.533333]},{\"t_start\":43.533333,\"t_end\":46.433333,\"action\":\"flip_gearbox_housing_drive_shaft\",\"verb\":\"flip\",\"object\":\"gearbox_housing_drive_shaft\",\"in_target\":true,\"target_overlap_s\":[43.533333,43.666667]},{\"t_start\":46.433333,\"t_end\":47.9,\"action\":\"pick_up_phillips_screwdriver\",\"verb\":\"pick_up\",\"object\":\"phillips_screwdriver\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":47.9,\"t_end\":60.066667,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":60.066667,\"t_end\":62.033333,\"action\":\"hand_loosen_screw\",\"verb\":\"hand_loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":62.033333,\"t_end\":71.233333,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":71.233333,\"t_end\":72.5,\"action\":\"hold_phillips_screwdriver\",\"verb\":\"hold\",\"object\":\"phillips_screwdriver\",\"in_target\":false,\"target_overlap_s\":null},{\"t_start\":72.5,\"t_end\":77.033333,\"action\":\"loosen_screw\",\"verb\":\"loosen\",\"object\":\"screw\",\"in_target\":false,\"target_overlap_s\":null}]},\"tas_s_hints\":[{\"t_start\":0.0,\"t_end\":30.233333,\"step_name\":\"extract_bearing_plate_assembly\",\"overlaps_target\":false},{\"t_start\":30.233333,\"t_end\":31.3,\"step_name\":\"store_bearing_plate_assembly\",\"overlaps_target\":false},{\"t_start\":31.3,\"t_end\":32.766667,\"step_name\":\"null\",\"overlaps_target\":false},{\"t_start\":32.766667,\"t_end\":34.066667,\"step_name\":\"extract_bearing_plate_assembly\",\"overlaps_target\":false},{\"t_start\":34.066667,\"t_end\":34.966667,\"step_name\":\"null\",\"overlaps_target\":false},{\"t_start\":34.966667,\"t_end\":36.0,\"step_name\":\"store_bearing_plate_assembly\",\"overlaps_target\":true},{\"t_start\":36.0,\"t_end\":47.2,\"step_name\":\"null\",\"overlaps_target\":true},{\"t_start\":47.2,\"t_end\":77.033333,\"step_name\":\"detach_adapter_plate\",\"overlaps_target\":false}],\"context_note\":\"上下文帧仅帮助理解状态，不作为目标内证据；缺失某侧上下文时明确保留未知。\",\"image_timeline\":[{\"frame_index\":1,\"clip_timestamp_s\":34.6,\"role\":\"context_before\"},{\"frame_index\":2,\"clip_timestamp_s\":35.333333,\"role\":\"context_before\"},{\"frame_index\":3,\"clip_timestamp_s\":35.6,\"role\":\"target\"},{\"frame_index\":4,\"clip_timestamp_s\":36.333333,\"role\":\"target\"},{\"frame_index\":5,\"clip_timestamp_s\":37.066667,\"role\":\"target\"},{\"frame_index\":6,\"clip_timestamp_s\":37.8,\"role\":\"target\"},{\"frame_index\":7,\"clip_timestamp_s\":38.533333,\"role\":\"target\"},{\"frame_index\":8,\"clip_timestamp_s\":39.266667,\"role\":\"target\"},{\"frame_index\":9,\"clip_timestamp_s\":39.966667,\"role\":\"target\"},{\"frame_index\":10,\"clip_timestamp_s\":40.7,\"role\":\"target\"},{\"frame_index\":11,\"clip_timestamp_s\":41.433333,\"role\":\"target\"},{\"frame_index\":12,\"clip_timestamp_s\":42.166667,\"role\":\"target\"},{\"frame_index\":13,\"clip_timestamp_s\":42.9,\"role\":\"target\"},{\"frame_index\":14,\"clip_timestamp_s\":43.633333,\"role\":\"target\"},{\"frame_index\":15,\"clip_timestamp_s\":43.9,\"role\":\"context_after\"},{\"frame_index\":16,\"clip_timestamp_s\":44.633333,\"role\":\"context_after\"}],\"sampling\":{\"target_count\":12,\"context_before_count\":2,\"context_after_count\":2,\"maximum_target_frame_gap_s\":0.733333,\"unknown_between_samples\":true}}\n\n随后每个图像前均有frame_index、clip_timestamp_s与role=target/context_before/context_after。每次只判定CASE_JSON.target这一段。逐项核查system要求后返回一个满足JSON_SCHEMA的对象。\n\nJSON_SCHEMA:\n{\"type\":\"object\",\"properties\":{\"verdict\":{\"type\":\"string\",\"enum\":[\"anomaly\",\"normal\",\"insufficient_evidence\"]},\"anomaly_type\":{\"type\":\"string\",\"enum\":[\"temporal\",\"spatial\",\"operational\",\"wrong_part\",\"wrong_tool\",\"procedural\",\"redundant\",\"none\"]},\"is_redundant_action\":{\"type\":\"boolean\"},\"redundant_subtype\":{\"type\":\"string\",\"enum\":[\"irrelevant_part_handling\",\"repeated_attempt\",\"inefficient_search\",\"none\"]},\"matched_sop_step\":{\"type\":\"string\",\"enum\":[\"A_D_HANDLE\",\"A_D_LEVER_FIX\",\"A_D_LEVER\",\"A_D_BEARING_FIX1\",\"A_D_BEARING_FIX2\",\"A_D_BEARING\",\"A_D_ADAPTER_FIX1\",\"A_D_ADAPTER_FIX2\",\"A_D_NUT\",\"A_D_GEAR\",\"A_D_ROTOR\",\"A_D_ADAPTER\",\"A_D_CHECK\",\"unknown\"]},\"expected_vs_observed\":{\"type\":\"string\"},\"evidence_actions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"t_start\":{\"type\":\"number\",\"minimum\":35.6,\"maximum\":43.666667},\"t_end\":{\"type\":\"number\",\"minimum\":35.6,\"maximum\":43.666667},\"hand\":{\"type\":\"string\",\"enum\":[\"L\",\"R\"]},\"action\":{\"type\":\"string\"},\"observation\":{\"type\":\"string\"}},\"required\":[\"t_start\",\"t_end\",\"hand\",\"action\",\"observation\"],\"additionalProperties\":false}},\"evidence_frames\":{\"type\":\"array\",\"items\":{\"type\":\"integer\",\"enum\":[3,4,5,6,7,8,9,10,11,12,13,14]},\"uniqueItems\":true},\"confidence\":{\"type\":\"number\",\"minimum\":0,\"maximum\":1},\"reason\":{\"type\":\"string\",\"maxLength\":80}},\"required\":[\"verdict\",\"anomaly_type\",\"is_redundant_action\",\"redundant_subtype\",\"matched_sop_step\",\"expected_vs_observed\",\"evidence_actions\",\"evidence_frames\",\"confidence\",\"reason\"],\"additionalProperties\":false}\n",
+  "final_time_reminder": "本次目标是完整clip时间轴的 [35.6, 43.666667) 秒，目标手 L。证据时间不得重新归零成[0, duration]，t_start和t_end都须位于上述范围且t_start<t_end。可用目标图帧号：[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]。",
+  "frame_inputs": [
+    {
+      "frame_index": 1,
+      "clip_timestamp_s": 34.6,
+      "source_frame_index": 4345,
+      "source_timestamp_s": 144.83333333333334,
+      "role": "context_before",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_01.jpg"
+    },
+    {
+      "frame_index": 2,
+      "clip_timestamp_s": 35.333333,
+      "source_frame_index": 4367,
+      "source_timestamp_s": 145.56666666666666,
+      "role": "context_before",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_02.jpg"
+    },
+    {
+      "frame_index": 3,
+      "clip_timestamp_s": 35.6,
+      "source_frame_index": 4375,
+      "source_timestamp_s": 145.83333333333334,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_03.jpg"
+    },
+    {
+      "frame_index": 4,
+      "clip_timestamp_s": 36.333333,
+      "source_frame_index": 4397,
+      "source_timestamp_s": 146.56666666666666,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_04.jpg"
+    },
+    {
+      "frame_index": 5,
+      "clip_timestamp_s": 37.066667,
+      "source_frame_index": 4419,
+      "source_timestamp_s": 147.3,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_05.jpg"
+    },
+    {
+      "frame_index": 6,
+      "clip_timestamp_s": 37.8,
+      "source_frame_index": 4441,
+      "source_timestamp_s": 148.03333333333333,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_06.jpg"
+    },
+    {
+      "frame_index": 7,
+      "clip_timestamp_s": 38.533333,
+      "source_frame_index": 4463,
+      "source_timestamp_s": 148.76666666666668,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_07.jpg"
+    },
+    {
+      "frame_index": 8,
+      "clip_timestamp_s": 39.266667,
+      "source_frame_index": 4485,
+      "source_timestamp_s": 149.5,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_08.jpg"
+    },
+    {
+      "frame_index": 9,
+      "clip_timestamp_s": 39.966667,
+      "source_frame_index": 4506,
+      "source_timestamp_s": 150.2,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_09.jpg"
+    },
+    {
+      "frame_index": 10,
+      "clip_timestamp_s": 40.7,
+      "source_frame_index": 4528,
+      "source_timestamp_s": 150.93333333333334,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_10.jpg"
+    },
+    {
+      "frame_index": 11,
+      "clip_timestamp_s": 41.433333,
+      "source_frame_index": 4550,
+      "source_timestamp_s": 151.66666666666666,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_11.jpg"
+    },
+    {
+      "frame_index": 12,
+      "clip_timestamp_s": 42.166667,
+      "source_frame_index": 4572,
+      "source_timestamp_s": 152.4,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_12.jpg"
+    },
+    {
+      "frame_index": 13,
+      "clip_timestamp_s": 42.9,
+      "source_frame_index": 4594,
+      "source_timestamp_s": 153.13333333333333,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_13.jpg"
+    },
+    {
+      "frame_index": 14,
+      "clip_timestamp_s": 43.633333,
+      "source_frame_index": 4616,
+      "source_timestamp_s": 153.86666666666667,
+      "role": "target",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_14.jpg"
+    },
+    {
+      "frame_index": 15,
+      "clip_timestamp_s": 43.9,
+      "source_frame_index": 4624,
+      "source_timestamp_s": 154.13333333333333,
+      "role": "context_after",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_15.jpg"
+    },
+    {
+      "frame_index": 16,
+      "clip_timestamp_s": 44.633333,
+      "source_frame_index": 4646,
+      "source_timestamp_s": 154.86666666666667,
+      "role": "context_after",
+      "path": "/home/ldq/project/sop/outputs/impact_qa/mcq_sop_visual_v1/media/236aad983f81862386a0/image_16.jpg"
+    }
+  ],
+  "estimated_total_tokens": 19786,
+  "labels_sent": false
+}
